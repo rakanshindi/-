@@ -11,9 +11,9 @@
 *{box-sizing:border-box}
 
 html,body{
+height:100%;
 margin:0;
 padding:0;
-min-height:100%;
 background:#eef5f1;
 color:#17202a;
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
@@ -21,34 +21,36 @@ overflow-x:hidden
 }
 
 .wrap{
-width:100%;
 max-width:900px;
-margin:auto;
-padding:8px;
-min-height:100vh
+margin:0 auto;
+padding:5px;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center
 }
 
 .card{
 background:#fff;
 border-radius:14px;
-padding:12px;
+padding:9px 12px;
 box-shadow:0 4px 20px rgba(0,0,0,.08)
 }
 
 .header{
 text-align:center;
-padding:2px 0 7px
+padding:1px 0 4px
 }
 
 .title{
-font-size:18px;
+font-size:17px;
 font-weight:800;
 margin:0
 }
 
 .phone{
 display:inline-block;
-margin-top:2px;
+margin-top:1px;
 color:#0b57d0;
 text-decoration:none;
 font-size:13px;
@@ -57,48 +59,41 @@ direction:ltr
 }
 
 .intro{
-margin:3px 0 0;
+margin:1px 0 0;
 color:#6b7280;
 font-size:10px
 }
 
 .info-note{
-margin:6px auto 3px;
-padding:7px 8px;
+margin:4px auto 2px;
+padding:5px 7px;
 background:#f1f8f4;
 border:1px solid #d5e8de;
-border-radius:8px;
+border-radius:7px;
 color:#475569;
-font-size:10px;
-line-height:1.5;
+font-size:9.5px;
+line-height:1.45;
 text-align:center
 }
 
 h2{
-font-size:13px;
-margin:12px 0 6px;
-padding-bottom:4px;
+font-size:12px;
+margin:8px 0 4px;
+padding-bottom:2px;
 border-bottom:1px solid #e1e8e4;
 color:#087443;
 font-weight:800
 }
 
-.section{
-display:none
-}
-
-.section.active{
-display:block
-}
-
 .grid{
 display:grid;
 grid-template-columns:repeat(4,minmax(0,1fr));
-gap:7px;
+gap:4px 6px;
 align-items:start
 }
 
 .field{
+margin:0;
 min-width:0
 }
 
@@ -114,8 +109,8 @@ label{
 display:block;
 font-size:10px;
 font-weight:700;
-margin:0 0 3px;
-line-height:1.3
+margin:1px 0;
+line-height:1.2
 }
 
 .req{
@@ -126,141 +121,53 @@ font-weight:bold
 input,select,textarea{
 width:100%;
 border:1px solid #d5dce0;
-border-radius:7px;
+border-radius:6px;
 background:#fff;
 color:#222;
-font-size:11px;
+font-size:10.5px;
 min-width:0
 }
 
 input,select{
-height:34px;
-padding:0 8px
+height:28px;
+padding:0 6px
 }
 
 textarea{
-min-height:80px;
-padding:8px;
+min-height:70px;
+padding:6px;
 resize:vertical
 }
 
-input:focus,
-select:focus,
-textarea:focus{
+input:focus,select:focus,textarea:focus{
 outline:2px solid #d8eee2;
 border-color:#16804f
 }
 
-/* رسالة الأحمر */
-.error{
-display:none;
-background:#fff1f2;
-color:#b91c1c;
-border:1px solid #fca5a5;
-padding:8px;
-border-radius:7px;
-margin-top:8px;
-font-size:11px;
-font-weight:800;
-text-align:center
-}
-
-.error.show{
-display:block
-}
-
-/* التقويم */
-.date-box{
-display:flex;
-gap:5px;
-align-items:center
-}
-
-.date-box input{
-flex:1
-}
-
-.calendar-switch{
-display:flex;
-gap:5px;
-margin-bottom:6px;
-background:#f3f4f6;
-padding:4px;
-border-radius:8px
-}
-
-.calendar-switch button{
-height:32px;
-flex:1;
-border:0;
-border-radius:6px;
-background:transparent;
-color:#475569;
-font-size:10px;
-font-weight:800;
-cursor:pointer
-}
-
-.calendar-switch button.active{
-background:#087443;
-color:#fff
-}
-
-.calendar-help{
-font-size:9px;
-color:#64748b;
-text-align:center;
-margin:3px 0 5px
-}
-
-.hijri-date-picker{
-display:none
-}
-
-.hijri-date-picker.active{
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:5px
-}
-
-/* الأقسام */
 .dynamic-section{
 display:none;
 background:#fafcfb;
 border:1px solid #e2ece7;
-padding:8px;
+padding:6px;
 border-radius:8px;
-margin-top:7px
+margin-top:4px
 }
 
 .dynamic-section.active{
 display:block
 }
 
-.next-btn{
-margin-top:9px;
-height:34px;
-border:0;
-border-radius:8px;
-width:100%;
-background:#087443;
-color:#fff;
-font-size:11px;
-font-weight:800;
-cursor:pointer
-}
-
-/* الإجمالي */
 .total-box{
 grid-column:1/-1;
-padding:7px 9px;
+padding:4px 7px;
 border:1px solid #dce8e1;
 border-radius:7px;
 background:#f8fbf9;
 display:flex;
 align-items:center;
 justify-content:space-between;
-gap:10px
+gap:10px;
+min-height:30px
 }
 
 .total-box label{
@@ -269,66 +176,225 @@ font-size:10px
 }
 
 .total-box input{
-width:110px;
-height:28px;
+width:105px;
+height:24px;
 font-weight:bold;
 color:#16a34a;
 text-align:center;
 background:#fff
 }
 
+/* أزرار اختيار التقويم */
+.calendar-title{
+font-size:10px;
+font-weight:800;
+margin:4px 0;
+color:#17202a
+}
+
+.calendar-switch{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:5px;
+margin-bottom:5px
+}
+
+.calendar-btn{
+height:31px;
+border:1px solid #d5dce0;
+border-radius:7px;
+background:#f8faf9;
+color:#475569;
+font-size:10px;
+font-weight:800;
+cursor:pointer
+}
+
+.calendar-btn.active{
+background:#087443;
+border-color:#087443;
+color:#fff
+}
+
+.calendar-help{
+font-size:9px;
+color:#64748b;
+text-align:center;
+margin:2px 0 5px
+}
+
+/* التاريخ */
+.date-input{
+display:none
+}
+
+.date-input.active{
+display:block
+}
+
+.hijri-picker{
+display:none;
+position:relative
+}
+
+.hijri-picker.active{
+display:block
+}
+
+.hijri-open-btn{
+width:100%;
+height:28px;
+padding:0 7px;
+border:1px solid #d5dce0;
+border-radius:6px;
+background:#fff;
+color:#222;
+font-size:10.5px;
+text-align:right;
+cursor:pointer
+}
+
+.hijri-calendar{
+display:none;
+position:absolute;
+z-index:1000;
+top:34px;
+right:0;
+left:0;
+background:#fff;
+border:1px solid #d5dce0;
+border-radius:9px;
+box-shadow:0 8px 25px rgba(0,0,0,.15);
+padding:7px
+}
+
+.hijri-calendar.open{
+display:block
+}
+
+.hijri-head{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:4px;
+margin-bottom:6px
+}
+
+.hijri-head button{
+width:30px;
+height:28px;
+border:0;
+border-radius:6px;
+background:#f1f5f3;
+cursor:pointer;
+font-weight:bold
+}
+
+.hijri-month-title{
+flex:1;
+text-align:center;
+font-size:10px;
+font-weight:800
+}
+
+.hijri-week{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:2px;
+margin-bottom:2px
+}
+
+.hijri-week div{
+font-size:8px;
+text-align:center;
+color:#64748b;
+padding:3px 0
+}
+
+.hijri-days{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:2px
+}
+
+.hijri-day{
+height:27px;
+border:0;
+border-radius:5px;
+background:#f8faf9;
+font-size:9px;
+cursor:pointer
+}
+
+.hijri-day:hover{
+background:#dff2e7
+}
+
+.hijri-day.selected{
+background:#087443;
+color:#fff
+}
+
+.hijri-day.empty{
+background:transparent;
+cursor:default
+}
+
 /* جدول الدفعات */
 .payment-table-wrap{
-margin-top:9px;
+display:none;
+margin-top:7px;
 overflow-x:auto;
 border:1px solid #dce8e1;
 border-radius:8px
 }
 
+.payment-table-wrap.active{
+display:block
+}
+
 .payment-table{
 width:100%;
 border-collapse:collapse;
-min-width:520px;
-font-size:10px
+font-size:9px
 }
 
 .payment-table th{
 background:#f1f8f4;
 color:#087443;
-font-weight:800;
-padding:7px
+padding:5px
 }
 
 .payment-table td{
-padding:6px;
+padding:4px;
 border-top:1px solid #e5e7eb;
 text-align:center
 }
 
 .payment-table input{
-height:29px;
-font-size:10px;
+height:25px;
+font-size:9px;
 text-align:center
 }
 
 .payment-lock{
-margin-top:6px;
 font-size:9px;
-font-weight:700;
-color:#b91c1c;
-text-align:center
+color:#dc2626;
+font-weight:800;
+text-align:center;
+padding:5px
 }
 
 .button-row{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:7px;
-margin-top:12px
+gap:6px;
+margin-top:10px
 }
 
-.main-btn{
+button.main-btn{
 width:100%;
-height:38px;
+height:34px;
 border:0;
 border-radius:8px;
 color:#fff;
@@ -345,9 +411,7 @@ background:#16a34a
 background:#087443
 }
 
-.main-btn:active,
-.next-btn:active,
-.calendar-switch button:active{
+button:active{
 transform:scale(.99)
 }
 
@@ -355,30 +419,66 @@ transform:scale(.99)
 text-align:center;
 color:#777;
 font-size:9px;
-margin:5px 0 0
+margin:3px 0 0
 }
 
-.hidden{
-display:none!important
+.error{
+display:none;
+background:#fff1f2;
+color:#b91c1c;
+border:1px solid #fca5a5;
+padding:6px;
+border-radius:6px;
+margin-top:5px;
+font-size:10px;
+font-weight:800;
+text-align:center
+}
+
+.error.show{
+display:block
+}
+
+.next-btn{
+width:100%;
+height:32px;
+margin-top:8px;
+border:0;
+border-radius:8px;
+background:#087443;
+color:#fff;
+font-size:11px;
+font-weight:800;
+cursor:pointer
+}
+
+.section{
+display:none
+}
+
+.section.active{
+display:block
 }
 
 @media(max-width:768px){
 
 .wrap{
-padding:4px
+padding:3px;
+min-height:100vh;
+justify-content:flex-start
 }
 
 .card{
-padding:9px
+padding:7px 8px;
+border-radius:12px
 }
 
 .grid{
 grid-template-columns:repeat(2,minmax(0,1fr));
-gap:6px
+gap:3px 4px
 }
 
-.span-2,
-.span-4{
+.span-2,.span-4{
 grid-column:span 2
 }
 
@@ -387,37 +487,26 @@ font-size:9px
 }
 
 input,select{
-height:32px;
-font-size:10px
+height:26px;
+font-size:9.5px
 }
 
 textarea{
-font-size:10px
+font-size:9.5px
 }
 
-h2{
-font-size:12px;
-margin-top:10px
-}
 }
 
 @media(max-width:420px){
 
-.grid{
-gap:5px
+.button-row{
+grid-template-columns:1fr 1fr
 }
 
-.card{
-padding:8px
-}
-
-.calendar-switch button{
+.calendar-btn{
 font-size:9px
 }
 
-.button-row{
-grid-template-columns:1fr
-}
 }
 </style>
 </head>
@@ -437,15 +526,17 @@ grid-template-columns:1fr
 </div>
 </header>
 
+
 <form id="form" novalidate>
 
-<!-- ===================== 1 نوع العقد ===================== -->
 
-<section id="section1" class="section active">
+<!-- 1 -->
+<div id="section1" class="section active">
 
 <h2>1. نوع العقد المطلوب</h2>
 
 <div class="grid">
+
 <div class="field span-4">
 
 <label>
@@ -460,24 +551,25 @@ grid-template-columns:1fr
 </select>
 
 </div>
+
 </div>
 
-<button type="button" class="next-btn" onclick="openSection(2)">
+<button type="button" class="next-btn" onclick="openNext(1)">
 التالي: بيانات المؤجر
 </button>
 
-</section>
+</div>
 
 
-<!-- ===================== 2 المؤجر ===================== -->
-
-<section id="section2" class="section">
+<!-- 2 -->
+<div id="section2" class="section">
 
 <h2>2. بيانات المؤجر (صاحب العقار)</h2>
 
 <div class="grid">
 
 <div class="field span-4">
+
 <label>
 صفة المؤجر <span class="req">*</span>
 </label>
@@ -487,6 +579,7 @@ grid-template-columns:1fr
 <option value="فرد">فرد (أفراد / بالهوية)</option>
 <option value="منشأة">شركة أو مؤسسة (سجل تجاري)</option>
 </select>
+
 </div>
 
 </div>
@@ -497,7 +590,7 @@ grid-template-columns:1fr
 <div class="grid">
 
 <div class="field span-2">
-<label>رقم هوية / إقامة المؤجر <span class="req">*</span></label>
+<label>رقم هويّة / إقامة المؤجر <span class="req">*</span></label>
 <input name="lessorId" placeholder="10xxxxxxxx">
 </div>
 
@@ -552,16 +645,15 @@ grid-template-columns:1fr
 </div>
 </div>
 
-<button type="button" class="next-btn" onclick="openSection(3)">
+<button type="button" class="next-btn" onclick="openNext(2)">
 التالي: بيانات المستأجر
 </button>
 
-</section>
+</div>
 
 
-<!-- ===================== 3 المستأجر ===================== -->
-
-<section id="section3" class="section">
+<!-- 3 -->
+<div id="section3" class="section">
 
 <h2>3. بيانات المستأجر</h2>
 
@@ -589,7 +681,7 @@ grid-template-columns:1fr
 <div class="grid">
 
 <div class="field span-2">
-<label>رقم هوية / إقامة المستأجر <span class="req">*</span></label>
+<label>رقم هويّة / إقامة المستأجر <span class="req">*</span></label>
 <input name="tenantId" placeholder="10xxxxxxxx">
 </div>
 
@@ -644,34 +736,38 @@ grid-template-columns:1fr
 </div>
 </div>
 
-<button type="button" class="next-btn" onclick="openSection(4)">
+<button type="button" class="next-btn" onclick="openNext(3)">
 التالي: بيانات العقار والوحدة
 </button>
 
-</section>
+</div>
 
 
-<!-- ===================== 4 العقار ===================== -->
-
-<section id="section4" class="section">
+<!-- 4 -->
+<div id="section4" class="section">
 
 <h2>4. بيانات العقار والوحدة</h2>
 
 <div class="grid">
 
 <div class="field span-4">
+
 <label>
 العنوان الوطني أو موقع العقار على الخريطة <span class="req">*</span>
 </label>
+
 <input
 name="propertyAddress"
 placeholder="أدخل العنوان الوطني أو الصق رابط قوقل ماب"
 required>
+
 </div>
 
 
 <div class="field span-2">
+
 <label>نوع العقار <span class="req">*</span></label>
+
 <select name="propertyType" required>
 <option value="">اختر</option>
 <option>عمارة</option>
@@ -682,11 +778,14 @@ required>
 <option>برج</option>
 <option>استراحة</option>
 </select>
+
 </div>
 
 
 <div class="field span-2">
+
 <label>استخدام العقار <span class="req">*</span></label>
+
 <select name="usage" required>
 <option value="">اختر</option>
 <option>سكني عائلات</option>
@@ -695,45 +794,43 @@ required>
 <option>سكني أفراد</option>
 <option>زراعي</option>
 </select>
+
 </div>
 
 
 <div class="field">
 <label>عدد الأدوار كاملة <span class="req">*</span></label>
-<input
-name="floors"
-type="number"
-min="0"
-inputmode="numeric"
-required>
+<input name="floors" type="number" min="0" inputmode="numeric" required>
 </div>
-
 
 <div class="field">
 <label>الوحدات بكل دور <span class="req">*</span></label>
-<input
-name="unitsPerFloor"
-type="number"
-min="0"
-inputmode="numeric"
-required>
+<input name="unitsPerFloor" type="number" min="0" inputmode="numeric" required>
 </div>
 
 
 <div class="field total-box">
+
 <label>إجمالي وحدات العقار:</label>
+
 <input id="totalUnits" type="text" value="0 وحدة" readonly>
+
 </div>
 
 
 <div class="field">
+
 <label>رقم/اسم الوحدة <span class="req">*</span></label>
+
 <input name="unitName" required>
+
 </div>
 
 
 <div class="field">
+
 <label>نوع الوحدة <span class="req">*</span></label>
+
 <select name="unitType" required>
 <option value="">اختر</option>
 <option>شقة</option>
@@ -746,38 +843,45 @@ required>
 <option>دور</option>
 <option>استوديو</option>
 </select>
+
 </div>
 
 
 <div class="field">
+
 <label>رقم الطابق <span class="req">*</span></label>
+
 <input name="floor" required>
+
 </div>
 
 
 <div class="field">
+
 <label>مساحة الوحدة (م²)</label>
+
 <input name="area" inputmode="decimal">
-</div>
 
 </div>
 
-<button type="button" class="next-btn" onclick="openSection(5)">
+</div>
+
+<button type="button" class="next-btn" onclick="openNext(4)">
 التالي: تفاصيل العقد والمالية
 </button>
 
-</section>
+</div>
 
 
-<!-- ===================== 5 العقد ===================== -->
-
-<section id="section5" class="section">
+<!-- 5 -->
+<div id="section5" class="section">
 
 <h2>5. تفاصيل العقد والمالية</h2>
 
 <div class="grid">
 
-<!-- تاريخ البداية -->
+
+<!-- التقويم -->
 
 <div class="field span-4">
 
@@ -785,13 +889,17 @@ required>
 تاريخ بداية العقد <span class="req">*</span>
 </label>
 
+<div class="calendar-title">
+طريقة اختيار التاريخ:
+</div>
+
 <div class="calendar-switch">
 
 <button
 type="button"
 id="gregorianBtn"
-class="active"
-onclick="setCalendarMode('gregorian')">
+class="calendar-btn active"
+onclick="switchCalendar('gregorian')">
 
 📅 اختيار التاريخ بالميلادي
 
@@ -800,7 +908,8 @@ onclick="setCalendarMode('gregorian')">
 <button
 type="button"
 id="hijriBtn"
-onclick="setCalendarMode('hijri')">
+class="calendar-btn"
+onclick="switchCalendar('hijri')">
 
 🌙 اختيار التاريخ بالهجري
 
@@ -813,10 +922,10 @@ onclick="setCalendarMode('hijri')">
 </div>
 
 
-<div id="gregorianPicker">
+<div id="gregorianInput" class="date-input active">
 
 <input
-id="startDateGregorian"
+id="startDate"
 name="startDate"
 type="date"
 required>
@@ -824,19 +933,49 @@ required>
 </div>
 
 
-<div id="hijriPicker" class="hijri-date-picker">
+<div id="hijriInput" class="hijri-picker">
 
-<select id="hijriDay">
-<option value="">اليوم</option>
-</select>
+<button
+type="button"
+id="hijriOpenBtn"
+class="hijri-open-btn"
+onclick="toggleHijriCalendar()">
 
-<select id="hijriMonth">
-<option value="">الشهر</option>
-</select>
+📅 اختر التاريخ الهجري
 
-<select id="hijriYear">
-<option value="">السنة</option>
-</select>
+</button>
+
+<div id="hijriCalendar" class="hijri-calendar">
+
+<div class="hijri-head">
+
+<button type="button" onclick="changeHijriMonth(-1)">
+‹
+</button>
+
+<div id="hijriMonthTitle" class="hijri-month-title"></div>
+
+<button type="button" onclick="changeHijriMonth(1)">
+›
+</button>
+
+</div>
+
+<div class="hijri-week">
+
+<div>ح</div>
+<div>ن</div>
+<div>ث</div>
+<div>ر</div>
+<div>خ</div>
+<div>ج</div>
+<div>س</div>
+
+</div>
+
+<div id="hijriDays" class="hijri-days"></div>
+
+</div>
 
 </div>
 
@@ -861,13 +1000,7 @@ id="duration"
 name="duration"
 required>
 
-<option value="">اختر مدة العقد</option>
-
-<optgroup label="بالسنوات">
-</optgroup>
-
-<optgroup label="بالأشهر">
-</optgroup>
+<option value="">اختر المدة</option>
 
 </select>
 
@@ -916,11 +1049,9 @@ required>
 </div>
 
 
-<!-- جدول الدفعات -->
-
 <div
-id="paymentTableContainer"
-class="payment-table-wrap hidden">
+id="paymentTableWrap"
+class="payment-table-wrap">
 
 <table class="payment-table">
 
@@ -932,7 +1063,7 @@ class="payment-table-wrap hidden">
 </tr>
 </thead>
 
-<tbody id="paymentTableBody"></tbody>
+<tbody id="paymentBody"></tbody>
 
 </table>
 
@@ -955,7 +1086,7 @@ class="payment-table-wrap hidden">
 
 <textarea
 name="notes"
-placeholder="اكتب أي شروط أو ملاحظات إضافية ترغب بإضافتها للعقد..."></textarea>
+placeholder="إذا لديك شروط أو ملاحظات إضافية للعقد اكتبها هنا..."></textarea>
 
 </div>
 
@@ -989,7 +1120,7 @@ id="saveImageBtn">
 
 <div id="error" class="error"></div>
 
-</section>
+</div>
 
 </form>
 
@@ -999,48 +1130,54 @@ id="saveImageBtn">
 
 <script>
 
-/* =========================================================
-   إعدادات عامة
-========================================================= */
+/* =====================================================
+   الإعداد
+===================================================== */
 
 const receiver="966536305035";
 
 const form=document.getElementById("form");
 
-let currentCalendar="gregorian";
+let calendarMode="gregorian";
 
-let selectedHijri={
-day:"",
-month:"",
-year:""
-};
+let hijriViewYear=1447;
+let hijriViewMonth=1;
 
 
-/* =========================================================
-   التنقل بين الأقسام
-========================================================= */
+/* =====================================================
+   الأقسام
+===================================================== */
 
 function showError(text){
+
 const box=document.getElementById("error");
+
 box.textContent="⚠️ "+text;
+
 box.classList.add("show");
-box.scrollIntoView({behavior:"smooth",block:"center"});
+
+box.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
 }
 
 function hideError(){
-document.getElementById("error").classList.remove("show");
+
+document
+.getElementById("error")
+.classList.remove("show");
+
 }
 
 
-function validateSection(sectionNumber){
+function validateSection(num){
 
-hideError();
+const section=document.getElementById("section"+num);
 
-const section=document.getElementById("section"+sectionNumber);
-
-const required=[
-...section.querySelectorAll("[required]")
-];
+const required=
+[...section.querySelectorAll("[required]")];
 
 for(const el of required){
 
@@ -1051,22 +1188,25 @@ showError("يرجى إكمال جميع الحقول الإلزامية المط
 el.focus();
 
 return false;
-}
 
 }
 
+}
 
-/* تحقق السجل التجاري */
 
-if(sectionNumber===2){
+/* السجل التجاري */
 
-if(document.getElementById("lessorCategory").value==="منشأة"){
+if(num===2 &&
+document.getElementById("lessorCategory").value==="منشأة"){
 
-const cr=document.querySelector('[name="lessorCr"]').value.trim();
+const cr=
+document.querySelector('[name="lessorCr"]').value.trim();
 
 if(!cr.startsWith("7")){
 
-showError("رقم السجل التجاري للمؤجر يجب أن يبدأ برقم 7");
+showError(
+"رقم السجل التجاري للمؤجر يجب أن يبدأ برقم 7"
+);
 
 return false;
 
@@ -1074,56 +1214,54 @@ return false;
 
 }
 
-}
 
+if(num===3 &&
+document.getElementById("tenantCategory").value==="منشأة"){
 
-if(sectionNumber===3){
-
-if(document.getElementById("tenantCategory").value==="منشأة"){
-
-const cr=document.querySelector('[name="tenantCr"]').value.trim();
+const cr=
+document.querySelector('[name="tenantCr"]').value.trim();
 
 if(!cr.startsWith("7")){
 
-showError("رقم السجل التجاري للمستأجر يجب أن يبدأ برقم 7");
+showError(
+"رقم السجل التجاري للمستأجر يجب أن يبدأ برقم 7"
+);
 
 return false;
-
-}
 
 }
 
 }
 
 return true;
-}
-
-
-function openSection(number){
-
-const previous=number-1;
-
-if(previous>=1){
-
-if(!validateSection(previous)) return;
 
 }
 
-document.querySelectorAll(".section").forEach(s=>{
-s.classList.remove("active");
-});
 
-const target=document.getElementById("section"+number);
+function openNext(num){
 
-if(target){
+hideError();
 
-target.classList.add("active");
+if(!validateSection(num))return;
+
+document
+.querySelectorAll(".section")
+.forEach(s=>s.classList.remove("active"));
+
+const next=
+document.getElementById("section"+(num+1));
+
+if(next){
+
+next.classList.add("active");
 
 setTimeout(()=>{
-target.scrollIntoView({
+
+next.scrollIntoView({
 behavior:"smooth",
 block:"start"
 });
+
 },50);
 
 }
@@ -1131,11 +1269,12 @@ block:"start"
 }
 
 
-/* =========================================================
+/* =====================================================
    المؤجر
-========================================================= */
+===================================================== */
 
-const lessorCategory=document.getElementById("lessorCategory");
+const lessorCategory=
+document.getElementById("lessorCategory");
 
 const lessorIndividualSec=
 document.getElementById("lessorIndividualSec");
@@ -1155,6 +1294,7 @@ setRequired(lessorEntitySec,false);
 if(this.value==="فرد"){
 
 lessorIndividualSec.classList.add("active");
+
 setRequired(lessorIndividualSec,true);
 
 }
@@ -1162,6 +1302,7 @@ setRequired(lessorIndividualSec,true);
 if(this.value==="منشأة"){
 
 lessorEntitySec.classList.add("active");
+
 setRequired(lessorEntitySec,true);
 
 }
@@ -1169,11 +1310,12 @@ setRequired(lessorEntitySec,true);
 });
 
 
-/* =========================================================
+/* =====================================================
    المستأجر
-========================================================= */
+===================================================== */
 
-const tenantCategory=document.getElementById("tenantCategory");
+const tenantCategory=
+document.getElementById("tenantCategory");
 
 const tenantIndividualSec=
 document.getElementById("tenantIndividualSec");
@@ -1193,6 +1335,7 @@ setRequired(tenantEntitySec,false);
 if(this.value==="فرد"){
 
 tenantIndividualSec.classList.add("active");
+
 setRequired(tenantIndividualSec,true);
 
 }
@@ -1200,6 +1343,7 @@ setRequired(tenantIndividualSec,true);
 if(this.value==="منشأة"){
 
 tenantEntitySec.classList.add("active");
+
 setRequired(tenantEntitySec,true);
 
 }
@@ -1207,13 +1351,13 @@ setRequired(tenantEntitySec,true);
 });
 
 
-function setRequired(container,isReq){
+function setRequired(container,yes){
 
 container
 .querySelectorAll("input,select")
 .forEach(el=>{
 
-if(isReq)
+if(yes)
 el.setAttribute("required","required");
 else
 el.removeAttribute("required");
@@ -1223,27 +1367,34 @@ el.removeAttribute("required");
 }
 
 
-/* =========================================================
-   إجمالي الوحدات
-========================================================= */
+/* =====================================================
+   الوحدات
+===================================================== */
 
-const floors=document.querySelector('[name="floors"]');
-const unitsPerFloor=document.querySelector('[name="unitsPerFloor"]');
-const totalUnits=document.getElementById("totalUnits");
+const floors=
+document.querySelector('[name="floors"]');
+
+const unitsPerFloor=
+document.querySelector('[name="unitsPerFloor"]');
+
+const totalUnits=
+document.getElementById("totalUnits");
 
 
 function updateTotal(){
 
 const a=parseInt(floors.value,10);
+
 const b=parseInt(unitsPerFloor.value,10);
 
 const total=
-Number.isFinite(a)&&a>=0&&
-Number.isFinite(b)&&b>=0
+Number.isFinite(a)&&
+Number.isFinite(b)
 ?a*b
 :0;
 
-totalUnits.value=total+" وحدة";
+totalUnits.value=
+total+" وحدة";
 
 }
 
@@ -1251,27 +1402,86 @@ floors.addEventListener("input",updateTotal);
 unitsPerFloor.addEventListener("input",updateTotal);
 
 
-/* =========================================================
-   التقويم الهجري
-   يعتمد على Umm Al-Qura عبر Intl في الأجهزة الحديثة
-========================================================= */
+/* =====================================================
+   المدة من سنة إلى 50 سنة + الأشهر
+===================================================== */
 
-function hijriFormatter(){
+const duration=
+document.getElementById("duration");
 
-return new Intl.DateTimeFormat(
-"ar-SA-u-ca-islamic-umalqura",
-{
-year:"numeric",
-month:"numeric",
-day:"numeric"
-});
+const yearsGroup=
+document.createElement("optgroup");
+
+yearsGroup.label="بالسنوات";
+
+const monthsGroup=
+document.createElement("optgroup");
+
+monthsGroup.label="بالأشهر";
+
+
+duration.appendChild(yearsGroup);
+duration.appendChild(monthsGroup);
+
+
+for(let y=1;y<=50;y++){
+
+const o=document.createElement("option");
+
+o.value=y+" سنة";
+
+o.textContent=
+y===1
+?"سنة واحدة"
+:y+" سنوات";
+
+yearsGroup.appendChild(o);
 
 }
 
 
-function gregorianToHijri(date){
+for(let m=1;m<=36;m++){
 
-const parts=new Intl.DateTimeFormat(
+const o=document.createElement("option");
+
+o.value=m+" شهر";
+
+o.textContent=
+m===1
+?"شهر واحد"
+:m+" أشهر";
+
+monthsGroup.appendChild(o);
+
+}
+
+
+/* =====================================================
+   التاريخ الميلادي والهجري
+===================================================== */
+
+function getGregorianDate(){
+
+const value=
+document.getElementById("startDate").value;
+
+if(!value)return null;
+
+const p=value.split("-").map(Number);
+
+return new Date(
+p[0],
+p[1]-1,
+p[2]
+);
+
+}
+
+
+function hijriParts(date){
+
+const parts=
+new Intl.DateTimeFormat(
 "en-US-u-ca-islamic-umalqura",
 {
 year:"numeric",
@@ -1279,91 +1489,29 @@ month:"numeric",
 day:"numeric"
 }).formatToParts(date);
 
-let obj={};
+const result={};
 
 parts.forEach(p=>{
-if(p.type==="year")obj.year=parseInt(p.value);
-if(p.type==="month")obj.month=parseInt(p.value);
-if(p.type==="day")obj.day=parseInt(p.value);
+
+if(p.type==="year")
+result.year=parseInt(p.value);
+
+if(p.type==="month")
+result.month=parseInt(p.value);
+
+if(p.type==="day")
+result.day=parseInt(p.value);
+
 });
 
-return obj;
+return result;
 
 }
 
 
-function hijriToGregorian(hYear,hMonth,hDay){
+function hijriName(month){
 
-/*
-تقريب بحث ثنائي عن التاريخ الميلادي الموافق
-للتاريخ الهجري باستخدام Umm Al-Qura الموجود
-في Intl على الأجهزة الحديثة.
-*/
-
-let low=new Date(1900,0,1);
-let high=new Date(2100,11,31);
-
-while(low<=high){
-
-const mid=new Date(
-Math.floor((low.getTime()+high.getTime())/2)
-);
-
-const h=gregorianToHijri(mid);
-
-const value=
-h.year*10000+
-h.month*100+
-h.day;
-
-const target=
-hYear*10000+
-hMonth*100+
-hDay;
-
-if(value===target){
-
-return mid;
-
-}
-
-if(value<target){
-
-low=new Date(mid.getTime()+86400000);
-
-}else{
-
-high=new Date(mid.getTime()-86400000);
-
-}
-
-}
-
-return null;
-
-}
-
-
-/* تعبئة السنوات */
-
-function buildHijriPicker(){
-
-const day=document.getElementById("hijriDay");
-const month=document.getElementById("hijriMonth");
-const year=document.getElementById("hijriYear");
-
-for(let i=1;i<=30;i++){
-
-const o=document.createElement("option");
-
-o.value=i;
-o.textContent=i;
-
-day.appendChild(o);
-
-}
-
-const months=[
+const names=[
 "محرم",
 "صفر",
 "ربيع الأول",
@@ -1378,60 +1526,296 @@ const months=[
 "ذو الحجة"
 ];
 
-months.forEach((m,i)=>{
-
-const o=document.createElement("option");
-
-o.value=i+1;
-o.textContent=m;
-
-month.appendChild(o);
-
-});
-
-
-const current=gregorianToHijri(new Date());
-
-for(let y=current.year-50;y<=current.year+50;y++){
-
-const o=document.createElement("option");
-
-o.value=y;
-o.textContent=y+" هـ";
-
-year.appendChild(o);
+return names[month-1]||"";
 
 }
 
-day.addEventListener("change",updateHijriDate);
-month.addEventListener("change",updateHijriDate);
-year.addEventListener("change",updateHijriDate);
+
+/*
+تحويل هجري إلى ميلادي عن طريق بحث في تواريخ
+ميلادية واستخدام Umm Al-Qura الموجود في Intl.
+*/
+
+function hijriToGregorian(y,m,d){
+
+let low=
+new Date(1900,0,1);
+
+let high=
+new Date(2100,11,31);
+
+while(low<=high){
+
+const mid=
+new Date(
+Math.floor(
+(low.getTime()+high.getTime())/2
+));
+
+const h=hijriParts(mid);
+
+const a=
+h.year*10000+
+h.month*100+
+h.day;
+
+const b=
+y*10000+
+m*100+
+d;
+
+if(a===b){
+
+return mid;
 
 }
 
-buildHijriPicker();
+if(a<b){
+
+low=
+new Date(mid.getTime()+86400000);
+
+}else{
+
+high=
+new Date(mid.getTime()-86400000);
+
+}
+
+}
+
+return null;
+
+}
 
 
-/* =========================================================
-   تبديل هجري / ميلادي
-========================================================= */
+/* =====================================================
+   تقويم هجري
+===================================================== */
 
-function setCalendarMode(mode){
+function daysInHijriMonth(y,m){
 
-currentCalendar=mode;
+const d29=
+hijriToGregorian(y,m,29);
 
-const gregBtn=document.getElementById("gregorianBtn");
-const hijBtn=document.getElementById("hijriBtn");
+const d30=
+hijriToGregorian(y,m,30);
 
-const greg=document.getElementById("gregorianPicker");
-const hij=document.getElementById("hijriPicker");
+if(d30)return 30;
+
+if(d29)return 29;
+
+return 0;
+
+}
+
+
+function renderHijriCalendar(){
+
+const title=
+document.getElementById("hijriMonthTitle");
+
+const days=
+document.getElementById("hijriDays");
+
+title.textContent=
+hijriName(hijriViewMonth)+
+" "+
+hijriViewYear+
+" هـ";
+
+days.innerHTML="";
+
+const first=
+hijriToGregorian(
+hijriViewYear,
+hijriViewMonth,
+1
+);
+
+if(!first)return;
+
+
+/*
+الأسبوع يبدأ الأحد في التقويم الميلادي.
+نحولها بحيث تكون الخانة الأولى الأحد.
+*/
+
+const firstDay=
+first.getDay();
+
+for(let i=0;i<firstDay;i++){
+
+const empty=
+document.createElement("div");
+
+empty.className="hijri-day empty";
+
+days.appendChild(empty);
+
+}
+
+
+const total=
+daysInHijriMonth(
+hijriViewYear,
+hijriViewMonth
+);
+
+
+const currentValue=
+document
+.getElementById("startDateHijri")
+.value;
+
+
+for(let d=1;d<=total;d++){
+
+const btn=
+document.createElement("button");
+
+btn.type="button";
+
+btn.className="hijri-day";
+
+btn.textContent=d;
+
+
+if(currentValue===
+`${d}/${hijriViewMonth}/${hijriViewYear}`){
+
+btn.classList.add("selected");
+
+}
+
+
+btn.onclick=()=>{
+
+selectHijriDate(
+hijriViewYear,
+hijriViewMonth,
+d
+);
+
+};
+
+
+days.appendChild(btn);
+
+}
+
+}
+
+
+function toggleHijriCalendar(){
+
+const cal=
+document.getElementById("hijriCalendar");
+
+cal.classList.toggle("open");
+
+renderHijriCalendar();
+
+}
+
+
+function changeHijriMonth(change){
+
+hijriViewMonth+=change;
+
+if(hijriViewMonth>12){
+
+hijriViewMonth=1;
+hijriViewYear++;
+
+}
+
+if(hijriViewMonth<1){
+
+hijriViewMonth=12;
+hijriViewYear--;
+
+}
+
+renderHijriCalendar();
+
+}
+
+
+function selectHijriDate(y,m,d){
+
+const g=
+hijriToGregorian(y,m,d);
+
+if(!g){
+
+showError("تعذر اختيار التاريخ الهجري");
+
+return;
+
+}
+
+const yyyy=
+g.getFullYear();
+
+const mm=
+String(g.getMonth()+1)
+.padStart(2,"0");
+
+const dd=
+String(g.getDate())
+.padStart(2,"0");
+
+
+document.getElementById("startDate").value=
+`${yyyy}-${mm}-${dd}`;
+
+document.getElementById("startDateHijri").value=
+`${d}/${m}/${y}`;
+
+document.getElementById("hijriOpenBtn").textContent=
+`📅 ${d} ${hijriName(m)} ${y} هـ`;
+
+document
+.getElementById("hijriCalendar")
+.classList.remove("open");
+
+updatePaymentTable();
+
+validateDateRule();
+
+hideError();
+
+}
+
+
+/* =====================================================
+   التبديل بين التقويمين
+===================================================== */
+
+function switchCalendar(mode){
+
+calendarMode=mode;
+
+const gregBtn=
+document.getElementById("gregorianBtn");
+
+const hijBtn=
+document.getElementById("hijriBtn");
+
+const greg=
+document.getElementById("gregorianInput");
+
+const hij=
+document.getElementById("hijriInput");
+
 
 if(mode==="gregorian"){
 
 gregBtn.classList.add("active");
 hijBtn.classList.remove("active");
 
-greg.style.display="block";
+greg.classList.add("active");
 hij.classList.remove("active");
 
 }else{
@@ -1439,143 +1823,65 @@ hij.classList.remove("active");
 gregBtn.classList.remove("active");
 hijBtn.classList.add("active");
 
-greg.style.display="none";
+greg.classList.remove("active");
 hij.classList.add("active");
 
+
+const g=getGregorianDate();
+
+if(g){
+
+const h=hijriParts(g);
+
+hijriViewYear=h.year;
+hijriViewMonth=h.month;
+
+document.getElementById("hijriOpenBtn").textContent=
+`📅 ${h.day} ${hijriName(h.month)} ${h.year} هـ`;
+
+}else{
+
+const now=hijriParts(new Date());
+
+hijriViewYear=now.year;
+hijriViewMonth=now.month;
+
+}
+
 }
 
 }
 
-
-/* عند اختيار هجري */
-
-function updateHijriDate(){
-
-const d=document.getElementById("hijriDay").value;
-const m=document.getElementById("hijriMonth").value;
-const y=document.getElementById("hijriYear").value;
-
-if(!d||!m||!y)return;
-
-const g=hijriToGregorian(
-parseInt(y),
-parseInt(m),
-parseInt(d)
-);
-
-if(!g){
-
-showError("تعذر تحويل التاريخ الهجري، يرجى اختيار تاريخ صحيح");
-
-return;
-
-}
-
-const yyyy=g.getFullYear();
-const mm=String(g.getMonth()+1).padStart(2,"0");
-const dd=String(g.getDate()).padStart(2,"0");
-
-document.getElementById("startDateGregorian").value=
-`${yyyy}-${mm}-${dd}`;
-
-document.getElementById("startDateHijri").value=
-`${d}/${m}/${y}`;
-
-updatePaymentTable();
-
-hideError();
-
-}
-
-
-/* عند اختيار ميلادي */
 
 document
-.getElementById("startDateGregorian")
+.getElementById("startDate")
 .addEventListener("change",function(){
 
-if(!this.value)return;
+const g=getGregorianDate();
 
-const [y,m,d]=this.value.split("-").map(Number);
+if(!g)return;
 
-const h=gregorianToHijri(
-new Date(y,m-1,d)
-);
+const h=hijriParts(g);
 
 document.getElementById("startDateHijri").value=
 `${h.day}/${h.month}/${h.year}`;
 
+hijriViewYear=h.year;
+hijriViewMonth=h.month;
+
+document.getElementById("hijriOpenBtn").textContent=
+`📅 ${h.day} ${hijriName(h.month)} ${h.year} هـ`;
+
 updatePaymentTable();
 
-validateStartDateRule();
+validateDateRule();
 
 });
 
 
-/* =========================================================
-   مدة العقد
-========================================================= */
-
-const duration=document.getElementById("duration");
-
-const yearsGroup=duration.querySelector("optgroup:nth-of-type(1)");
-const monthsGroup=duration.querySelector("optgroup:nth-of-type(2)");
-
-for(let y=1;y<=50;y++){
-
-const option=document.createElement("option");
-
-option.value=`${y} سنة`;
-
-option.textContent=
-y===1
-?"سنة واحدة"
-:y+" سنوات";
-
-yearsGroup.appendChild(option);
-
-}
-
-for(let m=1;m<=36;m++){
-
-const option=document.createElement("option");
-
-option.value=`${m} شهر`;
-
-option.textContent=
-m===1
-?"شهر واحد"
-:m+" أشهر";
-
-monthsGroup.appendChild(option);
-
-}
-
-
-duration.addEventListener("change",function(){
-
-validateStartDateRule();
-updatePaymentTable();
-
-});
-
-
-/* =========================================================
-   شرط التاريخ السابق
-========================================================= */
-
-function getStartDate(){
-
-const value=document.getElementById("startDateGregorian").value;
-
-if(!value)return null;
-
-const [y,m,d]=value.split("-").map(Number);
-
-return new Date(y,m-1,d);
-
-}
-
+/* =====================================================
+   شرط 90 يوم
+===================================================== */
 
 function getDurationMonths(){
 
@@ -1583,22 +1889,19 @@ const value=duration.value;
 
 if(!value)return 0;
 
-const number=parseInt(value);
+const n=parseInt(value);
 
-if(value.includes("سنة")){
+if(value.includes("سنة"))
+return n*12;
 
-return number*12;
-
-}
-
-return number;
+return n;
 
 }
 
 
-function validateStartDateRule(){
+function validateDateRule(){
 
-const start=getStartDate();
+const start=getGregorianDate();
 
 if(!start)return true;
 
@@ -1608,23 +1911,26 @@ today.setHours(0,0,0,0);
 
 start.setHours(0,0,0,0);
 
-const months=getDurationMonths();
+const months=
+getDurationMonths();
 
-const end=new Date(start);
+if(!months)return true;
 
-end.setMonth(end.getMonth()+months);
+const end=
+new Date(start);
 
-const minEnd=new Date(today);
+end.setMonth(
+end.getMonth()+months
+);
 
-minEnd.setDate(minEnd.getDate()+90);
+const minimum=
+new Date(today);
 
+minimum.setDate(
+minimum.getDate()+90
+);
 
-/*
-إذا كانت البداية قبل اليوم:
-يجب أن يبقى للعقد 90 يومًا على الأقل من اليوم.
-*/
-
-if(start<today && end<minEnd){
+if(start<today && end<minimum){
 
 showError(
 "إذا كان تاريخ بداية العقد قبل اليوم، يجب أن يكون متبقيًا للعقد 90 يومًا على الأقل من تاريخ اليوم."
@@ -1641,9 +1947,19 @@ return true;
 }
 
 
-/* =========================================================
+duration.addEventListener(
+"change",
+function(){
+
+validateDateRule();
+updatePaymentTable();
+
+});
+
+
+/* =====================================================
    جدول الدفعات
-========================================================= */
+===================================================== */
 
 const paymentMethod=
 document.getElementById("paymentMethod");
@@ -1651,54 +1967,52 @@ document.getElementById("paymentMethod");
 const annualRent=
 document.getElementById("annualRent");
 
-paymentMethod.addEventListener("change",updatePaymentTable);
-annualRent.addEventListener("input",updatePaymentTable);
+
+paymentMethod.addEventListener(
+"change",
+updatePaymentTable
+);
+
+annualRent.addEventListener(
+"input",
+updatePaymentTable
+);
+
+
+function getPaymentCount(){
+
+switch(paymentMethod.value){
+
+case "سنوي":return 1;
+case "نصف سنوي":return 2;
+case "ربع سنوي":return 4;
+case "شهري":return 12;
+
+default:return 0;
+
+}
+
+}
 
 
 function formatDate(date){
 
-const y=date.getFullYear();
-
-const m=String(date.getMonth()+1).padStart(2,"0");
-
-const d=String(date.getDate()).padStart(2,"0");
-
-return `${y}-${m}-${d}`;
-
-}
-
-
-function paymentCount(){
-
-switch(paymentMethod.value){
-
-case "سنوي":
-return 1;
-
-case "نصف سنوي":
-return 2;
-
-case "ربع سنوي":
-return 4;
-
-case "شهري":
-return 12;
-
-default:
-return 0;
-
-}
+return date.getFullYear()+
+"-"+
+String(date.getMonth()+1).padStart(2,"0")+
+"-"+
+String(date.getDate()).padStart(2,"0");
 
 }
 
 
 function updatePaymentTable(){
 
-const container=
-document.getElementById("paymentTableContainer");
+const wrap=
+document.getElementById("paymentTableWrap");
 
 const body=
-document.getElementById("paymentTableBody");
+document.getElementById("paymentBody");
 
 const lock=
 document.getElementById("paymentLock");
@@ -1706,66 +2020,95 @@ document.getElementById("paymentLock");
 body.innerHTML="";
 lock.textContent="";
 
-const count=paymentCount();
+const count=
+getPaymentCount();
 
-const start=getStartDate();
+const start=
+getGregorianDate();
 
-const rent=parseFloat(annualRent.value)||0;
+const rent=
+parseFloat(annualRent.value)||0;
 
 if(!count||!start){
 
-container.classList.add("hidden");
+wrap.classList.remove("active");
 
 return;
 
 }
 
-container.classList.remove("hidden");
+wrap.classList.add("active");
 
-
-const monthsBetween=12/count;
-
-const amount=rent/count;
+const amount=
+rent/count;
 
 
 /*
 إذا كان تاريخ البداية قبل يومين أو أكثر
-من تاريخ اليوم، يمنع تعديل تواريخ الدفعات.
+من تاريخ اليوم، لا يمكن تعديل الدفعات.
 */
 
 const today=new Date();
 
 today.setHours(0,0,0,0);
 
-const differenceDays=
-Math.floor((today-start)/86400000);
+const difference=
+Math.floor(
+(today-start)/86400000
+);
 
-const canEdit=differenceDays<2;
+const canEdit=
+difference<2;
 
 
 for(let i=0;i<count;i++){
 
-const tr=document.createElement("tr");
+const tr=
+document.createElement("tr");
 
-const td1=document.createElement("td");
+const name=
+document.createElement("td");
 
-td1.textContent=`الدفعة ${i+1}`;
+name.textContent=
+"الدفعة "+(i+1);
 
-const td2=document.createElement("td");
 
-const input=document.createElement("input");
+const dateCell=
+document.createElement("td");
+
+const input=
+document.createElement("input");
 
 input.type="date";
 
-const date=new Date(start);
+const date=
+new Date(start);
 
-date.setMonth(
-date.getMonth()+monthsBetween*i
+if(paymentMethod.value==="سنوي")
+date.setFullYear(
+date.getFullYear()+i
 );
 
-input.value=formatDate(date);
+if(paymentMethod.value==="نصف سنوي")
+date.setMonth(
+date.getMonth()+6*i
+);
 
-input.dataset.defaultDate=formatDate(date);
+if(paymentMethod.value==="ربع سنوي")
+date.setMonth(
+date.getMonth()+3*i
+);
+
+if(paymentMethod.value==="شهري")
+date.setMonth(
+date.getMonth()+i
+);
+
+input.value=
+formatDate(date);
+
+input.dataset.default=
+input.value;
 
 if(!canEdit){
 
@@ -1773,29 +2116,20 @@ input.disabled=true;
 
 }
 
-input.addEventListener("change",function(){
-
-if(!canEdit){
-
-this.value=this.dataset.defaultDate;
-
-}
-
-});
-
-td2.appendChild(input);
+dateCell.appendChild(input);
 
 
-const td3=document.createElement("td");
+const amountCell=
+document.createElement("td");
 
-td3.textContent=
+amountCell.textContent=
 amount.toLocaleString("ar-SA")+
 " ريال";
 
 
-tr.appendChild(td1);
-tr.appendChild(td2);
-tr.appendChild(td3);
+tr.appendChild(name);
+tr.appendChild(dateCell);
+tr.appendChild(amountCell);
 
 body.appendChild(tr);
 
@@ -1805,7 +2139,7 @@ body.appendChild(tr);
 if(canEdit){
 
 lock.textContent=
-"يمكنك تعديل تواريخ الدفعات إذا رغبت، أو تركها كما هي.";
+"يمكنك تعديل تواريخ الدفعات إذا رغبت أو تركها كما هي.";
 
 }else{
 
@@ -1817,19 +2151,21 @@ lock.textContent=
 }
 
 
-/* =========================================================
-   إرسال واتساب
-========================================================= */
+/* =====================================================
+   الرسالة
+===================================================== */
 
 function getMessage(){
 
-const d=new FormData(form);
+const d=
+new FormData(form);
 
 const v=k=>
-(d.get(k)||"").trim()||"غير متوفر";
+(d.get(k)||"").trim()||
+"غير متوفر";
 
 let msg=
-`*طلب عقد إيجار جديد*\n\n`;
+`*طلب عقد إيجار جديد*\n`;
 
 msg+=
 `📌 *نوع العقد:* ${v("contractType")}\n\n`;
@@ -1917,21 +2253,25 @@ msg+=
 /* الدفعات */
 
 const rows=
-document.querySelectorAll("#paymentTableBody tr");
+document.querySelectorAll(
+"#paymentBody tr"
+);
 
 if(rows.length){
 
-msg+=`\n📅 *جدول الدفعات:*\n`;
+msg+=
+`\n📅 *جدول الدفعات:*\n`;
 
-rows.forEach((row,index)=>{
+rows.forEach((row,i)=>{
 
-const dateInput=row.querySelector("input");
+const date=
+row.querySelector("input").value;
 
-const amountText=
+const amount=
 row.children[2].textContent;
 
 msg+=
-`- الدفعة ${index+1}: ${dateInput.value} — ${amountText}\n`;
+`- الدفعة ${i+1}: ${date} — ${amount}\n`;
 
 });
 
@@ -1953,51 +2293,77 @@ return msg;
 }
 
 
-form.addEventListener("submit",function(e){
+/* =====================================================
+   الإرسال
+===================================================== */
+
+form.addEventListener(
+"submit",
+function(e){
 
 e.preventDefault();
 
 hideError();
 
+if(!validateSection(5))
+return;
 
-/* تحقق القسم الأخير */
-
-if(!validateSection(5))return;
-
-
-/* تحقق التاريخ */
-
-if(!validateStartDateRule())return;
-
+if(!validateDateRule())
+return;
 
 const url=
 "https://wa.me/"+
 receiver+
 "?text="+
-encodeURIComponent(getMessage());
+encodeURIComponent(
+getMessage()
+);
 
 window.open(url,"_blank")||
-(window.location.href=url);
+(
+window.location.href=url
+);
 
-});
+}
+);
 
 
-/* =========================================================
-   زر حفظ الصورة
-========================================================= */
+/* =====================================================
+   حفظ الصورة
+===================================================== */
 
 document
 .getElementById("saveImageBtn")
-.addEventListener("click",function(){
+.addEventListener(
+"click",
+function(){
 
 /*
-استخدام خاصية الطباعة في المتصفح يسمح للمستخدم
-بحفظ الصفحة كـ PDF أو صورة حسب الجهاز.
+الحفظ الحالي يستدعي وظيفة الطباعة في النظام.
+على iPhone يمكن اختيار حفظ PDF/الصفحة
+من خيارات المشاركة.
 */
 
 window.print();
 
-});
+}
+);
+
+
+/* =====================================================
+   البداية
+===================================================== */
+
+const todayH=
+hijriParts(new Date());
+
+hijriViewYear=
+todayH.year;
+
+hijriViewMonth=
+todayH.month;
+
+renderHijriCalendar();
 
 </script>
 
