@@ -1838,7 +1838,6 @@ if(!input)return;
 input.value=dateKey(date);
 getDateDisplay(activeCalendarTarget);
 
-// إزالة تنبيه النقص عن الحقل بعد تعبئته
 const displayBox = document.querySelector('[data-date-target="'+activeCalendarTarget+'"]');
 if(displayBox){
   displayBox.classList.remove('field-error');
@@ -1946,29 +1945,30 @@ errorBox.style.display="block";
 errorBox.scrollIntoView({behavior:"smooth", block:"center"});
 }
 
-// دالة التحقق المعدلة: تحرك الشاشة بسلاسة وتشير للحقل الناقص دون زوم
+// دالة التحقق المعدلة الدقيقة: تتفحص الأقسام الظاهرة والنشطة فقط
 function validateSection(section){
-// إزالة خطوط التنبيه السابقة
 section.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
 
-const required=[...section.querySelectorAll("[required]")];
 let missing = [];
 
-required.forEach(el => {
+// جلب العناصر الحالية المطلوبة فقط بداخل الجزء النشط (الظاهر)
+const requiredInputs = section.querySelectorAll(".dynamic-section.active [required], .grid > .field > [required]");
+
+requiredInputs.forEach(el => {
   if(!String(el.value || "").trim()) {
     missing.push(el);
   }
 });
 
-// إظهار حقول التواريخ المخفية والتحقق منها
-section.querySelectorAll('input[type="hidden"]').forEach(el => {
-  if(el.hasAttribute('required') || el.name.toLowerCase().includes('dob') || el.name.toLowerCase().includes('date')) {
-    if(!el.value.trim()){
-      const displayBox = section.querySelector('[data-date-target="'+el.name+'"]');
-      if(displayBox && !missing.includes(displayBox)){
-        missing.push(displayBox);
-      }
-    }
+// فحص أزرار التواريخ الخاصة بالأقسام الظاهرة فقط
+const activeDynamic = section.querySelector(".dynamic-section.active");
+const dateBoxes = activeDynamic ? activeDynamic.querySelectorAll("[data-date-target]") : section.querySelectorAll(".grid > .field [data-date-target]");
+
+dateBoxes.forEach(box => {
+  const targetName = box.dataset.dateTarget;
+  const hiddenInput = section.querySelector('input[name="'+targetName+'"]');
+  if(hiddenInput && !hiddenInput.value.trim()) {
+    if(!missing.includes(box)) missing.push(box);
   }
 });
 
@@ -1978,7 +1978,6 @@ showError("⚠️ يرجى إكمال جميع الحقول المطلوبة");
 const targetEl = missing[0];
 targetEl.classList.add('field-error');
 
-// تمرير الشاشة بأسلوب سلس ومحاذاة الحقل في المنتصف دون إحداث زوم
 targetEl.scrollIntoView({
   behavior: "smooth",
   block: "center",
@@ -2347,7 +2346,6 @@ errorBox.style.display="none";
 }, 4000);
 });
 
-// إزالة علامة الخطأ عند التفاعل مع الحقل
 form.addEventListener("input", function(e){
 if(e.target) e.target.classList.remove('field-error');
 if(errorBox.style.display==="block"){
