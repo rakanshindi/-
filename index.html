@@ -280,7 +280,7 @@ color:#888
 }
 
 .calendar-switch{
-width:72px;
+width:100px;
 height:28px;
 border:1px solid #087443;
 background:#f1f8f4;
@@ -552,7 +552,7 @@ font-size:11px
 
 .calendar-switch{
 height:28px;
-width:68px
+width:100px
 }
 
 .calendar-day{
@@ -1434,16 +1434,13 @@ const errorBox=document.getElementById("error");
 const contractType=document.getElementById("contractType");
 const lessorCategory=document.getElementById("lessorCategory");
 const tenantCategory=document.getElementById("tenantCategory");
-
 const lessorIndividualSec=document.getElementById("lessorIndividualSec");
 const lessorEntitySec=document.getElementById("lessorEntitySec");
 const tenantIndividualSec=document.getElementById("tenantIndividualSec");
 const tenantEntitySec=document.getElementById("tenantEntitySec");
-
 const totalUnits=document.getElementById("totalUnits");
 const floors=document.querySelector('[name="floors"]');
 const unitsPerFloor=document.querySelector('[name="unitsPerFloor"]');
-
 const duration=document.getElementById("duration");
 const startDate=document.getElementById("startDate");
 const annualRent=document.getElementById("annualRent");
@@ -1744,7 +1741,9 @@ document
 
 btn.addEventListener(
 "click",
-function(){
+function(e){
+
+e.preventDefault();
 
 const target=
 this.dataset.calendarTarget;
@@ -1759,12 +1758,6 @@ state.mode==="hijri"
 :"hijri";
 
 dateStates[target]=state;
-
-/*
-اسم الزر يوضح التحويل القادم:
-هجري حالياً = تحويل إلى ميلادي
-ميلادي حالياً = تحويل إلى هجري
-*/
 
 this.textContent=
 state.mode==="hijri"
@@ -2031,7 +2024,8 @@ for(let i=0;i<startDay;i++){
 const empty=
 document.createElement("div");
 
-empty.className="calendar-day empty";
+empty.className=
+"calendar-day empty";
 
 days.appendChild(empty);
 
@@ -2089,6 +2083,8 @@ day
 );
 
 }
+
+if(!g)continue;
 
 const btn=
 document.createElement("button");
@@ -2163,7 +2159,15 @@ function(){
 calendarView.month=
 Number(this.value);
 
+if(activePaymentIndex!==null){
+
+renderPaymentCalendar();
+
+}else{
+
 renderCalendar();
+
+}
 
 });
 
@@ -2176,7 +2180,15 @@ function(){
 calendarView.year=
 Number(this.value);
 
+if(activePaymentIndex!==null){
+
+renderPaymentCalendar();
+
+}else{
+
 renderCalendar();
+
+}
 
 });
 
@@ -2345,7 +2357,10 @@ container
 
 if(required){
 
-el.setAttribute("required","required");
+el.setAttribute(
+"required",
+"required"
+);
 
 }else{
 
@@ -2564,7 +2579,8 @@ let option=
 document.createElement("option");
 
 option.value="";
-option.textContent="اختر مدة العقد";
+option.textContent=
+"اختر مدة العقد";
 
 duration.appendChild(option);
 
@@ -2601,6 +2617,7 @@ const option=
 document.createElement("option");
 
 option.value=months;
+
 option.textContent=text;
 
 duration.appendChild(option);
@@ -2777,8 +2794,11 @@ return null;
 function updatePaymentTable(){
 
 paymentTableBody.innerHTML="";
+
 paymentTableBox.classList.remove("active");
+
 paymentLock.classList.remove("active");
+
 paymentDates=[];
 
 const rent=
@@ -2834,6 +2854,9 @@ locked
 );
 
 paymentTableBox.classList.add("active");
+
+paymentTotal.textContent=
+formatMoney(rent)+" ريال";
 
 }
 
@@ -2929,6 +2952,8 @@ return;
 
 activePaymentIndex=index;
 
+activeCalendarTarget=null;
+
 activeCalendarMode=
 paymentCalendarMode();
 
@@ -2945,8 +2970,11 @@ calendarView.month=h.month;
 
 }else{
 
-calendarView.year=d.getFullYear();
-calendarView.month=d.getMonth()+1;
+calendarView.year=
+d.getFullYear();
+
+calendarView.month=
+d.getMonth()+1;
 
 }
 
@@ -3139,6 +3167,8 @@ day
 
 }
 
+if(!g)continue;
+
 const btn=
 document.createElement("button");
 
@@ -3173,11 +3203,11 @@ paymentDates[
 activePaymentIndex
 ]=new Date(g);
 
+activePaymentIndex=null;
+
 document
 .getElementById("calendarOverlay")
 .classList.remove("active");
-
-activePaymentIndex=null;
 
 const rent=
 parseFloat(
