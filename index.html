@@ -85,7 +85,7 @@ color:#087443;
 font-weight:800
 }
 
-/* الأقسام المتسلسلة */
+/* الأقسام */
 .step-section{
 display:none
 }
@@ -94,6 +94,7 @@ display:none
 display:block
 }
 
+/* ترتيب الحقول */
 .grid{
 display:grid;
 grid-template-columns:repeat(4,minmax(0,1fr));
@@ -103,7 +104,8 @@ align-items:start
 
 .field{
 margin:0;
-min-width:0
+min-width:0;
+overflow:hidden
 }
 
 .span-2{
@@ -127,9 +129,11 @@ color:#dc2626;
 font-weight:bold
 }
 
-input,select{
+input,
+select{
 display:block;
 width:100%;
+max-width:100%;
 height:28px;
 padding:0 7px;
 border:1px solid #d5dce0;
@@ -137,11 +141,11 @@ border-radius:6px;
 background:#fff;
 color:#222;
 font-size:10.5px;
-min-width:0;
-max-width:100%
+min-width:0
 }
 
-input:focus,select:focus{
+input:focus,
+select:focus{
 outline:2px solid #d8eee2;
 border-color:#16804f
 }
@@ -261,6 +265,75 @@ font-weight:700;
 text-align:center
 }
 
+/* جدول الدفعات */
+.payment-table-box{
+display:none;
+margin-top:8px;
+border:1px solid #dce8e1;
+border-radius:8px;
+background:#f8fbf9;
+overflow:hidden
+}
+
+.payment-table-box.active{
+display:block
+}
+
+.payment-table-title{
+padding:6px 8px;
+background:#eef8f2;
+color:#087443;
+font-size:10px;
+font-weight:800;
+text-align:center
+}
+
+.payment-table{
+width:100%;
+border-collapse:collapse;
+font-size:10px;
+text-align:center
+}
+
+.payment-table th{
+background:#e8f3ed;
+color:#334155;
+font-weight:800;
+padding:6px 4px;
+border-bottom:1px solid #d8e5de
+}
+
+.payment-table td{
+padding:6px 4px;
+border-bottom:1px solid #e5ece8;
+color:#374151
+}
+
+.payment-table tr:last-child td{
+border-bottom:0
+}
+
+.payment-total{
+font-weight:800;
+color:#087443 !important
+}
+
+.duration-info{
+display:none;
+margin-top:5px;
+padding:5px 7px;
+border-radius:6px;
+background:#f8fafc;
+border:1px solid #e2e8f0;
+font-size:9.5px;
+color:#475569;
+line-height:1.5
+}
+
+.duration-info.active{
+display:block
+}
+
 /* الجوال */
 @media(max-width:768px){
 
@@ -290,7 +363,8 @@ font-size:9px;
 margin-bottom:2px
 }
 
-input,select{
+input,
+select{
 height:27px;
 font-size:9.5px;
 padding:0 6px
@@ -305,16 +379,21 @@ height:34px;
 font-size:11px
 }
 
+.payment-table{
+font-size:9.5px
 }
 
-/* شاشات صغيرة جدًا */
+}
+
+/* شاشات صغيرة */
 @media(max-width:380px){
 
 .grid{
 gap:3px 4px
 }
 
-input,select{
+input,
+select{
 height:26px;
 font-size:9px
 }
@@ -333,6 +412,7 @@ font-size:8.5px
 <div class="card">
 
 <header class="header">
+
 <h1 class="title">مكتب عقود إيجار</h1>
 
 <a class="phone" href="tel:0536305035">
@@ -346,13 +426,14 @@ font-size:8.5px
 <div class="info-note">
 البيانات المطلوبة مطابقة لمنصة إيجار الإلكترونية الرسمية.
 </div>
+
 </header>
 
 
 <form id="form" novalidate>
 
 <!-- ===================================================== -->
-<!-- الخطوة 1: نوع العقد -->
+<!-- 1. نوع العقد -->
 <!-- ===================================================== -->
 
 <section id="stepContract" class="step-section active">
@@ -395,7 +476,7 @@ font-size:8.5px
 
 
 <!-- ===================================================== -->
-<!-- الخطوة 2: المؤجر -->
+<!-- 2. بيانات المؤجر -->
 <!-- ===================================================== -->
 
 <section id="stepLessor" class="step-section">
@@ -447,8 +528,8 @@ font-size:8.5px
 name="lessorId"
 inputmode="numeric"
 placeholder="10xxxxxxxx">
-</div>
 
+</div>
 
 <div class="field">
 
@@ -459,8 +540,8 @@ placeholder="10xxxxxxxx">
 <input
 name="lessorDob"
 type="date">
-</div>
 
+</div>
 
 <div class="field">
 
@@ -472,6 +553,7 @@ type="date">
 name="lessorPhone"
 inputmode="tel"
 placeholder="05xxxxxxxx">
+
 </div>
 
 </div>
@@ -498,7 +580,6 @@ placeholder="70xxxxxxx">
 
 </div>
 
-
 <div class="field span-2">
 
 <label>
@@ -511,22 +592,13 @@ placeholder="70xxxxxxx">
 اختر الصفة
 </option>
 
-<option>
-مالك السجل
-</option>
-
-<option>
-مدير السجل
-</option>
-
-<option>
-وكيل شرعي
-</option>
+<option>مالك السجل</option>
+<option>مدير السجل</option>
+<option>وكيل شرعي</option>
 
 </select>
 
 </div>
-
 
 <div class="field span-2">
 
@@ -541,7 +613,6 @@ placeholder="10xxxxxxxx">
 
 </div>
 
-
 <div class="field">
 
 <label>
@@ -553,7 +624,6 @@ name="lessorRepDob"
 type="date">
 
 </div>
-
 
 <div class="field">
 
@@ -579,7 +649,9 @@ placeholder="05xxxxxxxx">
 type="button"
 class="next-btn"
 id="lessorNext">
+
 التالي: بيانات المستأجر
+
 </button>
 
 </div>
@@ -588,7 +660,7 @@ id="lessorNext">
 
 
 <!-- ===================================================== -->
-<!-- الخطوة 3: المستأجر -->
+<!-- 3. بيانات المستأجر -->
 <!-- ===================================================== -->
 
 <section id="stepTenant" class="step-section">
@@ -643,7 +715,6 @@ placeholder="10xxxxxxxx">
 
 </div>
 
-
 <div class="field">
 
 <label>
@@ -655,7 +726,6 @@ name="tenantDob"
 type="date">
 
 </div>
-
 
 <div class="field">
 
@@ -694,7 +764,6 @@ placeholder="70xxxxxxx">
 
 </div>
 
-
 <div class="field span-2">
 
 <label>
@@ -707,22 +776,13 @@ placeholder="70xxxxxxx">
 اختر الصفة
 </option>
 
-<option>
-صاحب السجل / مالك
-</option>
-
-<option>
-مدير السجل
-</option>
-
-<option>
-وكيل شرعي
-</option>
+<option>صاحب السجل / مالك</option>
+<option>مدير السجل</option>
+<option>وكيل شرعي</option>
 
 </select>
 
 </div>
-
 
 <div class="field span-2">
 
@@ -737,7 +797,6 @@ placeholder="10xxxxxxxx">
 
 </div>
 
-
 <div class="field">
 
 <label>
@@ -749,7 +808,6 @@ name="tenantRepDob"
 type="date">
 
 </div>
-
 
 <div class="field">
 
@@ -775,7 +833,9 @@ placeholder="05xxxxxxxx">
 type="button"
 class="next-btn"
 id="tenantNext">
+
 التالي: بيانات العقار والوحدة
+
 </button>
 
 </div>
@@ -784,7 +844,7 @@ id="tenantNext">
 
 
 <!-- ===================================================== -->
-<!-- الخطوة 4: العقار والوحدة -->
+<!-- 4. بيانات العقار والوحدة -->
 <!-- ===================================================== -->
 
 <section id="stepProperty" class="step-section">
@@ -792,7 +852,6 @@ id="tenantNext">
 <h2>4. بيانات العقار والوحدة</h2>
 
 <div class="grid">
-
 
 <div class="field span-4">
 
@@ -969,7 +1028,9 @@ inputmode="decimal">
 type="button"
 class="next-btn"
 id="propertyNext">
+
 التالي: تفاصيل العقد والمالية
+
 </button>
 
 </div>
@@ -978,7 +1039,7 @@ id="propertyNext">
 
 
 <!-- ===================================================== -->
-<!-- الخطوة 5: العقد والمالية -->
+<!-- 5. تفاصيل العقد والمالية -->
 <!-- ===================================================== -->
 
 <section id="stepContractDetails" class="step-section">
@@ -987,6 +1048,8 @@ id="propertyNext">
 
 <div class="grid">
 
+
+<!-- تاريخ البداية -->
 
 <div class="field span-2">
 
@@ -1001,6 +1064,8 @@ type="date">
 
 </div>
 
+
+<!-- مدة العقد -->
 
 <div class="field span-2">
 
@@ -1021,6 +1086,8 @@ id="duration">
 </div>
 
 
+<!-- قيمة الإيجار -->
+
 <div class="field span-2">
 
 <label>
@@ -1029,6 +1096,7 @@ id="duration">
 
 <input
 name="annualRent"
+id="annualRent"
 type="number"
 min="0"
 inputmode="numeric"
@@ -1037,35 +1105,86 @@ placeholder="مثال: 25000">
 </div>
 
 
+<!-- طريقة الدفع -->
+
 <div class="field span-2">
 
 <label>
 طريقة دفع الإيجار <span class="req">*</span>
 </label>
 
-<select name="paymentMethod">
+<select
+name="paymentMethod"
+id="paymentMethod">
 
 <option value="">
 اختر الدفعات
 </option>
 
-<option>
+<option value="سنوي">
 سنوي (دفعة واحدة)
 </option>
 
-<option>
+<option value="نصف سنوي">
 نصف سنوي (دفعتين)
 </option>
 
-<option>
+<option value="ربع سنوي">
 ربع سنوي (4 دفعات)
 </option>
 
-<option>
+<option value="شهري">
 شهري (12 دفعة)
 </option>
 
 </select>
+
+</div>
+
+
+<!-- معلومات المدة -->
+
+<div
+id="durationInfo"
+class="field span-4 duration-info">
+</div>
+
+
+<!-- جدول الدفعات -->
+
+<div
+id="paymentTableBox"
+class="field span-4 payment-table-box">
+
+<div class="payment-table-title">
+جدول دفعات الإيجار
+</div>
+
+<table class="payment-table">
+
+<thead>
+<tr>
+<th>رقم الدفعة</th>
+<th>موعد الدفعة</th>
+<th>قيمة الدفعة</th>
+</tr>
+</thead>
+
+<tbody id="paymentTableBody">
+</tbody>
+
+<tfoot>
+<tr>
+<td colspan="2" class="payment-total">
+إجمالي الإيجار
+</td>
+<td id="paymentTotal" class="payment-total">
+0 ريال
+</td>
+</tr>
+</tfoot>
+
+</table>
 
 </div>
 
@@ -1077,14 +1196,18 @@ placeholder="مثال: 25000">
 <button
 type="submit"
 class="whatsapp-btn">
+
 إرسال البيانات عبر واتساب
+
 </button>
 
 <button
 type="button"
 class="save-btn"
 id="saveImageBtn">
+
 حفظ الصورة
+
 </button>
 
 </div>
@@ -1096,9 +1219,7 @@ id="saveImageBtn">
 </section>
 
 
-<div id="error" class="error">
-⚠️ يرجى إكمال جميع الحقول المطلوبة
-</div>
+<div id="error" class="error"></div>
 
 <div id="success" class="success"></div>
 
@@ -1112,7 +1233,8 @@ id="saveImageBtn">
 
 const receiver = "966536305035";
 
-const form = document.getElementById("form");
+const form =
+document.getElementById("form");
 
 const contractType =
 document.getElementById("contractType");
@@ -1150,6 +1272,24 @@ document.getElementById("duration");
 const startDate =
 document.getElementById("startDate");
 
+const annualRent =
+document.getElementById("annualRent");
+
+const paymentMethod =
+document.getElementById("paymentMethod");
+
+const paymentTableBox =
+document.getElementById("paymentTableBox");
+
+const paymentTableBody =
+document.getElementById("paymentTableBody");
+
+const paymentTotal =
+document.getElementById("paymentTotal");
+
+const durationInfo =
+document.getElementById("durationInfo");
+
 const errorBox =
 document.getElementById("error");
 
@@ -1158,7 +1298,7 @@ document.getElementById("success");
 
 
 /* ===================================================== */
-/* إظهار قسم بعد قسم */
+/* الأقسام */
 /* ===================================================== */
 
 const stepContract =
@@ -1177,74 +1317,35 @@ const stepContractDetails =
 document.getElementById("stepContractDetails");
 
 
-function showStep(step){
-
-  [
-    stepContract,
-    stepLessor,
-    stepTenant,
-    stepProperty,
-    stepContractDetails
-  ].forEach(s => {
-    s.classList.remove("active");
-  });
-
-  step.classList.add("active");
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
 /* ===================================================== */
 /* عند اختيار نوع العقد */
 /* ===================================================== */
 
-contractType.addEventListener("change", function(){
+contractType.addEventListener("change",function(){
 
-  resetSections();
+  errorBox.style.display = "none";
 
   if(this.value){
 
     stepLessor.classList.add("active");
+
+  }else{
+
+    stepLessor.classList.remove("active");
+    stepTenant.classList.remove("active");
+    stepProperty.classList.remove("active");
+    stepContractDetails.classList.remove("active");
 
   }
 
 });
 
 
-function resetSections(){
-
-  stepLessor.classList.remove("active");
-  stepTenant.classList.remove("active");
-  stepProperty.classList.remove("active");
-  stepContractDetails.classList.remove("active");
-
-  lessorCategory.value = "";
-  tenantCategory.value = "";
-
-  lessorIndividualSec.classList.remove("active");
-  lessorEntitySec.classList.remove("active");
-
-  tenantIndividualSec.classList.remove("active");
-  tenantEntitySec.classList.remove("active");
-
-  setRequired(lessorIndividualSec,false);
-  setRequired(lessorEntitySec,false);
-  setRequired(tenantIndividualSec,false);
-  setRequired(tenantEntitySec,false);
-
-}
-
-
 /* ===================================================== */
-/* المؤجر فرد / منشأة */
+/* المؤجر */
 /* ===================================================== */
 
-lessorCategory.addEventListener("change", function(){
+lessorCategory.addEventListener("change",function(){
 
   lessorIndividualSec.classList.remove("active");
   lessorEntitySec.classList.remove("active");
@@ -1255,15 +1356,13 @@ lessorCategory.addEventListener("change", function(){
   if(this.value === "فرد"){
 
     lessorIndividualSec.classList.add("active");
-
     setRequired(lessorIndividualSec,true);
 
   }
 
-  else if(this.value === "منشأة"){
+  if(this.value === "منشأة"){
 
     lessorEntitySec.classList.add("active");
-
     setRequired(lessorEntitySec,true);
 
   }
@@ -1272,10 +1371,10 @@ lessorCategory.addEventListener("change", function(){
 
 
 /* ===================================================== */
-/* المستأجر فرد / منشأة */
+/* المستأجر */
 /* ===================================================== */
 
-tenantCategory.addEventListener("change", function(){
+tenantCategory.addEventListener("change",function(){
 
   tenantIndividualSec.classList.remove("active");
   tenantEntitySec.classList.remove("active");
@@ -1286,15 +1385,13 @@ tenantCategory.addEventListener("change", function(){
   if(this.value === "فرد"){
 
     tenantIndividualSec.classList.add("active");
-
     setRequired(tenantIndividualSec,true);
 
   }
 
-  else if(this.value === "منشأة"){
+  if(this.value === "منشأة"){
 
     tenantEntitySec.classList.add("active");
-
     setRequired(tenantEntitySec,true);
 
   }
@@ -1303,7 +1400,7 @@ tenantCategory.addEventListener("change", function(){
 
 
 /* ===================================================== */
-/* required */
+/* Required */
 /* ===================================================== */
 
 function setRequired(container,isReq){
@@ -1329,7 +1426,51 @@ function setRequired(container,isReq){
 
 
 /* ===================================================== */
-/* التحقق من السجل التجاري */
+/* إظهار الخطأ */
+/* ===================================================== */
+
+function showError(message){
+
+  errorBox.textContent = message;
+
+  errorBox.style.display = "block";
+
+}
+
+
+/* ===================================================== */
+/* التحقق من القسم */
+/* ===================================================== */
+
+function validateSection(section){
+
+  const required =
+  [...section.querySelectorAll("[required]")];
+
+  const missing =
+  required.filter(el =>
+    !String(el.value || "").trim()
+  );
+
+  if(missing.length){
+
+    showError(
+      "⚠️ يرجى إكمال جميع الحقول المطلوبة"
+    );
+
+    missing[0].focus();
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+
+/* ===================================================== */
+/* السجل التجاري */
 /* ===================================================== */
 
 function validateCR(name,message){
@@ -1358,52 +1499,7 @@ function validateCR(name,message){
 
 
 /* ===================================================== */
-/* التحقق من المرحلة */
-/* ===================================================== */
-
-function validateSection(section){
-
-  errorBox.style.display = "none";
-
-  const required =
-  [...section.querySelectorAll("[required]")];
-
-  const missing =
-  required.filter(el =>
-    !String(el.value || "").trim()
-  );
-
-  if(missing.length){
-
-    showError("⚠️ يرجى إكمال جميع الحقول المطلوبة");
-
-    missing[0].focus();
-
-    return false;
-
-  }
-
-  return true;
-
-}
-
-
-function showError(message){
-
-  errorBox.textContent = message;
-
-  errorBox.style.display = "block";
-
-  window.scrollTo({
-    top:document.body.scrollHeight,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* ===================================================== */
-/* زر المؤجر */
+/* انتقال المؤجر */
 /* ===================================================== */
 
 document
@@ -1412,7 +1508,9 @@ document
 
   if(!lessorCategory.value){
 
-    showError("⚠️ يرجى اختيار صفة المؤجر");
+    showError(
+      "⚠️ يرجى اختيار صفة المؤجر"
+    );
 
     lessorCategory.focus();
 
@@ -1425,26 +1523,27 @@ document
     return;
 
 
-  if(lessorCategory.value === "منشأة"){
-
-    if(!validateCR(
+  if(
+    lessorCategory.value === "منشأة" &&
+    !validateCR(
       "lessorCr",
       "⚠️ رقم السجل التجاري للمؤجر يجب أن يبدأ برقم 7"
-    )){
-      return;
-    }
+    )
+  ){
+
+    return;
 
   }
 
 
   errorBox.style.display = "none";
 
-  stepLessor.classList.remove("active");
+  /* لا نخفي المؤجر */
 
   stepTenant.classList.add("active");
 
   window.scrollTo({
-    top:0,
+    top:document.body.scrollHeight,
     behavior:"smooth"
   });
 
@@ -1452,7 +1551,7 @@ document
 
 
 /* ===================================================== */
-/* زر المستأجر */
+/* انتقال المستأجر */
 /* ===================================================== */
 
 document
@@ -1461,7 +1560,9 @@ document
 
   if(!tenantCategory.value){
 
-    showError("⚠️ يرجى اختيار صفة المستأجر");
+    showError(
+      "⚠️ يرجى اختيار صفة المستأجر"
+    );
 
     tenantCategory.focus();
 
@@ -1474,26 +1575,27 @@ document
     return;
 
 
-  if(tenantCategory.value === "منشأة"){
-
-    if(!validateCR(
+  if(
+    tenantCategory.value === "منشأة" &&
+    !validateCR(
       "tenantCr",
       "⚠️ رقم السجل التجاري للمستأجر يجب أن يبدأ برقم 7"
-    )){
-      return;
-    }
+    )
+  ){
+
+    return;
 
   }
 
 
   errorBox.style.display = "none";
 
-  stepTenant.classList.remove("active");
+  /* لا نخفي المستأجر */
 
   stepProperty.classList.add("active");
 
   window.scrollTo({
-    top:0,
+    top:document.body.scrollHeight,
     behavior:"smooth"
   });
 
@@ -1540,7 +1642,7 @@ unitsPerFloor.addEventListener(
 
 
 /* ===================================================== */
-/* زر العقار */
+/* انتقال العقار */
 /* ===================================================== */
 
 document
@@ -1552,12 +1654,12 @@ document
 
   errorBox.style.display = "none";
 
-  stepProperty.classList.remove("active");
+  /* لا نخفي العقار */
 
   stepContractDetails.classList.add("active");
 
   window.scrollTo({
-    top:0,
+    top:document.body.scrollHeight,
     behavior:"smooth"
   });
 
@@ -1566,8 +1668,13 @@ document
 
 /* ===================================================== */
 /* إنشاء مدد العقد */
-/* من يوم واحد إلى 90 يوم */
-/* ثم من 4 أشهر إلى 50 سنة */
+/*
+   الترتيب:
+   سنة واحدة أولاً
+   ثم الأشهر
+   ثم السنتين إلى 50 سنة
+   بدون أيام
+*/
 /* ===================================================== */
 
 function generateDurations(){
@@ -1585,193 +1692,452 @@ function generateDurations(){
   duration.appendChild(first);
 
 
-  /* 1 يوم إلى 90 يوم */
+  /* السنة أول خيار */
 
-  for(let day=1; day<=90; day++){
-
-    const option =
-    document.createElement("option");
-
-    option.value =
-    day + " يوم";
-
-    option.textContent =
-    day === 1
-    ? "يوم واحد"
-    : day + " يوم";
-
-    option.dataset.months =
-    (day / 30).toString();
-
-    duration.appendChild(option);
-
-  }
+  addDuration(
+    "سنة واحدة (12 شهر)",
+    "12",
+    "1 سنة"
+  );
 
 
-  /* 4 أشهر إلى 12 شهر */
+  /* الأشهر */
 
-  for(let month=4; month<=12; month++){
+  for(let month=1; month<=11; month++){
 
-    const option =
-    document.createElement("option");
+    addDuration(
+      month === 1
+      ? "شهر واحد"
+      : month + " أشهر",
 
-    option.value =
-    month + " شهر";
+      String(month),
 
-    option.textContent =
-    month === 12
-    ? "سنة واحدة (12 شهر)"
-    : month + " أشهر";
-
-    option.dataset.months =
-    month.toString();
-
-    duration.appendChild(option);
+      month + " شهر"
+    );
 
   }
 
 
-  /* من سنتين إلى 50 سنة */
+  /* السنوات من سنتين إلى 50 */
 
   for(let year=2; year<=50; year++){
 
-    const option =
-    document.createElement("option");
+    addDuration(
+      year + " سنة",
 
-    option.value =
-    year + " سنة";
+      String(year * 12),
 
-    option.textContent =
-    year + " سنة";
-
-    option.dataset.months =
-    (year * 12).toString();
-
-    duration.appendChild(option);
+      year + " سنة"
+    );
 
   }
 
 }
 
+
+function addDuration(text,months,value){
+
+  const option =
+  document.createElement("option");
+
+  option.value = value;
+
+  option.textContent = text;
+
+  option.dataset.months = months;
+
+  duration.appendChild(option);
+
+}
+
+
 generateDurations();
 
 
 /* ===================================================== */
-/* تاريخ اليوم */
+/* التاريخ اليوم */
 /* ===================================================== */
 
 function getToday(){
 
   const now = new Date();
 
-  const year =
+  const y =
   now.getFullYear();
 
-  const month =
+  const m =
   String(now.getMonth()+1)
   .padStart(2,"0");
 
-  const day =
+  const d =
   String(now.getDate())
   .padStart(2,"0");
 
-  return year + "-" + month + "-" + day;
+  return y + "-" + m + "-" + d;
 
 }
 
 
 /* ===================================================== */
-/* مراقبة مدة العقد */
+/* التعامل مع شرط 3 أشهر */
+/*
+   إذا كانت المدة 3 أشهر أو أقل
+   والتاريخ قبل اليوم:
+   لا يتم تعديل التاريخ.
+   يتم احتساب المدة كحد أدنى 4 أشهر.
+*/
 /* ===================================================== */
 
-duration.addEventListener("change",function(){
+function getEffectiveMonths(){
+
+  if(!duration.value)
+    return 0;
 
   const selected =
-  this.options[this.selectedIndex];
+  duration.options[duration.selectedIndex];
 
-  if(!selected || !selected.value){
+  let months =
+  parseFloat(
+    selected.dataset.months || "0"
+  );
 
-    startDate.removeAttribute("min");
+  if(!startDate.value)
+    return months;
+
+  const today =
+  getToday();
+
+  if(
+    months <= 3 &&
+    startDate.value < today
+  ){
+
+    return 4;
+
+  }
+
+  return months;
+
+}
+
+
+/* ===================================================== */
+/* معلومات مدة العقد */
+/* ===================================================== */
+
+function updateDurationInfo(){
+
+  if(!duration.value){
+
+    durationInfo.classList.remove("active");
+    durationInfo.innerHTML = "";
+
+    return;
+
+  }
+
+  const selected =
+  duration.options[duration.selectedIndex];
+
+  const selectedMonths =
+  parseFloat(selected.dataset.months || "0");
+
+  const effectiveMonths =
+  getEffectiveMonths();
+
+
+  if(
+    selectedMonths <= 3 &&
+    startDate.value &&
+    startDate.value < getToday()
+  ){
+
+    durationInfo.innerHTML =
+      "⚠️ تاريخ البداية أقدم من تاريخ اليوم، لذلك سيتم احتساب مدة العقد بحد أدنى <strong>4 أشهر</strong> دون تغيير التاريخ الذي اخترته.";
+
+    durationInfo.classList.add("active");
 
     return;
 
   }
 
 
-  const months =
-  parseFloat(selected.dataset.months || "0");
+  durationInfo.innerHTML =
+    "مدة العقد المختارة: <strong>" +
+    selected.textContent +
+    "</strong>";
+
+  durationInfo.classList.add("active");
+
+}
 
 
-  /*
-   إذا كانت المدة 3 أشهر أو أقل:
-   تاريخ البداية يجب أن يكون اليوم فقط
-  */
+duration.addEventListener(
+  "change",
+  function(){
 
-  if(months <= 3){
-
-    const today =
-    getToday();
-
-    startDate.value = today;
-
-    startDate.min = today;
-
-    startDate.max = today;
+    updateDurationInfo();
+    updatePaymentTable();
 
   }
+);
 
-  else{
 
-    /*
-     للمدد أكثر من 3 أشهر:
-     لا نفرض قيد تاريخ اليوم
-    */
+startDate.addEventListener(
+  "change",
+  function(){
 
-    startDate.removeAttribute("min");
-
-    startDate.removeAttribute("max");
+    updateDurationInfo();
+    updatePaymentTable();
 
   }
-
-});
+);
 
 
 /* ===================================================== */
-/* التحقق من تاريخ البداية */
+/* حساب تاريخ الدفعات */
 /* ===================================================== */
 
-function validateStartDate(){
+function addMonthsToDate(date,months){
 
-  if(!duration.value)
-    return true;
+  const d =
+  new Date(date);
 
-  const selected =
-  duration.options[duration.selectedIndex];
+  d.setMonth(
+    d.getMonth() + months
+  );
 
-  const months =
-  parseFloat(selected.dataset.months || "0");
+  return d;
+
+}
 
 
-  if(months <= 3){
+function formatDate(date){
 
-    const today =
-    getToday();
+  if(!date)
+    return "";
 
-    if(startDate.value !== today){
+  const y =
+  date.getFullYear();
 
-      showError(
-        "⚠️ مدة العقد 3 أشهر أو أقل، ويجب أن يكون تاريخ بداية العقد هو تاريخ اليوم."
+  const m =
+  String(date.getMonth()+1)
+  .padStart(2,"0");
+
+  const d =
+  String(date.getDate())
+  .padStart(2,"0");
+
+  return y + "/" + m + "/" + d;
+
+}
+
+
+/* ===================================================== */
+/* إنشاء جدول الدفعات */
+/* ===================================================== */
+
+function updatePaymentTable(){
+
+  paymentTableBody.innerHTML = "";
+
+  paymentTableBox.classList.remove("active");
+
+  paymentTotal.textContent =
+    "0 ريال";
+
+
+  const rent =
+  parseFloat(annualRent.value);
+
+  const method =
+  paymentMethod.value;
+
+  if(
+    !Number.isFinite(rent) ||
+    rent < 0 ||
+    !method
+  ){
+
+    return;
+
+  }
+
+
+  let count = 1;
+  let monthsBetween = 12;
+
+
+  if(method === "شهري"){
+
+    count = 12;
+    monthsBetween = 1;
+
+  }
+
+  else if(method === "ربع سنوي"){
+
+    count = 4;
+    monthsBetween = 3;
+
+  }
+
+  else if(method === "نصف سنوي"){
+
+    count = 2;
+    monthsBetween = 6;
+
+  }
+
+  else if(method === "سنوي"){
+
+    count = 1;
+    monthsBetween = 12;
+
+  }
+
+
+  const amount =
+  rent / count;
+
+
+  let start = null;
+
+  if(startDate.value){
+
+    const parts =
+    startDate.value.split("-");
+
+    start =
+    new Date(
+      Number(parts[0]),
+      Number(parts[1])-1,
+      Number(parts[2])
+    );
+
+  }
+
+
+  for(let i=0; i<count; i++){
+
+    const row =
+    document.createElement("tr");
+
+
+    const numberCell =
+    document.createElement("td");
+
+    numberCell.textContent =
+    i + 1;
+
+
+    const dateCell =
+    document.createElement("td");
+
+
+    if(start){
+
+      const paymentDate =
+      addMonthsToDate(
+        start,
+        i * monthsBetween
       );
 
-      startDate.value = today;
+      dateCell.textContent =
+      formatDate(paymentDate);
 
-      startDate.focus();
+    }else{
 
-      return false;
+      dateCell.textContent =
+      "يحدد بعد إدخال تاريخ البداية";
 
     }
 
+
+    const amountCell =
+    document.createElement("td");
+
+    amountCell.textContent =
+    formatMoney(amount) + " ريال";
+
+
+    row.appendChild(numberCell);
+    row.appendChild(dateCell);
+    row.appendChild(amountCell);
+
+    paymentTableBody.appendChild(row);
+
   }
+
+
+  paymentTotal.textContent =
+  formatMoney(rent) + " ريال";
+
+
+  paymentTableBox.classList.add("active");
+
+}
+
+
+function formatMoney(number){
+
+  return new Intl.NumberFormat(
+    "ar-SA",
+    {
+      maximumFractionDigits:2
+    }
+  ).format(number);
+
+}
+
+
+annualRent.addEventListener(
+  "input",
+  updatePaymentTable
+);
+
+paymentMethod.addEventListener(
+  "change",
+  updatePaymentTable
+);
+
+
+/* ===================================================== */
+/* التحقق من مدة العقد */
+/* ===================================================== */
+
+function validateDuration(){
+
+  if(!duration.value){
+
+    showError(
+      "⚠️ يرجى اختيار مدة العقد"
+    );
+
+    duration.focus();
+
+    return false;
+
+  }
+
+  if(!startDate.value){
+
+    showError(
+      "⚠️ يرجى اختيار تاريخ بداية العقد"
+    );
+
+    startDate.focus();
+
+    return false;
+
+  }
+
+
+  /*
+    إذا كانت 3 أشهر أو أقل والتاريخ ماضي:
+    لا نمنع المستخدم.
+    يتم احتسابها كـ 4 أشهر.
+  */
 
   return true;
 
@@ -1779,42 +2145,7 @@ function validateStartDate(){
 
 
 /* ===================================================== */
-/* عند تغيير التاريخ */
-/* ===================================================== */
-
-startDate.addEventListener("change",function(){
-
-  if(!duration.value)
-    return;
-
-  const selected =
-  duration.options[duration.selectedIndex];
-
-  const months =
-  parseFloat(selected.dataset.months || "0");
-
-  if(months <= 3){
-
-    const today =
-    getToday();
-
-    if(this.value !== today){
-
-      showError(
-        "⚠️ للعقود لمدة 3 أشهر أو أقل، يجب أن يكون تاريخ البداية هو تاريخ اليوم."
-      );
-
-      this.value = today;
-
-    }
-
-  }
-
-});
-
-
-/* ===================================================== */
-/* تجهيز رسالة واتساب */
+/* رسالة واتساب */
 /* ===================================================== */
 
 function getMessage(){
@@ -1833,11 +2164,15 @@ function getMessage(){
   `📌 *نوع العقد:* ${v("contractType")}\n\n`;
 
 
+  /* المؤجر */
+
   msg +=
   `👤 *بيانات المؤجر (${v("lessorCategory")}):*\n`;
 
 
-  if(v("lessorCategory") === "فرد"){
+  if(
+    v("lessorCategory") === "فرد"
+  ){
 
     msg +=
     `- الهوية/الإقامة: ${v("lessorId")}\n`;
@@ -1870,11 +2205,15 @@ function getMessage(){
   }
 
 
+  /* المستأجر */
+
   msg +=
   `\n🏢 *بيانات المستأجر (${v("tenantCategory")}):*\n`;
 
 
-  if(v("tenantCategory") === "فرد"){
+  if(
+    v("tenantCategory") === "فرد"
+  ){
 
     msg +=
     `- الهوية/الإقامة: ${v("tenantId")}\n`;
@@ -1906,6 +2245,8 @@ function getMessage(){
 
   }
 
+
+  /* العقار */
 
   msg +=
   `\n🏠 *بيانات العقار والوحدة:*\n`;
@@ -1941,6 +2282,8 @@ function getMessage(){
   `- المساحة: ${v("area")}\n`;
 
 
+  /* العقد */
+
   msg +=
   `\n💰 *تفاصيل العقد والمالية:*\n`;
 
@@ -1948,13 +2291,34 @@ function getMessage(){
   `- تاريخ بداية العقد: ${v("startDate")}\n`;
 
   msg +=
-  `- مدة العقد: ${v("duration")}\n`;
+  `- مدة العقد المختارة: ${duration.options[duration.selectedIndex]?.textContent || v("duration")}\n`;
+
+  const effectiveMonths =
+  getEffectiveMonths();
+
+  if(
+    effectiveMonths !==
+    parseFloat(
+      duration.options[duration.selectedIndex]?.dataset.months || "0"
+    )
+  ){
+
+    msg +=
+    `- مدة الاحتساب: 4 أشهر\n`;
+
+  }
 
   msg +=
   `- قيمة الإيجار السنوي: ${v("annualRent")} ريال\n`;
 
   msg +=
-  `- طريقة دفع الإيجار: ${v("paymentMethod")}`;
+  `- طريقة دفع الإيجار: ${v("paymentMethod")}\n`;
+
+  msg +=
+  `\n📊 *تفاصيل الدفعات:*\n`;
+
+  msg +=
+  getPaymentSummary();
 
 
   return msg;
@@ -1963,30 +2327,151 @@ function getMessage(){
 
 
 /* ===================================================== */
+/* ملخص الدفعات للواتساب */
+/* ===================================================== */
+
+function getPaymentSummary(){
+
+  const rent =
+  parseFloat(annualRent.value);
+
+  const method =
+  paymentMethod.value;
+
+  if(
+    !Number.isFinite(rent) ||
+    !method
+  ){
+
+    return "غير متوفر";
+
+  }
+
+
+  let count = 1;
+  let monthsBetween = 12;
+
+
+  if(method === "شهري"){
+
+    count = 12;
+    monthsBetween = 1;
+
+  }
+
+  else if(method === "ربع سنوي"){
+
+    count = 4;
+    monthsBetween = 3;
+
+  }
+
+  else if(method === "نصف سنوي"){
+
+    count = 2;
+    monthsBetween = 6;
+
+  }
+
+
+  const amount =
+  rent / count;
+
+
+  let result = "";
+
+
+  let start = null;
+
+  if(startDate.value){
+
+    const parts =
+    startDate.value.split("-");
+
+    start =
+    new Date(
+      Number(parts[0]),
+      Number(parts[1])-1,
+      Number(parts[2])
+    );
+
+  }
+
+
+  for(let i=0; i<count; i++){
+
+    result +=
+    `${i+1}. `;
+
+
+    if(start){
+
+      const paymentDate =
+      addMonthsToDate(
+        start,
+        i * monthsBetween
+      );
+
+      result +=
+      formatDate(paymentDate);
+
+    }
+
+    else{
+
+      result +=
+      "تاريخ غير محدد";
+
+    }
+
+
+    result +=
+    ` - ${formatMoney(amount)} ريال\n`;
+
+  }
+
+
+  return result.trim();
+
+}
+
+
+/* ===================================================== */
 /* إرسال واتساب */
 /* ===================================================== */
 
-form.addEventListener("submit",function(e){
+form.addEventListener(
+"submit",
+function(e){
 
   e.preventDefault();
 
-
-  if(!validateSection(stepContractDetails))
-    return;
-
-
-  if(!validateStartDate())
-    return;
-
-
   errorBox.style.display = "none";
+
+
+  if(
+    !validateSection(stepContractDetails)
+  ){
+
+    return;
+
+  }
+
+
+  if(!validateDuration()){
+
+    return;
+
+  }
 
 
   const url =
   "https://wa.me/" +
   receiver +
   "?text=" +
-  encodeURIComponent(getMessage());
+  encodeURIComponent(
+    getMessage()
+  );
 
 
   window.open(url,"_blank") ||
@@ -1996,12 +2481,14 @@ form.addEventListener("submit",function(e){
 
 
 /* ===================================================== */
-/* زر حفظ الصورة */
+/* حفظ الصورة */
 /* ===================================================== */
 
 document
 .getElementById("saveImageBtn")
-.addEventListener("click",function(){
+.addEventListener(
+"click",
+function(){
 
   successBox.textContent =
   "ℹ️ استخدم خيار لقطة الشاشة في الجهاز لحفظ النموذج كصورة.";
@@ -2009,12 +2496,16 @@ document
   successBox.style.display =
   "block";
 
-  setTimeout(function(){
 
-    successBox.style.display =
-    "none";
+  setTimeout(
+    function(){
 
-  },4000);
+      successBox.style.display =
+      "none";
+
+    },
+    4000
+  );
 
 });
 
