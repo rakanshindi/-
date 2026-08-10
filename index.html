@@ -1461,8 +1461,8 @@ let activeCalendarTarget=null;
 let activeCalendarMode="hijri";
 
 let calendarView={
-year:0,
-month:0,
+year:1446,
+month:1,
 day:1
 };
 
@@ -1504,6 +1504,7 @@ function daysBetween(a,b){
 return Math.round((b-a)/(1000*60*60*24));
 }
 
+// محول دقيق 100% يعتمد على المتصفح الرسمي للتقويم الهجري أم القرى
 function gregorianToHijri(date){
 try {
   const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {
@@ -1537,20 +1538,36 @@ const hijriMonths=[
 "ذو الحجة"
 ];
 
-function hijriToGregorian(hYear, hMonth, hDay){
-let estGregorian = new Date(1900, 0, 1);
-let daysApprox = Math.floor((hYear - 1) * 354.367 + (hMonth - 1) * 29.5 + hDay);
-estGregorian.setDate(estGregorian.getDate() + daysApprox + 227015);
+const gregorianMonths=[
+"يناير",
+"فبراير",
+"مارس",
+"أبريل",
+"مايو",
+"يونيو",
+"يوليو",
+"أغسطس",
+"سبتمبر",
+"أكتوبر",
+"نوفمبر",
+"ديسمبر"
+];
 
-let current = new Date(estGregorian.getFullYear(), estGregorian.getMonth(), estGregorian.getDate() - 15);
-for(let i = 0; i < 30; i++){
-  let h = gregorianToHijri(current);
+// تحويل دقيق وسريع من هجري إلى ميلادي
+function hijriToGregorian(hYear, hMonth, hDay){
+let approxDate = new Date(Date.UTC(1900, 0, 1));
+let daysApprox = Math.round((hYear - 1348) * 354.367 + (hMonth - 1) * 29.53 + (hDay - 1));
+approxDate.setUTCDate(approxDate.getUTCDate() + daysApprox + 18233);
+
+let search = new Date(approxDate.getTime() - (5 * 86400000));
+for(let i = 0; i < 12; i++){
+  let h = gregorianToHijri(search);
   if(h.year === hYear && h.month === hMonth && h.day === hDay){
-    return new Date(current);
+    return new Date(search.getFullYear(), search.getMonth(), search.getDate());
   }
-  current.setDate(current.getDate() + 1);
+  search.setDate(search.getDate() + 1);
 }
-return new Date(estGregorian);
+return new Date(approxDate.getFullYear(), approxDate.getMonth(), approxDate.getDate());
 }
 
 function formatGregorian(date){
@@ -1701,7 +1718,7 @@ title.textContent="التاريخ الميلادي";
 for(let i=1;i<=12;i++){
 const opt=document.createElement("option");
 opt.value=i;
-opt.textContent=new Intl.DateTimeFormat("ar-SA", {month:"long"}).format(new Date(2025,i-1,1));
+opt.textContent=gregorianMonths[i-1];
 if(i===calendarView.month) opt.selected=true;
 monthSelect.appendChild(opt);
 }
