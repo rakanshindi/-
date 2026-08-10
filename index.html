@@ -160,7 +160,6 @@ outline:2px solid #d8eee2;
 border-color:#16804f
 }
 
-/* الأقسام الداخلية */
 .dynamic-section{
 display:none;
 background:#fafcfb;
@@ -174,7 +173,6 @@ margin-top:5px
 display:block
 }
 
-/* زر التالي */
 .next-row{
 margin-top:8px
 }
@@ -213,7 +211,6 @@ button:active{
 transform:scale(.99)
 }
 
-/* إجمالي الوحدات */
 .total-box{
 grid-column:1/-1;
 padding:4px 7px;
@@ -241,7 +238,6 @@ text-align:center;
 background:#fff
 }
 
-/* جميع التنبيهات */
 .error,
 .warning{
 display:none;
@@ -257,7 +253,6 @@ text-align:center;
 line-height:1.5
 }
 
-/* التاريخ */
 .date-control{
 display:flex;
 gap:4px;
@@ -295,7 +290,6 @@ font-size:9px;
 font-weight:800
 }
 
-/* نافذة التقويم */
 .calendar-overlay{
 display:none;
 position:fixed;
@@ -412,7 +406,6 @@ border:2px solid #16a34a
 opacity:.35
 }
 
-/* جدول الدفعات */
 .payment-table-box{
 display:none;
 margin-top:8px;
@@ -493,7 +486,6 @@ font-weight:800;
 color:#087443 !important
 }
 
-/* مدة العقد */
 .duration-info{
 display:none;
 margin-top:5px;
@@ -517,7 +509,6 @@ font-size:9px;
 margin:3px 0 0
 }
 
-/* الجوال */
 @media(max-width:768px){
 
 .wrap{
@@ -594,12 +585,7 @@ height:36px
 
 </header>
 
-
 <form id="form" novalidate>
-
-<!-- ============================= -->
-<!-- 1 نوع العقد -->
-<!-- ============================= -->
 
 <section id="step1" class="step active">
 
@@ -628,11 +614,6 @@ height:36px
 </div>
 
 </section>
-
-
-<!-- ============================= -->
-<!-- 2 المؤجر -->
-<!-- ============================= -->
 
 <section id="step2" class="step">
 
@@ -664,7 +645,6 @@ height:36px
 
 </div>
 
-
 <div id="lessorIndividualSec" class="dynamic-section">
 
 <div class="grid">
@@ -680,7 +660,6 @@ inputmode="numeric"
 placeholder="10xxxxxxxx">
 
 </div>
-
 
 <div class="field">
 
@@ -707,7 +686,6 @@ data-calendar-target="lessorDob">
 
 </div>
 
-
 <div class="field">
 
 <label>
@@ -724,7 +702,6 @@ placeholder="05xxxxxxxx">
 
 </div>
 
-
 <div id="lessorEntitySec" class="dynamic-section">
 
 <div class="grid">
@@ -740,7 +717,6 @@ inputmode="numeric"
 placeholder="70xxxxxxx">
 
 </div>
-
 
 <div class="field span-2">
 
@@ -760,7 +736,6 @@ placeholder="70xxxxxxx">
 
 </div>
 
-
 <div class="field span-2">
 
 <label>
@@ -772,7 +747,6 @@ inputmode="numeric"
 placeholder="10xxxxxxxx">
 
 </div>
-
 
 <div class="field">
 
@@ -799,7 +773,6 @@ data-calendar-target="lessorRepDob">
 
 </div>
 
-
 <div class="field">
 
 <label>
@@ -816,7 +789,6 @@ placeholder="05xxxxxxxx">
 
 </div>
 
-
 <div class="next-row">
 
 <button type="button"
@@ -830,11 +802,6 @@ id="lessorNext">
 </div>
 
 </section>
-
-
-<!-- ============================= -->
-<!-- 3 المستأجر -->
-<!-- ============================= -->
 
 <section id="step3" class="step">
 
@@ -866,7 +833,6 @@ id="lessorNext">
 
 </div>
 
-
 <div id="tenantIndividualSec" class="dynamic-section">
 
 <div class="grid">
@@ -882,7 +848,6 @@ inputmode="numeric"
 placeholder="10xxxxxxxx">
 
 </div>
-
 
 <div class="field">
 
@@ -909,7 +874,6 @@ data-calendar-target="tenantDob">
 
 </div>
 
-
 <div class="field">
 
 <label>
@@ -926,7 +890,6 @@ placeholder="05xxxxxxxx">
 
 </div>
 
-
 <div id="tenantEntitySec" class="dynamic-section">
 
 <div class="grid">
@@ -942,7 +905,6 @@ inputmode="numeric"
 placeholder="70xxxxxxx">
 
 </div>
-
 
 <div class="field span-2">
 
@@ -962,7 +924,6 @@ placeholder="70xxxxxxx">
 
 </div>
 
-
 <div class="field span-2">
 
 <label>
@@ -974,7 +935,6 @@ inputmode="numeric"
 placeholder="10xxxxxxxx">
 
 </div>
-
 
 <div class="field">
 
@@ -1001,7 +961,6 @@ data-calendar-target="tenantRepDob">
 
 </div>
 
-
 <div class="field">
 
 <label>
@@ -1018,7 +977,6 @@ placeholder="05xxxxxxxx">
 
 </div>
 
-
 <div class="next-row">
 
 <button type="button"
@@ -1032,11 +990,6 @@ id="tenantNext">
 </div>
 
 </section>
-
-
-<!-- ============================= -->
-<!-- 4 العقار -->
-<!-- ============================= -->
 
 <section id="step4" class="step">
 
@@ -1054,7 +1007,6 @@ id="tenantNext">
 placeholder="أدخل العنوان الوطني أو الصق رابط قوقل ماب">
 
 </div>
-
 
 <div class="field span-2">
 
@@ -1078,7 +1030,6 @@ placeholder="أدخل العنوان الوطني أو الصق رابط قوق�
 
 </div>
 
-
 <div class="field span-2">
 
 <label>
@@ -1098,7 +1049,6 @@ placeholder="أدخل العنوان الوطني أو الصق رابط قوق�
 
 </div>
 
-
 <div class="field">
 
 <label>
@@ -1111,7 +1061,6 @@ min="0"
 inputmode="numeric">
 
 </div>
-
 
 <div class="field">
 
@@ -1126,7 +1075,6 @@ inputmode="numeric">
 
 </div>
 
-
 <div class="field total-box">
 
 <label>
@@ -1140,7 +1088,6 @@ readonly>
 
 </div>
 
-
 <div class="field">
 
 <label>
@@ -1150,7 +1097,6 @@ readonly>
 <input name="unitName">
 
 </div>
-
 
 <div class="field">
 
@@ -1176,7 +1122,6 @@ readonly>
 
 </div>
 
-
 <div class="field">
 
 <label>
@@ -1186,7 +1131,6 @@ readonly>
 <input name="floor">
 
 </div>
-
 
 <div class="field">
 
@@ -1200,7 +1144,6 @@ inputmode="decimal">
 </div>
 
 </div>
-
 
 <div class="next-row">
 
@@ -1216,17 +1159,11 @@ id="propertyNext">
 
 </section>
 
-
-<!-- ============================= -->
-<!-- 5 العقد والمالية -->
-<!-- ============================= -->
-
 <section id="step5" class="step">
 
 <h2>5. تفاصيل العقد والمالية</h2>
 
 <div class="grid">
-
 
 <div class="field span-2">
 
@@ -1253,7 +1190,6 @@ data-calendar-target="startDate">
 
 </div>
 
-
 <div class="field span-2">
 
 <label>
@@ -1271,7 +1207,6 @@ id="duration">
 
 </div>
 
-
 <div class="field span-2">
 
 <label>
@@ -1286,7 +1221,6 @@ inputmode="numeric"
 placeholder="مثال: 25000">
 
 </div>
-
 
 <div class="field span-2">
 
@@ -1321,11 +1255,9 @@ id="paymentMethod">
 
 </div>
 
-
 <div id="durationInfo"
 class="field span-4 duration-info">
 </div>
-
 
 <div id="paymentTableBox"
 class="field span-4 payment-table-box">
@@ -1334,8 +1266,7 @@ class="field span-4 payment-table-box">
 جدول دفعات الإيجار
 </div>
 
-<div id="paymentLock"
-class="payment-lock">
+<div id="paymentLock" class="payment-lock">
 </div>
 
 <table class="payment-table">
@@ -1389,7 +1320,6 @@ class="payment-total">
 
 </div>
 
-
 <div class="field span-4">
 
 <label>
@@ -1402,7 +1332,6 @@ placeholder="اكتب هنا أي شروط أو ملاحظات إضافية تر
 </div>
 
 </div>
-
 
 <div class="button-row">
 
@@ -1429,18 +1358,12 @@ id="saveImageBtn">
 
 </section>
 
-
 <div id="error" class="error"></div>
 
 </form>
 
 </div>
 </div>
-
-
-<!-- ============================= -->
-<!-- التقويم -->
-<!-- ============================= -->
 
 <div id="calendarOverlay" class="calendar-overlay">
 
@@ -1472,7 +1395,6 @@ id="calendarClose">
 
 </div>
 
-
 <div class="calendar-selects">
 
 <select id="calDay"></select>
@@ -1482,7 +1404,6 @@ id="calendarClose">
 <select id="calYear"></select>
 
 </div>
-
 
 <div class="calendar-week">
 
@@ -1496,7 +1417,6 @@ id="calendarClose">
 
 </div>
 
-
 <div id="calendarDays"
 class="calendar-days">
 </div>
@@ -1505,86 +1425,48 @@ class="calendar-days">
 
 </div>
 
-
 <script>
-
-/* =========================================================
-   الإعدادات
-========================================================= */
 
 const receiver="966536305035";
 
 const form=document.getElementById("form");
-
 const errorBox=document.getElementById("error");
-
 const contractType=document.getElementById("contractType");
-
 const lessorCategory=document.getElementById("lessorCategory");
-
 const tenantCategory=document.getElementById("tenantCategory");
 
 const lessorIndividualSec=document.getElementById("lessorIndividualSec");
-
 const lessorEntitySec=document.getElementById("lessorEntitySec");
-
 const tenantIndividualSec=document.getElementById("tenantIndividualSec");
-
 const tenantEntitySec=document.getElementById("tenantEntitySec");
 
 const totalUnits=document.getElementById("totalUnits");
-
 const floors=document.querySelector('[name="floors"]');
-
 const unitsPerFloor=document.querySelector('[name="unitsPerFloor"]');
 
 const duration=document.getElementById("duration");
-
 const startDate=document.getElementById("startDate");
-
 const annualRent=document.getElementById("annualRent");
-
 const paymentMethod=document.getElementById("paymentMethod");
-
 const paymentTableBox=document.getElementById("paymentTableBox");
-
 const paymentTableBody=document.getElementById("paymentTableBody");
-
 const paymentTotal=document.getElementById("paymentTotal");
-
 const paymentLock=document.getElementById("paymentLock");
-
 const durationInfo=document.getElementById("durationInfo");
 
-
 const step2=document.getElementById("step2");
-
 const step3=document.getElementById("step3");
-
 const step4=document.getElementById("step4");
-
 const step5=document.getElementById("step5");
 
-
-/* =========================================================
-   حالة التواريخ
-========================================================= */
-
 const dateStates={};
-
 let activeCalendarTarget=null;
-
 let activeCalendarMode="hijri";
 
 let calendarView={
 year:0,
 month:0
 };
-
-
-/* =========================================================
-   أدوات التاريخ الميلادي
-========================================================= */
 
 function todayDate(){
 
@@ -1663,12 +1545,6 @@ return Math.round(
 
 }
 
-
-/* =========================================================
-   تحويل التاريخ الميلادي إلى هجري
-   باستخدام تقويم أم القرى عبر Intl
-========================================================= */
-
 const hijriFormatter=
 new Intl.DateTimeFormat(
 "en-US-u-ca-islamic-umalqura",
@@ -1703,11 +1579,6 @@ return result;
 
 }
 
-
-/* =========================================================
-   أسماء الأشهر الهجرية
-========================================================= */
-
 const hijriMonths=[
 "محرم",
 "صفر",
@@ -1723,20 +1594,7 @@ const hijriMonths=[
 "ذو الحجة"
 ];
 
-
-/* =========================================================
-   البحث عن التاريخ الميلادي المقابل للهجري
-========================================================= */
-
 function hijriToGregorian(y,m,d){
-
-const target=
-y+"-"+m+"-"+d;
-
-/*
-نقطة بداية تقريبية.
-السنة الهجرية أقصر من الميلادية بحوالي 11 يوم.
-*/
 
 let guess=
 new Date(
@@ -1783,11 +1641,6 @@ return null;
 
 }
 
-
-/* =========================================================
-   عرض التاريخ
-========================================================= */
-
 function formatGregorian(date){
 
 return new Intl.DateTimeFormat(
@@ -1832,7 +1685,6 @@ if(!input || !box)return;
 if(!input.value){
 
 box.textContent="اختر التاريخ";
-
 box.classList.add("placeholder");
 
 return;
@@ -1856,11 +1708,6 @@ box.classList.remove("placeholder");
 
 }
 
-
-/* =========================================================
-   إنشاء حالة التاريخ
-========================================================= */
-
 document
 .querySelectorAll("[data-calendar-target]")
 .forEach(btn=>{
@@ -1871,12 +1718,9 @@ dateStates[target]={
 mode:"hijri"
 };
 
+btn.textContent="تحويل إلى ميلادي";
+
 });
-
-
-/* =========================================================
-   فتح التقويم
-========================================================= */
 
 document
 .querySelectorAll("[data-date-target]")
@@ -1893,7 +1737,6 @@ this.dataset.dateTarget
 });
 
 });
-
 
 document
 .querySelectorAll(".calendar-switch")
@@ -1917,6 +1760,12 @@ state.mode==="hijri"
 
 dateStates[target]=state;
 
+/*
+اسم الزر يوضح التحويل القادم:
+هجري حالياً = تحويل إلى ميلادي
+ميلادي حالياً = تحويل إلى هجري
+*/
+
 this.textContent=
 state.mode==="hijri"
 ?"تحويل إلى ميلادي"
@@ -1927,7 +1776,6 @@ getDateDisplay(target);
 });
 
 });
-
 
 function openCalendar(target){
 
@@ -1971,11 +1819,6 @@ document
 
 }
 
-
-/* =========================================================
-   إغلاق التقويم
-========================================================= */
-
 document
 .getElementById("calendarClose")
 .addEventListener(
@@ -1987,7 +1830,6 @@ document
 .classList.remove("active");
 
 });
-
 
 document
 .getElementById("calendarOverlay")
@@ -2002,11 +1844,6 @@ this.classList.remove("active");
 }
 
 });
-
-
-/* =========================================================
-   أيام الشهر الهجري
-========================================================= */
 
 function hijriMonthDays(y,m){
 
@@ -2032,11 +1869,6 @@ return daysBetween(first,next);
 
 }
 
-
-/* =========================================================
-   إنشاء التقويم
-========================================================= */
-
 function renderCalendar(){
 
 const title=
@@ -2054,24 +1886,20 @@ document.getElementById("calMonth");
 const yearSelect=
 document.getElementById("calYear");
 
-
 days.innerHTML="";
 daySelect.innerHTML="";
 monthSelect.innerHTML="";
 yearSelect.innerHTML="";
 
-
 if(activeCalendarMode==="hijri"){
 
-title.textContent=
-"التاريخ الهجري";
+title.textContent="التاريخ الهجري";
 
 for(let i=1;i<=12;i++){
 
 const opt=document.createElement("option");
 
 opt.value=i;
-
 opt.textContent=hijriMonths[i-1];
 
 if(i===calendarView.month)
@@ -2086,7 +1914,6 @@ for(let y=1440;y<=1500;y++){
 const opt=document.createElement("option");
 
 opt.value=y;
-
 opt.textContent=y;
 
 if(y===calendarView.year)
@@ -2107,7 +1934,6 @@ for(let i=1;i<=total;i++){
 const opt=document.createElement("option");
 
 opt.value=i;
-
 opt.textContent=i;
 
 daySelect.appendChild(opt);
@@ -2116,8 +1942,7 @@ daySelect.appendChild(opt);
 
 }else{
 
-title.textContent=
-"التاريخ الميلادي";
+title.textContent="التاريخ الميلادي";
 
 for(let i=1;i<=12;i++){
 
@@ -2147,7 +1972,6 @@ for(let y=1950;y<=2100;y++){
 const opt=document.createElement("option");
 
 opt.value=y;
-
 opt.textContent=y;
 
 if(y===calendarView.year)
@@ -2169,7 +1993,6 @@ for(let i=1;i<=total;i++){
 const opt=document.createElement("option");
 
 opt.value=i;
-
 opt.textContent=i;
 
 daySelect.appendChild(opt);
@@ -2177,9 +2000,6 @@ daySelect.appendChild(opt);
 }
 
 }
-
-
-/* عرض أيام الشهر */
 
 let firstGregorian;
 
@@ -2211,15 +2031,11 @@ for(let i=0;i<startDay;i++){
 const empty=
 document.createElement("div");
 
-empty.className=
-"calendar-day empty";
+empty.className="calendar-day empty";
 
 days.appendChild(empty);
 
 }
-
-
-/* اليوم المحدد */
 
 const input=
 document.querySelector(
@@ -2230,9 +2046,6 @@ const selected=
 input.value
 ?parseDate(input.value)
 :null;
-
-
-/* إنشاء الأيام */
 
 let total;
 
@@ -2281,9 +2094,7 @@ const btn=
 document.createElement("button");
 
 btn.type="button";
-
 btn.className="calendar-day";
-
 btn.textContent=day;
 
 if(
@@ -2315,15 +2126,7 @@ days.appendChild(btn);
 
 }
 
-
-/* مزامنة select اليوم */
-
 }
-
-
-/* =========================================================
-   اختيار التاريخ
-========================================================= */
 
 function selectCalendarDate(date){
 
@@ -2342,11 +2145,6 @@ document
 .getElementById("calendarOverlay")
 .classList.remove("active");
 
-
-/*
-تحديث الجداول والشروط
-*/
-
 if(activeCalendarTarget==="startDate"){
 
 updateDurationInfo();
@@ -2355,11 +2153,6 @@ updatePaymentTable();
 }
 
 }
-
-
-/* =========================================================
-   تغيير الشهر والسنة من القوائم
-========================================================= */
 
 document
 .getElementById("calMonth")
@@ -2374,7 +2167,6 @@ renderCalendar();
 
 });
 
-
 document
 .getElementById("calYear")
 .addEventListener(
@@ -2388,19 +2180,12 @@ renderCalendar();
 
 });
 
-
-/* =========================================================
-   السابق / التالي
-========================================================= */
-
 document
 .getElementById("calPrev")
 .addEventListener(
 "click",
 function(){
 
-if(activeCalendarMode==="hijri"){
-
 calendarView.month--;
 
 if(calendarView.month<1){
@@ -2409,24 +2194,18 @@ calendarView.month=12;
 calendarView.year--;
 
 }
+
+if(activePaymentIndex!==null){
+
+renderPaymentCalendar();
 
 }else{
 
-calendarView.month--;
-
-if(calendarView.month<1){
-
-calendarView.month=12;
-calendarView.year--;
-
-}
-
-}
-
 renderCalendar();
 
-});
+}
 
+});
 
 document
 .getElementById("calNext")
@@ -2436,34 +2215,24 @@ function(){
 
 calendarView.month++;
 
-if(activeCalendarMode==="hijri"){
-
 if(calendarView.month>12){
 
 calendarView.month=1;
 calendarView.year++;
 
 }
+
+if(activePaymentIndex!==null){
+
+renderPaymentCalendar();
 
 }else{
 
-if(calendarView.month>12){
-
-calendarView.month=1;
-calendarView.year++;
-
-}
-
-}
-
 renderCalendar();
 
+}
+
 });
-
-
-/* =========================================================
-   نوع العقد
-========================================================= */
 
 contractType.addEventListener(
 "change",
@@ -2485,11 +2254,6 @@ step5.classList.remove("active");
 }
 
 });
-
-
-/* =========================================================
-   المؤجر
-========================================================= */
 
 lessorCategory.addEventListener(
 "change",
@@ -2532,11 +2296,6 @@ true
 
 });
 
-
-/* =========================================================
-   المستأجر
-========================================================= */
-
 tenantCategory.addEventListener(
 "change",
 function(){
@@ -2578,11 +2337,6 @@ true
 
 });
 
-
-/* =========================================================
-   Required
-========================================================= */
-
 function setRequired(container,required){
 
 container
@@ -2591,10 +2345,7 @@ container
 
 if(required){
 
-el.setAttribute(
-"required",
-"required"
-);
+el.setAttribute("required","required");
 
 }else{
 
@@ -2605,11 +2356,6 @@ el.removeAttribute("required");
 });
 
 }
-
-
-/* =========================================================
-   عرض الخطأ
-========================================================= */
 
 function showError(message){
 
@@ -2623,11 +2369,6 @@ block:"center"
 });
 
 }
-
-
-/* =========================================================
-   التحقق
-========================================================= */
 
 function validateSection(section){
 
@@ -2659,11 +2400,6 @@ return true;
 
 }
 
-
-/* =========================================================
-   السجل التجاري
-========================================================= */
-
 function validateCR(name,message){
 
 const field=
@@ -2686,11 +2422,6 @@ return false;
 return true;
 
 }
-
-
-/* =========================================================
-   انتقال المؤجر
-========================================================= */
 
 document
 .getElementById("lessorNext")
@@ -2733,11 +2464,6 @@ block:"start"
 
 });
 
-
-/* =========================================================
-   انتقال المستأجر
-========================================================= */
-
 document
 .getElementById("tenantNext")
 .addEventListener(
@@ -2779,11 +2505,6 @@ block:"start"
 
 });
 
-
-/* =========================================================
-   إجمالي الوحدات
-========================================================= */
-
 function updateTotal(){
 
 const a=
@@ -2815,11 +2536,6 @@ unitsPerFloor.addEventListener(
 updateTotal
 );
 
-
-/* =========================================================
-   انتقال العقار
-========================================================= */
-
 document
 .getElementById("propertyNext")
 .addEventListener(
@@ -2840,11 +2556,6 @@ block:"start"
 
 });
 
-
-/* =========================================================
-   مدد العقد
-========================================================= */
-
 function generateDurations(){
 
 duration.innerHTML="";
@@ -2853,21 +2564,14 @@ let option=
 document.createElement("option");
 
 option.value="";
-option.textContent=
-"اختر مدة العقد";
+option.textContent="اختر مدة العقد";
 
 duration.appendChild(option);
-
-
-/* سنة أولاً */
 
 addDuration(
 "سنة واحدة (12 شهر)",
 12
 );
-
-
-/* الأشهر */
 
 for(let m=1;m<=11;m++){
 
@@ -2878,8 +2582,7 @@ m===1
 m
 );
 
-
-/* سنتين إلى 50 سنة */
+}
 
 for(let y=2;y<=50;y++){
 
@@ -2898,7 +2601,6 @@ const option=
 document.createElement("option");
 
 option.value=months;
-
 option.textContent=text;
 
 duration.appendChild(option);
@@ -2906,11 +2608,6 @@ duration.appendChild(option);
 }
 
 generateDurations();
-
-
-/* =========================================================
-   شرط 90 يوم
-========================================================= */
 
 function validate90DayRule(){
 
@@ -2935,15 +2632,8 @@ todayDate();
 if(!start)
 return true;
 
-
-/*
-إذا البداية اليوم أو مستقبلية
-لا نطبق شرط الـ90 يوم
-*/
-
 if(start>=today)
 return true;
-
 
 const end=
 addMonths(
@@ -2970,11 +2660,6 @@ return false;
 return true;
 
 }
-
-
-/* =========================================================
-   معلومات شرط 90 يوم
-========================================================= */
 
 function updateDurationInfo(){
 
@@ -3024,14 +2709,6 @@ durationInfo.classList.add("active");
 
 }
 
-
-/* =========================================================
-   هل جدول الدفعات قابل للتعديل؟
-   
-   اليوم أو أمس = قابل
-   قبل اليوم بيومين أو أكثر = مقفل
-========================================================= */
-
 function paymentDatesLocked(){
 
 if(!startDate.value)
@@ -3050,13 +2727,7 @@ return difference>=2;
 
 }
 
-
-/* =========================================================
-   جدول الدفعات
-========================================================= */
-
 let paymentDates=[];
-
 
 function getPaymentSettings(){
 
@@ -3103,15 +2774,11 @@ return null;
 
 }
 
-
 function updatePaymentTable(){
 
 paymentTableBody.innerHTML="";
-
 paymentTableBox.classList.remove("active");
-
 paymentLock.classList.remove("active");
-
 paymentDates=[];
 
 const rent=
@@ -3128,7 +2795,6 @@ rent<0 ||
 )
 return;
 
-
 const start=
 parseDate(startDate.value);
 
@@ -3138,7 +2804,6 @@ rent/settings.count;
 const locked=
 paymentDatesLocked();
 
-
 if(locked){
 
 paymentLock.textContent=
@@ -3147,11 +2812,6 @@ paymentLock.textContent=
 paymentLock.classList.add("active");
 
 }
-
-
-/*
-ننشئ التواريخ الافتراضية
-*/
 
 for(
 let i=0;
@@ -3166,14 +2826,7 @@ i*settings.months
 )
 );
 
-
-/*
-إذا كانت الدفعات موجودة مسبقًا
-نحافظ على التعديل الذي أدخله العميل
-*/
-
 }
-
 
 renderPaymentRows(
 amount,
@@ -3183,7 +2836,6 @@ locked
 paymentTableBox.classList.add("active");
 
 }
-
 
 function renderPaymentRows(amount,locked){
 
@@ -3195,13 +2847,11 @@ paymentDates.forEach(
 const row=
 document.createElement("tr");
 
-
 const num=
 document.createElement("td");
 
 num.textContent=
 index+1;
-
 
 const dateCell=
 document.createElement("td");
@@ -3218,7 +2868,6 @@ button.className=
 button.textContent=
 formatPaymentDate(date);
 
-
 if(!locked){
 
 button.addEventListener(
@@ -3233,13 +2882,11 @@ openPaymentCalendar(index);
 
 dateCell.appendChild(button);
 
-
 const amountCell=
 document.createElement("td");
 
 amountCell.textContent=
 formatMoney(amount)+" ريال";
-
 
 row.appendChild(num);
 row.appendChild(dateCell);
@@ -3251,23 +2898,12 @@ paymentTableBody.appendChild(row);
 
 }
 
-
-/* =========================================================
-   تاريخ الدفعات المعروض حسب وضع الجدول
-========================================================= */
-
 function paymentCalendarMode(){
-
-/*
-نستخدم وضع تاريخ بداية العقد
-حتى يكون الجدول كله بنفس التقويم.
-*/
 
 return dateStates.startDate?.mode||
 "hijri";
 
 }
-
 
 function formatPaymentDate(date){
 
@@ -3276,11 +2912,6 @@ return paymentCalendarMode()==="hijri"
 :formatGregorian(date);
 
 }
-
-
-/* =========================================================
-   تقويم دفعات مستقل
-========================================================= */
 
 let activePaymentIndex=null;
 
@@ -3314,11 +2945,8 @@ calendarView.month=h.month;
 
 }else{
 
-calendarView.year=
-d.getFullYear();
-
-calendarView.month=
-d.getMonth()+1;
+calendarView.year=d.getFullYear();
+calendarView.month=d.getMonth()+1;
 
 }
 
@@ -3329,11 +2957,6 @@ document
 .classList.add("active");
 
 }
-
-
-/* =========================================================
-   تقويم الدفعات
-========================================================= */
 
 function renderPaymentCalendar(){
 
@@ -3349,11 +2972,9 @@ document.getElementById("calMonth");
 const yearSelect=
 document.getElementById("calYear");
 
-
 days.innerHTML="";
 monthSelect.innerHTML="";
 yearSelect.innerHTML="";
-
 
 if(activeCalendarMode==="hijri"){
 
@@ -3434,7 +3055,6 @@ yearSelect.appendChild(opt);
 
 }
 
-
 let first;
 
 if(activeCalendarMode==="hijri"){
@@ -3457,7 +3077,6 @@ calendarView.month-1,
 
 }
 
-
 const startDay=
 first.getDay();
 
@@ -3466,13 +3085,11 @@ for(let i=0;i<startDay;i++){
 const empty=
 document.createElement("div");
 
-empty.className=
-"calendar-day empty";
+empty.className="calendar-day empty";
 
 days.appendChild(empty);
 
 }
-
 
 let total;
 
@@ -3495,10 +3112,8 @@ calendarView.month,
 
 }
 
-
 const selected=
 paymentDates[activePaymentIndex];
-
 
 for(let day=1;day<=total;day++){
 
@@ -3524,16 +3139,12 @@ day
 
 }
 
-
 const btn=
 document.createElement("button");
 
 btn.type="button";
-
 btn.className="calendar-day";
-
 btn.textContent=day;
-
 
 if(
 selected &&
@@ -3545,7 +3156,6 @@ btn.classList.add("selected");
 
 }
 
-
 if(
 dateKey(g)===
 dateKey(todayDate())
@@ -3554,7 +3164,6 @@ dateKey(todayDate())
 btn.classList.add("today");
 
 }
-
 
 btn.addEventListener(
 "click",
@@ -3568,6 +3177,8 @@ document
 .getElementById("calendarOverlay")
 .classList.remove("active");
 
+activePaymentIndex=null;
+
 const rent=
 parseFloat(
 annualRent.value
@@ -3576,10 +3187,14 @@ annualRent.value
 const settings=
 getPaymentSettings();
 
+if(settings){
+
 renderPaymentRows(
 rent/settings.count,
 false
 );
+
+}
 
 });
 
@@ -3589,113 +3204,14 @@ days.appendChild(btn);
 
 }
 
-
-/* =========================================================
-   تنقل تقويم الدفعات
-========================================================= */
-
-document
-.getElementById("calPrev")
-.addEventListener(
-"click",
-function(){
-
-if(activePaymentIndex!==null){
-
-calendarView.month--;
-
-if(calendarView.month<1){
-
-calendarView.month=12;
-calendarView.year--;
-
-}
-
-renderPaymentCalendar();
-
-}
-
-});
-
-
-document
-.getElementById("calNext")
-.addEventListener(
-"click",
-function(){
-
-if(activePaymentIndex!==null){
-
-calendarView.month++;
-
-if(calendarView.month>12){
-
-calendarView.month=1;
-calendarView.year++;
-
-}
-
-renderPaymentCalendar();
-
-}
-
-});
-
-
-document
-.getElementById("calMonth")
-.addEventListener(
-"change",
-function(){
-
-calendarView.month=
-Number(this.value);
-
-if(activePaymentIndex!==null){
-
-renderPaymentCalendar();
-
-}
-
-});
-
-
-document
-.getElementById("calYear")
-.addEventListener(
-"change",
-function(){
-
-calendarView.year=
-Number(this.value);
-
-if(activePaymentIndex!==null){
-
-renderPaymentCalendar();
-
-}
-
-});
-
-
-/* =========================================================
-   مدة العقد
-========================================================= */
-
 duration.addEventListener(
 "change",
 function(){
 
 updateDurationInfo();
-
 updatePaymentTable();
 
 });
-
-
-/* =========================================================
-   تاريخ البداية
-========================================================= */
 
 document.addEventListener(
 "change",
@@ -3704,17 +3220,11 @@ function(e){
 if(e.target===startDate){
 
 updateDurationInfo();
-
 updatePaymentTable();
 
 }
 
 });
-
-
-/* =========================================================
-   الإيجار وطريقة الدفع
-========================================================= */
 
 annualRent.addEventListener(
 "input",
@@ -3726,11 +3236,6 @@ paymentMethod.addEventListener(
 updatePaymentTable
 );
 
-
-/* =========================================================
-   تنسيق المبالغ
-========================================================= */
-
 function formatMoney(number){
 
 return new Intl.NumberFormat(
@@ -3741,11 +3246,6 @@ maximumFractionDigits:2
 ).format(number);
 
 }
-
-
-/* =========================================================
-   جدول الدفعات لرسالة واتساب
-========================================================= */
 
 function getPaymentSummary(){
 
@@ -3782,11 +3282,6 @@ return result.trim();
 
 }
 
-
-/* =========================================================
-   التحقق النهائي
-========================================================= */
-
 function validateFinal(){
 
 if(!validateSection(step5))
@@ -3799,11 +3294,6 @@ return true;
 
 }
 
-
-/* =========================================================
-   رسالة واتساب
-========================================================= */
-
 function getMessage(){
 
 const d=
@@ -3814,15 +3304,11 @@ k=>
 (d.get(k)||"").trim()||
 "غير متوفر";
 
-
 let msg=
 `*طلب عقد إيجار جديد*\n`;
 
 msg+=
 `📌 *نوع العقد:* ${v("contractType")}\n\n`;
-
-
-/* المؤجر */
 
 msg+=
 `👤 *بيانات المؤجر (${v("lessorCategory")}):*\n`;
@@ -3857,9 +3343,6 @@ msg+=
 
 }
 
-
-/* المستأجر */
-
 msg+=
 `\n🏢 *بيانات المستأجر (${v("tenantCategory")}):*\n`;
 
@@ -3892,9 +3375,6 @@ msg+=
 `- جوال الممثل: ${v("tenantRepPhone")}\n`;
 
 }
-
-
-/* العقار */
 
 msg+=
 `\n🏠 *بيانات العقار والوحدة:*\n`;
@@ -3929,9 +3409,6 @@ msg+=
 msg+=
 `- المساحة: ${v("area")}\n`;
 
-
-/* العقد */
-
 msg+=
 `\n💰 *تفاصيل العقد والمالية:*\n`;
 
@@ -3947,17 +3424,11 @@ msg+=
 msg+=
 `- طريقة دفع الإيجار: ${v("paymentMethod")}\n`;
 
-
-/* الدفعات */
-
 msg+=
 `\n📊 *جدول الدفعات:*\n`;
 
 msg+=
 getPaymentSummary();
-
-
-/* الملاحظات */
 
 const notes=
 v("notes");
@@ -3971,15 +3442,9 @@ msg+=notes;
 
 }
 
-
 return msg;
 
 }
-
-
-/* =========================================================
-   إرسال واتساب
-========================================================= */
 
 form.addEventListener(
 "submit",
@@ -3991,7 +3456,6 @@ errorBox.style.display="none";
 
 if(!validateFinal())
 return;
-
 
 const url=
 "https://wa.me/"+
@@ -4007,11 +3471,6 @@ window.location.href=url
 );
 
 });
-
-
-/* =========================================================
-   حفظ الصورة
-========================================================= */
 
 document
 .getElementById("saveImageBtn")
@@ -4033,11 +3492,6 @@ errorBox.style.display="none";
 );
 
 });
-
-
-/* =========================================================
-   إخفاء التنبيه عند تغيير أي قيمة
-========================================================= */
 
 form.addEventListener(
 "input",
@@ -4064,3 +3518,6 @@ errorBox.style.display="none";
 });
 
 </script>
+
+</body>
+</html>
