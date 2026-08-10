@@ -85,10 +85,19 @@ color:#087443;
 font-weight:800
 }
 
+/* الأقسام المتسلسلة */
+.step-section{
+display:none
+}
+
+.step-section.active{
+display:block
+}
+
 .grid{
 display:grid;
 grid-template-columns:repeat(4,minmax(0,1fr));
-gap:4px 6px;
+gap:5px 6px;
 align-items:start
 }
 
@@ -109,7 +118,7 @@ label{
 display:block;
 font-size:10px;
 font-weight:700;
-margin:1px 0;
+margin:1px 0 2px;
 line-height:1.2
 }
 
@@ -119,15 +128,17 @@ font-weight:bold
 }
 
 input,select{
+display:block;
 width:100%;
 height:28px;
-padding:0 6px;
+padding:0 7px;
 border:1px solid #d5dce0;
 border-radius:6px;
 background:#fff;
 color:#222;
 font-size:10.5px;
-min-width:0
+min-width:0;
+max-width:100%
 }
 
 input:focus,select:focus{
@@ -135,14 +146,14 @@ outline:2px solid #d8eee2;
 border-color:#16804f
 }
 
-/* الأقسام التفاعلية */
+/* الأقسام الداخلية */
 .dynamic-section{
 display:none;
 background:#fafcfb;
 border:1px solid #e2ece7;
 padding:6px;
 border-radius:8px;
-margin-top:4px
+margin-top:5px
 }
 
 .dynamic-section.active{
@@ -150,7 +161,6 @@ display:block
 }
 
 /* إجمالي الوحدات */
-
 .total-box{
 grid-column:1/-1;
 padding:4px 7px;
@@ -178,6 +188,16 @@ text-align:center;
 background:#fff
 }
 
+/* أزرار الانتقال */
+.next-row{
+margin-top:8px
+}
+
+.next-btn{
+background:#087443
+}
+
+/* أزرار النهاية */
 .button-row{
 display:grid;
 grid-template-columns:1fr 1fr;
@@ -220,15 +240,28 @@ display:none;
 background:#fff1f2;
 color:#9f1239;
 border:1px solid #fecdd3;
-padding:5px;
+padding:6px;
 border-radius:6px;
-margin-top:4px;
+margin-top:5px;
 font-size:10px;
 font-weight:700;
 text-align:center
 }
 
-/* التجاوب مع الجوال */
+.success{
+display:none;
+background:#f0fdf4;
+color:#166534;
+border:1px solid #bbf7d0;
+padding:6px;
+border-radius:6px;
+margin-top:5px;
+font-size:10px;
+font-weight:700;
+text-align:center
+}
+
+/* الجوال */
 @media(max-width:768px){
 
 .wrap{
@@ -244,20 +277,50 @@ border-radius:12px
 
 .grid{
 grid-template-columns:repeat(2,minmax(0,1fr));
-gap:3px 4px
+gap:4px 5px
 }
 
-.span-2, .span-4{
+.span-2,
+.span-4{
 grid-column:span 2
 }
 
 label{
-font-size:9px
+font-size:9px;
+margin-bottom:2px
+}
+
+input,select{
+height:27px;
+font-size:9.5px;
+padding:0 6px
+}
+
+.dynamic-section{
+padding:5px
+}
+
+button{
+height:34px;
+font-size:11px
+}
+
+}
+
+/* شاشات صغيرة جدًا */
+@media(max-width:380px){
+
+.grid{
+gap:3px 4px
 }
 
 input,select{
 height:26px;
-font-size:9.5px
+font-size:9px
+}
+
+label{
+font-size:8.5px
 }
 
 }
@@ -271,168 +334,491 @@ font-size:9.5px
 
 <header class="header">
 <h1 class="title">مكتب عقود إيجار</h1>
-<a class="phone" href="tel:0536305035">0536305035</a>
-<p class="intro">بيانات العقد المطلوبة لإعداد عقد إيجار موثق</p>
+
+<a class="phone" href="tel:0536305035">
+0536305035
+</a>
+
+<p class="intro">
+بيانات العقد المطلوبة لإعداد عقد إيجار موثق
+</p>
+
 <div class="info-note">
 البيانات المطلوبة مطابقة لمنصة إيجار الإلكترونية الرسمية.
 </div>
 </header>
 
+
 <form id="form" novalidate>
 
-<!-- 1. نوع العقد -->
+<!-- ===================================================== -->
+<!-- الخطوة 1: نوع العقد -->
+<!-- ===================================================== -->
+
+<section id="stepContract" class="step-section active">
+
 <h2>1. نوع العقد المطلوب</h2>
+
 <div class="grid">
+
 <div class="field span-4">
-<label>نوع العقد <span class="req">*</span></label>
+
+<label>
+نوع العقد <span class="req">*</span>
+</label>
+
 <select id="contractType" name="contractType" required>
-<option value="">اختر نوع العقد</option>
-<option value="سكني">عقد سكني</option>
-<option value="تجاري">عقد تجاري</option>
+
+<option value="">
+اختر نوع العقد
+</option>
+
+<option value="سكني">
+عقد سكني
+</option>
+
+<option value="تجاري">
+عقد تجاري
+</option>
+
+<option value="زراعي">
+عقد زراعي
+</option>
+
 </select>
-</div>
+
 </div>
 
+</div>
 
-<!-- 2. بيانات المؤجر -->
+</section>
+
+
+<!-- ===================================================== -->
+<!-- الخطوة 2: المؤجر -->
+<!-- ===================================================== -->
+
+<section id="stepLessor" class="step-section">
+
 <h2>2. بيانات المؤجر (صاحب العقار)</h2>
+
 <div class="grid">
+
 <div class="field span-4">
-<label>صفة المؤجر <span class="req">*</span></label>
-<select id="lessorCategory" name="lessorCategory" required>
-<option value="">اختر الصفة</option>
-<option value="فرد">فرد (أفراد / بالهوية)</option>
-<option value="منشأة">شركة أو مؤسسة (سجل تجاري)</option>
+
+<label>
+صفة المؤجر <span class="req">*</span>
+</label>
+
+<select id="lessorCategory" name="lessorCategory">
+
+<option value="">
+اختر الصفة
+</option>
+
+<option value="فرد">
+فرد (أفراد / بالهوية)
+</option>
+
+<option value="منشأة">
+شركة أو مؤسسة (سجل تجاري)
+</option>
+
 </select>
-</div>
+
 </div>
 
-<!-- تفاصيل المؤجر: فرد -->
+</div>
+
+
+<!-- مؤجر فرد -->
+
 <div id="lessorIndividualSec" class="dynamic-section">
+
 <div class="grid">
+
 <div class="field span-2">
-<label>رقم هويّة / إقامة المؤجر <span class="req">*</span></label>
-<input name="lessorId" placeholder="10xxxxxxxx">
-</div>
-<div class="field">
-<label>تاريخ الميلاد <span class="req">*</span></label>
-<input name="lessorDob" type="date">
-</div>
-<div class="field">
-<label>رقم الجوال <span class="req">*</span></label>
-<input name="lessorPhone" inputmode="tel" placeholder="05xxxxxxxx">
-</div>
-</div>
+
+<label>
+رقم هويّة / إقامة المؤجر <span class="req">*</span>
+</label>
+
+<input
+name="lessorId"
+inputmode="numeric"
+placeholder="10xxxxxxxx">
 </div>
 
-<!-- تفاصيل المؤجر: شركة / مؤسسة -->
+
+<div class="field">
+
+<label>
+تاريخ الميلاد <span class="req">*</span>
+</label>
+
+<input
+name="lessorDob"
+type="date">
+</div>
+
+
+<div class="field">
+
+<label>
+رقم الجوال <span class="req">*</span>
+</label>
+
+<input
+name="lessorPhone"
+inputmode="tel"
+placeholder="05xxxxxxxx">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- مؤجر منشأة -->
+
 <div id="lessorEntitySec" class="dynamic-section">
+
 <div class="grid">
+
 <div class="field span-2">
-<label>رقم السجل التجاري (يبدأ بـ 7) <span class="req">*</span></label>
-<input name="lessorCr" inputmode="numeric" placeholder="70xxxxxxx">
+
+<label>
+رقم السجل التجاري (يبدأ بـ 7) <span class="req">*</span>
+</label>
+
+<input
+name="lessorCr"
+inputmode="numeric"
+placeholder="70xxxxxxx">
+
 </div>
+
+
 <div class="field span-2">
-<label>صفة الممثل <span class="req">*</span></label>
+
+<label>
+صفة الممثل <span class="req">*</span>
+</label>
+
 <select name="lessorRepRole">
-<option value="">اختر الصفة</option>
-<option>مالك السجل</option>
-<option>مدير السجل</option>
-<option>وكيل شرعي</option>
+
+<option value="">
+اختر الصفة
+</option>
+
+<option>
+مالك السجل
+</option>
+
+<option>
+مدير السجل
+</option>
+
+<option>
+وكيل شرعي
+</option>
+
 </select>
+
 </div>
+
+
 <div class="field span-2">
-<label>رقم هوية الممثل / الوكيل <span class="req">*</span></label>
-<input name="lessorRepId" placeholder="10xxxxxxxx">
-</div>
-<div class="field">
-<label>تاريخ ميلاد الممثل <span class="req">*</span></label>
-<input name="lessorRepDob" type="date">
-</div>
-<div class="field">
-<label>جوال الممثل <span class="req">*</span></label>
-<input name="lessorRepPhone" inputmode="tel" placeholder="05xxxxxxxx">
-</div>
-</div>
+
+<label>
+رقم هوية الممثل / الوكيل <span class="req">*</span>
+</label>
+
+<input
+name="lessorRepId"
+inputmode="numeric"
+placeholder="10xxxxxxxx">
+
 </div>
 
 
-<!-- 3. بيانات المستأجر -->
+<div class="field">
+
+<label>
+تاريخ ميلاد الممثل <span class="req">*</span>
+</label>
+
+<input
+name="lessorRepDob"
+type="date">
+
+</div>
+
+
+<div class="field">
+
+<label>
+جوال الممثل <span class="req">*</span>
+</label>
+
+<input
+name="lessorRepPhone"
+inputmode="tel"
+placeholder="05xxxxxxxx">
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="next-row">
+
+<button
+type="button"
+class="next-btn"
+id="lessorNext">
+التالي: بيانات المستأجر
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- الخطوة 3: المستأجر -->
+<!-- ===================================================== -->
+
+<section id="stepTenant" class="step-section">
+
 <h2>3. بيانات المستأجر</h2>
+
 <div class="grid">
+
 <div class="field span-4">
-<label>صفة المستأجر <span class="req">*</span></label>
-<select id="tenantCategory" name="tenantCategory" required>
-<option value="">اختر الصفة</option>
-<option value="فرد">فرد (بالهوية)</option>
-<option value="منشأة">شركة أو مؤسسة (سجل تجاري)</option>
+
+<label>
+صفة المستأجر <span class="req">*</span>
+</label>
+
+<select id="tenantCategory" name="tenantCategory">
+
+<option value="">
+اختر الصفة
+</option>
+
+<option value="فرد">
+فرد (بالهوية)
+</option>
+
+<option value="منشأة">
+شركة أو مؤسسة (سجل تجاري)
+</option>
+
 </select>
-</div>
+
 </div>
 
-<!-- تفاصيل المستأجر: فرد -->
+</div>
+
+
+<!-- مستأجر فرد -->
+
 <div id="tenantIndividualSec" class="dynamic-section">
+
 <div class="grid">
+
 <div class="field span-2">
-<label>رقم هويّة / إقامة المستأجر <span class="req">*</span></label>
-<input name="tenantId" placeholder="10xxxxxxxx">
-</div>
-<div class="field">
-<label>تاريخ الميلاد <span class="req">*</span></label>
-<input name="tenantDob" type="date">
-</div>
-<div class="field">
-<label>رقم الجوال <span class="req">*</span></label>
-<input name="tenantPhone" inputmode="tel" placeholder="05xxxxxxxx">
-</div>
-</div>
+
+<label>
+رقم هويّة / إقامة المستأجر <span class="req">*</span>
+</label>
+
+<input
+name="tenantId"
+inputmode="numeric"
+placeholder="10xxxxxxxx">
+
 </div>
 
-<!-- تفاصيل المستأجر: شركة / مؤسسة -->
+
+<div class="field">
+
+<label>
+تاريخ الميلاد <span class="req">*</span>
+</label>
+
+<input
+name="tenantDob"
+type="date">
+
+</div>
+
+
+<div class="field">
+
+<label>
+رقم الجوال <span class="req">*</span>
+</label>
+
+<input
+name="tenantPhone"
+inputmode="tel"
+placeholder="05xxxxxxxx">
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- مستأجر منشأة -->
+
 <div id="tenantEntitySec" class="dynamic-section">
+
 <div class="grid">
+
 <div class="field span-2">
-<label>رقم السجل التجاري (يبدأ بـ 7) <span class="req">*</span></label>
-<input name="tenantCr" inputmode="numeric" placeholder="70xxxxxxx">
+
+<label>
+رقم السجل التجاري (يبدأ بـ 7) <span class="req">*</span>
+</label>
+
+<input
+name="tenantCr"
+inputmode="numeric"
+placeholder="70xxxxxxx">
+
 </div>
+
+
 <div class="field span-2">
-<label>صفة الممثل <span class="req">*</span></label>
+
+<label>
+صفة الممثل <span class="req">*</span>
+</label>
+
 <select name="tenantRepRole">
-<option value="">اختر الصفة</option>
-<option>صاحب السجل / مالك</option>
-<option>مدير السجل</option>
-<option>وكيل شرعي</option>
+
+<option value="">
+اختر الصفة
+</option>
+
+<option>
+صاحب السجل / مالك
+</option>
+
+<option>
+مدير السجل
+</option>
+
+<option>
+وكيل شرعي
+</option>
+
 </select>
+
 </div>
+
+
 <div class="field span-2">
-<label>رقم هوية الممثل / الوكيل <span class="req">*</span></label>
-<input name="tenantRepId" placeholder="10xxxxxxxx">
-</div>
-<div class="field">
-<label>تاريخ ميلاد الممثل <span class="req">*</span></label>
-<input name="tenantRepDob" type="date">
-</div>
-<div class="field">
-<label>جوال الممثل <span class="req">*</span></label>
-<input name="tenantRepPhone" inputmode="tel" placeholder="05xxxxxxxx">
-</div>
-</div>
+
+<label>
+رقم هوية الممثل / الوكيل <span class="req">*</span>
+</label>
+
+<input
+name="tenantRepId"
+inputmode="numeric"
+placeholder="10xxxxxxxx">
+
 </div>
 
 
-<!-- 4. بيانات العقار والوحدة -->
+<div class="field">
+
+<label>
+تاريخ ميلاد الممثل <span class="req">*</span>
+</label>
+
+<input
+name="tenantRepDob"
+type="date">
+
+</div>
+
+
+<div class="field">
+
+<label>
+جوال الممثل <span class="req">*</span>
+</label>
+
+<input
+name="tenantRepPhone"
+inputmode="tel"
+placeholder="05xxxxxxxx">
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="next-row">
+
+<button
+type="button"
+class="next-btn"
+id="tenantNext">
+التالي: بيانات العقار والوحدة
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- الخطوة 4: العقار والوحدة -->
+<!-- ===================================================== -->
+
+<section id="stepProperty" class="step-section">
+
 <h2>4. بيانات العقار والوحدة</h2>
+
 <div class="grid">
+
 
 <div class="field span-4">
-<label>العنوان الوطني أو موقع العقار على الخريطة <span class="req">*</span></label>
-<input name="propertyAddress" placeholder="أدخل العنوان الوطني أو الصق رابط قوقل ماب" required>
+
+<label>
+العنوان الوطني أو موقع العقار على الخريطة <span class="req">*</span>
+</label>
+
+<input
+name="propertyAddress"
+placeholder="أدخل العنوان الوطني أو الصق رابط قوقل ماب">
+
 </div>
 
+
 <div class="field span-2">
-<label>نوع العقار <span class="req">*</span></label>
-<select name="propertyType" required>
-<option value="">اختر</option>
+
+<label>
+نوع العقار <span class="req">*</span>
+</label>
+
+<select name="propertyType">
+
+<option value="">
+اختر
+</option>
+
 <option>عمارة</option>
 <option>فيلا</option>
 <option>مجمع تجاري (بلازا)</option>
@@ -440,109 +826,281 @@ font-size:9.5px
 <option>أرض</option>
 <option>برج</option>
 <option>استراحة</option>
+
 </select>
+
 </div>
 
+
 <div class="field span-2">
-<label>استخدام العقار <span class="req">*</span></label>
-<select name="usage" required>
-<option value="">اختر</option>
+
+<label>
+استخدام العقار <span class="req">*</span>
+</label>
+
+<select name="usage">
+
+<option value="">
+اختر
+</option>
+
 <option>سكني عائلات</option>
 <option>سكني - تجاري</option>
 <option>تجاري</option>
 <option>سكني أفراد</option>
+
 </select>
+
 </div>
 
-<div class="field">
-<label>عدد الأدوار كاملة <span class="req">*</span></label>
-<input name="floors" type="number" min="0" inputmode="numeric" required>
-</div>
 
 <div class="field">
-<label>الوحدات بكل دور <span class="req">*</span></label>
-<input name="unitsPerFloor" type="number" min="0" inputmode="numeric" required>
+
+<label>
+عدد الأدوار كاملة <span class="req">*</span>
+</label>
+
+<input
+name="floors"
+type="number"
+min="0"
+inputmode="numeric">
+
 </div>
+
+
+<div class="field">
+
+<label>
+الوحدات بكل دور <span class="req">*</span>
+</label>
+
+<input
+name="unitsPerFloor"
+type="number"
+min="0"
+inputmode="numeric">
+
+</div>
+
 
 <div class="field total-box">
-<label>إجمالي وحدات العقار:</label>
-<input id="totalUnits" type="text" value="0 وحدة" readonly>
+
+<label>
+إجمالي وحدات العقار:
+</label>
+
+<input
+id="totalUnits"
+type="text"
+value="0 وحدة"
+readonly>
+
 </div>
 
-<div class="field">
-<label>رقم/اسم الوحدة <span class="req">*</span></label>
-<input name="unitName" required>
-</div>
 
 <div class="field">
-<label>نوع الوحدة <span class="req">*</span></label>
-<select name="unitType" required>
-<option value="">اختر</option>
-<option>شقة</option><option>فيلا</option><option>محل</option><option>مكتب</option><option>معرض</option><option>مستودع</option><option>أرض</option><option>دور</option><option>استوديو</option>
+
+<label>
+رقم/اسم الوحدة <span class="req">*</span>
+</label>
+
+<input name="unitName">
+
+</div>
+
+
+<div class="field">
+
+<label>
+نوع الوحدة <span class="req">*</span>
+</label>
+
+<select name="unitType">
+
+<option value="">
+اختر
+</option>
+
+<option>شقة</option>
+<option>فيلا</option>
+<option>محل</option>
+<option>مكتب</option>
+<option>معرض</option>
+<option>مستودع</option>
+<option>أرض</option>
+<option>دور</option>
+<option>استوديو</option>
+
 </select>
+
 </div>
+
 
 <div class="field">
-<label>رقم الطابق <span class="req">*</span></label>
-<input name="floor" required>
+
+<label>
+رقم الطابق <span class="req">*</span>
+</label>
+
+<input name="floor">
+
 </div>
+
 
 <div class="field">
-<label>مساحة الوحدة (م²)</label>
-<input name="area" inputmode="decimal">
-</div>
+
+<label>
+مساحة الوحدة (م²)
+</label>
+
+<input
+name="area"
+inputmode="decimal">
 
 </div>
 
+</div>
 
-<!-- 5. تفاصيل العقد والمالية -->
+
+<div class="next-row">
+
+<button
+type="button"
+class="next-btn"
+id="propertyNext">
+التالي: تفاصيل العقد والمالية
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- الخطوة 5: العقد والمالية -->
+<!-- ===================================================== -->
+
+<section id="stepContractDetails" class="step-section">
+
 <h2>5. تفاصيل العقد والمالية</h2>
+
 <div class="grid">
 
-<div class="field span-2">
-<label>تاريخ بداية العقد <span class="req">*</span></label>
-<input name="startDate" type="date" required>
-</div>
 
 <div class="field span-2">
-<label>مدة العقد <span class="req">*</span></label>
-<select name="duration" required>
-<option value="">اختر المدة</option>
-<option>سنة واحدة (12 شهر)</option>
-<option>سنتين</option>
-<option>3 سنوات</option>
-<option>5 سنوات</option>
-<option>أخرى</option>
+
+<label>
+تاريخ بداية العقد <span class="req">*</span>
+</label>
+
+<input
+name="startDate"
+id="startDate"
+type="date">
+
+</div>
+
+
+<div class="field span-2">
+
+<label>
+مدة العقد <span class="req">*</span>
+</label>
+
+<select
+name="duration"
+id="duration">
+
+<option value="">
+اختر مدة العقد
+</option>
+
 </select>
+
 </div>
 
-<div class="field span-2">
-<label>قيمة الإيجار السنوي (ريال) <span class="req">*</span></label>
-<input name="annualRent" type="number" min="0" inputmode="numeric" placeholder="مثال: 25000" required>
-</div>
 
 <div class="field span-2">
-<label>طريقة دفع الإيجار <span class="req">*</span></label>
-<select name="paymentMethod" required>
-<option value="">اختر الدفعات</option>
-<option>سنوي (دفعة واحدة)</option>
-<option>نصف سنوي (دفعتين)</option>
-<option>ربع سنوي (4 دفعات)</option>
-<option>شهري (12 دفعة)</option>
+
+<label>
+قيمة الإيجار السنوي (ريال) <span class="req">*</span>
+</label>
+
+<input
+name="annualRent"
+type="number"
+min="0"
+inputmode="numeric"
+placeholder="مثال: 25000">
+
+</div>
+
+
+<div class="field span-2">
+
+<label>
+طريقة دفع الإيجار <span class="req">*</span>
+</label>
+
+<select name="paymentMethod">
+
+<option value="">
+اختر الدفعات
+</option>
+
+<option>
+سنوي (دفعة واحدة)
+</option>
+
+<option>
+نصف سنوي (دفعتين)
+</option>
+
+<option>
+ربع سنوي (4 دفعات)
+</option>
+
+<option>
+شهري (12 دفعة)
+</option>
+
 </select>
-</div>
 
 </div>
 
+</div>
 
-<!-- الأزرار -->
+
 <div class="button-row">
-<button type="submit" class="whatsapp-btn">إرسال البيانات عبر واتساب</button>
-<button type="button" class="save-btn" id="saveImageBtn">حفظ الصورة</button>
+
+<button
+type="submit"
+class="whatsapp-btn">
+إرسال البيانات عبر واتساب
+</button>
+
+<button
+type="button"
+class="save-btn"
+id="saveImageBtn">
+حفظ الصورة
+</button>
+
 </div>
 
-<p class="note">سيتم تجهيز الرسالة تلقائياً وتنسيق كافة البيانات للإرسال.</p>
-<div id="error" class="error">⚠️ يرجى تعبئة كافة الحقول المطلوبة بشكل صحيح</div>
+<p class="note">
+سيتم تجهيز الرسالة تلقائياً وتنسيق كافة البيانات للإرسال.
+</p>
+
+</section>
+
+
+<div id="error" class="error">
+⚠️ يرجى إكمال جميع الحقول المطلوبة
+</div>
+
+<div id="success" class="success"></div>
 
 </form>
 
@@ -551,149 +1109,915 @@ font-size:9.5px
 
 
 <script>
-const receiver="966536305035";
-const form=document.getElementById("form");
 
-// التبديل التفاعلي للبند (المؤجر)
-const lessorCategory = document.getElementById("lessorCategory");
-const lessorIndividualSec = document.getElementById("lessorIndividualSec");
-const lessorEntitySec = document.getElementById("lessorEntitySec");
+const receiver = "966536305035";
 
-lessorCategory.addEventListener("change", function(){
-  lessorIndividualSec.classList.remove("active");
-  lessorEntitySec.classList.remove("active");
-  
-  setRequired(lessorIndividualSec, false);
-  setRequired(lessorEntitySec, false);
+const form = document.getElementById("form");
 
-  if(this.value === "فرد"){
-    lessorIndividualSec.classList.add("active");
-    setRequired(lessorIndividualSec, true);
-  } else if(this.value === "منشأة"){
-    lessorEntitySec.classList.add("active");
-    setRequired(lessorEntitySec, true);
+const contractType =
+document.getElementById("contractType");
+
+const lessorCategory =
+document.getElementById("lessorCategory");
+
+const tenantCategory =
+document.getElementById("tenantCategory");
+
+const lessorIndividualSec =
+document.getElementById("lessorIndividualSec");
+
+const lessorEntitySec =
+document.getElementById("lessorEntitySec");
+
+const tenantIndividualSec =
+document.getElementById("tenantIndividualSec");
+
+const tenantEntitySec =
+document.getElementById("tenantEntitySec");
+
+const totalUnits =
+document.getElementById("totalUnits");
+
+const floors =
+document.querySelector('[name="floors"]');
+
+const unitsPerFloor =
+document.querySelector('[name="unitsPerFloor"]');
+
+const duration =
+document.getElementById("duration");
+
+const startDate =
+document.getElementById("startDate");
+
+const errorBox =
+document.getElementById("error");
+
+const successBox =
+document.getElementById("success");
+
+
+/* ===================================================== */
+/* إظهار قسم بعد قسم */
+/* ===================================================== */
+
+const stepContract =
+document.getElementById("stepContract");
+
+const stepLessor =
+document.getElementById("stepLessor");
+
+const stepTenant =
+document.getElementById("stepTenant");
+
+const stepProperty =
+document.getElementById("stepProperty");
+
+const stepContractDetails =
+document.getElementById("stepContractDetails");
+
+
+function showStep(step){
+
+  [
+    stepContract,
+    stepLessor,
+    stepTenant,
+    stepProperty,
+    stepContractDetails
+  ].forEach(s => {
+    s.classList.remove("active");
+  });
+
+  step.classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* ===================================================== */
+/* عند اختيار نوع العقد */
+/* ===================================================== */
+
+contractType.addEventListener("change", function(){
+
+  resetSections();
+
+  if(this.value){
+
+    stepLessor.classList.add("active");
+
   }
+
 });
 
-// التبديل التفاعلي للبند (المستأجر)
-const tenantCategory = document.getElementById("tenantCategory");
-const tenantIndividualSec = document.getElementById("tenantIndividualSec");
-const tenantEntitySec = document.getElementById("tenantEntitySec");
 
-tenantCategory.addEventListener("change", function(){
+function resetSections(){
+
+  stepLessor.classList.remove("active");
+  stepTenant.classList.remove("active");
+  stepProperty.classList.remove("active");
+  stepContractDetails.classList.remove("active");
+
+  lessorCategory.value = "";
+  tenantCategory.value = "";
+
+  lessorIndividualSec.classList.remove("active");
+  lessorEntitySec.classList.remove("active");
+
   tenantIndividualSec.classList.remove("active");
   tenantEntitySec.classList.remove("active");
 
-  setRequired(tenantIndividualSec, false);
-  setRequired(tenantEntitySec, false);
+  setRequired(lessorIndividualSec,false);
+  setRequired(lessorEntitySec,false);
+  setRequired(tenantIndividualSec,false);
+  setRequired(tenantEntitySec,false);
+
+}
+
+
+/* ===================================================== */
+/* المؤجر فرد / منشأة */
+/* ===================================================== */
+
+lessorCategory.addEventListener("change", function(){
+
+  lessorIndividualSec.classList.remove("active");
+  lessorEntitySec.classList.remove("active");
+
+  setRequired(lessorIndividualSec,false);
+  setRequired(lessorEntitySec,false);
 
   if(this.value === "فرد"){
-    tenantIndividualSec.classList.add("active");
-    setRequired(tenantIndividualSec, true);
-  } else if(this.value === "منشأة"){
-    tenantEntitySec.classList.add("active");
-    setRequired(tenantEntitySec, true);
+
+    lessorIndividualSec.classList.add("active");
+
+    setRequired(lessorIndividualSec,true);
+
   }
+
+  else if(this.value === "منشأة"){
+
+    lessorEntitySec.classList.add("active");
+
+    setRequired(lessorEntitySec,true);
+
+  }
+
 });
 
-function setRequired(container, isReq){
-  const inputs = container.querySelectorAll("input, select");
+
+/* ===================================================== */
+/* المستأجر فرد / منشأة */
+/* ===================================================== */
+
+tenantCategory.addEventListener("change", function(){
+
+  tenantIndividualSec.classList.remove("active");
+  tenantEntitySec.classList.remove("active");
+
+  setRequired(tenantIndividualSec,false);
+  setRequired(tenantEntitySec,false);
+
+  if(this.value === "فرد"){
+
+    tenantIndividualSec.classList.add("active");
+
+    setRequired(tenantIndividualSec,true);
+
+  }
+
+  else if(this.value === "منشأة"){
+
+    tenantEntitySec.classList.add("active");
+
+    setRequired(tenantEntitySec,true);
+
+  }
+
+});
+
+
+/* ===================================================== */
+/* required */
+/* ===================================================== */
+
+function setRequired(container,isReq){
+
+  const inputs =
+  container.querySelectorAll("input,select");
+
   inputs.forEach(el => {
-    if(isReq) el.setAttribute("required", "required");
-    else el.removeAttribute("required");
+
+    if(isReq){
+
+      el.setAttribute("required","required");
+
+    }else{
+
+      el.removeAttribute("required");
+
+    }
+
   });
+
 }
 
-// حساب إجمالي الوحدات
-const floors = document.querySelector('[name="floors"]');
-const unitsPerFloor = document.querySelector('[name="unitsPerFloor"]');
-const totalUnits = document.getElementById("totalUnits");
 
-function updateTotal(){
-  const a = parseInt(floors.value, 10);
-  const b = parseInt(unitsPerFloor.value, 10);
-  const total = (Number.isFinite(a) && a>=0 && Number.isFinite(b) && b>=0) ? a*b : 0;
-  totalUnits.value = total + " وحدة";
-}
+/* ===================================================== */
+/* التحقق من السجل التجاري */
+/* ===================================================== */
 
-floors.addEventListener("input", updateTotal);
-unitsPerFloor.addEventListener("input", updateTotal);
+function validateCR(name,message){
 
-// التحقق الشرطي
-function validateInputs(){
-  const errorBox = document.getElementById("error");
-  const missing = [...form.querySelectorAll("[required]")].filter(el => !String(el.value||"").trim());
+  const field =
+  form.querySelector('[name="'+name+'"]');
 
-  if(missing.length){
-    errorBox.textContent = "⚠️ يرجى إكمال جميع الحقول الإلزامية المطلوبة";
-    errorBox.style.display = "block";
-    missing[0].focus();
+  if(!field) return true;
+
+  const value =
+  field.value.trim();
+
+  if(!value.startsWith("7")){
+
+    showError(message);
+
+    field.focus();
+
     return false;
+
   }
 
-  // تحقق السجل التجاري يبدأ بـ 7
-  if(lessorCategory.value === "منشأة"){
-    const cr = form.querySelector('[name="lessorCr"]').value.trim();
-    if(!cr.startsWith("7")){
-      errorBox.textContent = "⚠️ رقم السجل التجاري للمؤجر يجب أن يبدأ برقم 7";
-      errorBox.style.display = "block";
-      return false;
-    }
-  }
+  return true;
 
-  if(tenantCategory.value === "منشأة"){
-    const cr = form.querySelector('[name="tenantCr"]').value.trim();
-    if(!cr.startsWith("7")){
-      errorBox.textContent = "⚠️ رقم السجل التجاري للمستأجر يجب أن يبدأ برقم 7";
-      errorBox.style.display = "block";
-      return false;
-    }
-  }
+}
+
+
+/* ===================================================== */
+/* التحقق من المرحلة */
+/* ===================================================== */
+
+function validateSection(section){
 
   errorBox.style.display = "none";
+
+  const required =
+  [...section.querySelectorAll("[required]")];
+
+  const missing =
+  required.filter(el =>
+    !String(el.value || "").trim()
+  );
+
+  if(missing.length){
+
+    showError("⚠️ يرجى إكمال جميع الحقول المطلوبة");
+
+    missing[0].focus();
+
+    return false;
+
+  }
+
   return true;
+
 }
 
-// تجهيز الرسالة
+
+function showError(message){
+
+  errorBox.textContent = message;
+
+  errorBox.style.display = "block";
+
+  window.scrollTo({
+    top:document.body.scrollHeight,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* ===================================================== */
+/* زر المؤجر */
+/* ===================================================== */
+
+document
+.getElementById("lessorNext")
+.addEventListener("click",function(){
+
+  if(!lessorCategory.value){
+
+    showError("⚠️ يرجى اختيار صفة المؤجر");
+
+    lessorCategory.focus();
+
+    return;
+
+  }
+
+
+  if(!validateSection(stepLessor))
+    return;
+
+
+  if(lessorCategory.value === "منشأة"){
+
+    if(!validateCR(
+      "lessorCr",
+      "⚠️ رقم السجل التجاري للمؤجر يجب أن يبدأ برقم 7"
+    )){
+      return;
+    }
+
+  }
+
+
+  errorBox.style.display = "none";
+
+  stepLessor.classList.remove("active");
+
+  stepTenant.classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+});
+
+
+/* ===================================================== */
+/* زر المستأجر */
+/* ===================================================== */
+
+document
+.getElementById("tenantNext")
+.addEventListener("click",function(){
+
+  if(!tenantCategory.value){
+
+    showError("⚠️ يرجى اختيار صفة المستأجر");
+
+    tenantCategory.focus();
+
+    return;
+
+  }
+
+
+  if(!validateSection(stepTenant))
+    return;
+
+
+  if(tenantCategory.value === "منشأة"){
+
+    if(!validateCR(
+      "tenantCr",
+      "⚠️ رقم السجل التجاري للمستأجر يجب أن يبدأ برقم 7"
+    )){
+      return;
+    }
+
+  }
+
+
+  errorBox.style.display = "none";
+
+  stepTenant.classList.remove("active");
+
+  stepProperty.classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+});
+
+
+/* ===================================================== */
+/* حساب إجمالي الوحدات */
+/* ===================================================== */
+
+function updateTotal(){
+
+  const a =
+  parseInt(floors.value,10);
+
+  const b =
+  parseInt(unitsPerFloor.value,10);
+
+  const total =
+  (
+    Number.isFinite(a) &&
+    a >= 0 &&
+    Number.isFinite(b) &&
+    b >= 0
+  )
+  ? a*b
+  : 0;
+
+  totalUnits.value =
+  total + " وحدة";
+
+}
+
+
+floors.addEventListener(
+  "input",
+  updateTotal
+);
+
+unitsPerFloor.addEventListener(
+  "input",
+  updateTotal
+);
+
+
+/* ===================================================== */
+/* زر العقار */
+/* ===================================================== */
+
+document
+.getElementById("propertyNext")
+.addEventListener("click",function(){
+
+  if(!validateSection(stepProperty))
+    return;
+
+  errorBox.style.display = "none";
+
+  stepProperty.classList.remove("active");
+
+  stepContractDetails.classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+});
+
+
+/* ===================================================== */
+/* إنشاء مدد العقد */
+/* من يوم واحد إلى 90 يوم */
+/* ثم من 4 أشهر إلى 50 سنة */
+/* ===================================================== */
+
+function generateDurations(){
+
+  duration.innerHTML = "";
+
+  const first =
+  document.createElement("option");
+
+  first.value = "";
+
+  first.textContent =
+  "اختر مدة العقد";
+
+  duration.appendChild(first);
+
+
+  /* 1 يوم إلى 90 يوم */
+
+  for(let day=1; day<=90; day++){
+
+    const option =
+    document.createElement("option");
+
+    option.value =
+    day + " يوم";
+
+    option.textContent =
+    day === 1
+    ? "يوم واحد"
+    : day + " يوم";
+
+    option.dataset.months =
+    (day / 30).toString();
+
+    duration.appendChild(option);
+
+  }
+
+
+  /* 4 أشهر إلى 12 شهر */
+
+  for(let month=4; month<=12; month++){
+
+    const option =
+    document.createElement("option");
+
+    option.value =
+    month + " شهر";
+
+    option.textContent =
+    month === 12
+    ? "سنة واحدة (12 شهر)"
+    : month + " أشهر";
+
+    option.dataset.months =
+    month.toString();
+
+    duration.appendChild(option);
+
+  }
+
+
+  /* من سنتين إلى 50 سنة */
+
+  for(let year=2; year<=50; year++){
+
+    const option =
+    document.createElement("option");
+
+    option.value =
+    year + " سنة";
+
+    option.textContent =
+    year + " سنة";
+
+    option.dataset.months =
+    (year * 12).toString();
+
+    duration.appendChild(option);
+
+  }
+
+}
+
+generateDurations();
+
+
+/* ===================================================== */
+/* تاريخ اليوم */
+/* ===================================================== */
+
+function getToday(){
+
+  const now = new Date();
+
+  const year =
+  now.getFullYear();
+
+  const month =
+  String(now.getMonth()+1)
+  .padStart(2,"0");
+
+  const day =
+  String(now.getDate())
+  .padStart(2,"0");
+
+  return year + "-" + month + "-" + day;
+
+}
+
+
+/* ===================================================== */
+/* مراقبة مدة العقد */
+/* ===================================================== */
+
+duration.addEventListener("change",function(){
+
+  const selected =
+  this.options[this.selectedIndex];
+
+  if(!selected || !selected.value){
+
+    startDate.removeAttribute("min");
+
+    return;
+
+  }
+
+
+  const months =
+  parseFloat(selected.dataset.months || "0");
+
+
+  /*
+   إذا كانت المدة 3 أشهر أو أقل:
+   تاريخ البداية يجب أن يكون اليوم فقط
+  */
+
+  if(months <= 3){
+
+    const today =
+    getToday();
+
+    startDate.value = today;
+
+    startDate.min = today;
+
+    startDate.max = today;
+
+  }
+
+  else{
+
+    /*
+     للمدد أكثر من 3 أشهر:
+     لا نفرض قيد تاريخ اليوم
+    */
+
+    startDate.removeAttribute("min");
+
+    startDate.removeAttribute("max");
+
+  }
+
+});
+
+
+/* ===================================================== */
+/* التحقق من تاريخ البداية */
+/* ===================================================== */
+
+function validateStartDate(){
+
+  if(!duration.value)
+    return true;
+
+  const selected =
+  duration.options[duration.selectedIndex];
+
+  const months =
+  parseFloat(selected.dataset.months || "0");
+
+
+  if(months <= 3){
+
+    const today =
+    getToday();
+
+    if(startDate.value !== today){
+
+      showError(
+        "⚠️ مدة العقد 3 أشهر أو أقل، ويجب أن يكون تاريخ بداية العقد هو تاريخ اليوم."
+      );
+
+      startDate.value = today;
+
+      startDate.focus();
+
+      return false;
+
+    }
+
+  }
+
+  return true;
+
+}
+
+
+/* ===================================================== */
+/* عند تغيير التاريخ */
+/* ===================================================== */
+
+startDate.addEventListener("change",function(){
+
+  if(!duration.value)
+    return;
+
+  const selected =
+  duration.options[duration.selectedIndex];
+
+  const months =
+  parseFloat(selected.dataset.months || "0");
+
+  if(months <= 3){
+
+    const today =
+    getToday();
+
+    if(this.value !== today){
+
+      showError(
+        "⚠️ للعقود لمدة 3 أشهر أو أقل، يجب أن يكون تاريخ البداية هو تاريخ اليوم."
+      );
+
+      this.value = today;
+
+    }
+
+  }
+
+});
+
+
+/* ===================================================== */
+/* تجهيز رسالة واتساب */
+/* ===================================================== */
+
 function getMessage(){
-  const d = new FormData(form);
-  const v = k => (d.get(k)||"").trim() || "غير متوفر";
 
-  let msg = `*طلب عقد إيجار جديد*\n`;
-  msg += `📌 *نوع العقد:* ${v("contractType")}\n\n`;
+  const d =
+  new FormData(form);
 
-  msg += `👤 *بيانات المؤجر (${v("lessorCategory")}):*\n`;
+  const v =
+  k => (d.get(k)||"").trim() || "غير متوفر";
+
+
+  let msg =
+  `*طلب عقد إيجار جديد*\n`;
+
+  msg +=
+  `📌 *نوع العقد:* ${v("contractType")}\n\n`;
+
+
+  msg +=
+  `👤 *بيانات المؤجر (${v("lessorCategory")}):*\n`;
+
+
   if(v("lessorCategory") === "فرد"){
-    msg += `- الهوية/الإقامة: ${v("lessorId")}\n- الميلاد: ${v("lessorDob")}\n- الجوال: ${v("lessorPhone")}\n`;
-  } else {
-    msg += `- السجل التجاري: ${v("lessorCr")}\n- صفة الممثل: ${v("lessorRepRole")}\n- هوية الممثل: ${v("lessorRepId")}\n- ميلاد الممثل: ${v("lessorRepDob")}\n- جوال الممثل: ${v("lessorRepPhone")}\n`;
+
+    msg +=
+    `- الهوية/الإقامة: ${v("lessorId")}\n`;
+
+    msg +=
+    `- الميلاد: ${v("lessorDob")}\n`;
+
+    msg +=
+    `- الجوال: ${v("lessorPhone")}\n`;
+
   }
 
-  msg += `\n🏢 *بيانات المستأجر (${v("tenantCategory")}):*\n`;
+  else{
+
+    msg +=
+    `- السجل التجاري: ${v("lessorCr")}\n`;
+
+    msg +=
+    `- صفة الممثل: ${v("lessorRepRole")}\n`;
+
+    msg +=
+    `- هوية الممثل: ${v("lessorRepId")}\n`;
+
+    msg +=
+    `- ميلاد الممثل: ${v("lessorRepDob")}\n`;
+
+    msg +=
+    `- جوال الممثل: ${v("lessorRepPhone")}\n`;
+
+  }
+
+
+  msg +=
+  `\n🏢 *بيانات المستأجر (${v("tenantCategory")}):*\n`;
+
+
   if(v("tenantCategory") === "فرد"){
-    msg += `- الهوية/الإقامة: ${v("tenantId")}\n- الميلاد: ${v("tenantDob")}\n- الجوال: ${v("tenantPhone")}\n`;
-  } else {
-    msg += `- السجل التجاري: ${v("tenantCr")}\n- صفة الممثل: ${v("tenantRepRole")}\n- هوية الممثل: ${v("tenantRepId")}\n- ميلاد الممثل: ${v("tenantRepDob")}\n- جوال الممثل: ${v("tenantRepPhone")}\n`;
+
+    msg +=
+    `- الهوية/الإقامة: ${v("tenantId")}\n`;
+
+    msg +=
+    `- الميلاد: ${v("tenantDob")}\n`;
+
+    msg +=
+    `- الجوال: ${v("tenantPhone")}\n`;
+
   }
 
-  msg += `\n🏠 *بيانات العقار والوحدة:*\n`;
-  msg += `- العنوان الوطني/الموقع: ${v("propertyAddress")}\n- نوع العقار: ${v("propertyType")}\n- الاستخدام: ${v("usage")}\n- الأدوار: ${v("floors")}\n- وحدات الدور: ${v("unitsPerFloor")}\n- الإجمالي: ${totalUnits.value}\n`;
-  msg += `- اسم/رقم الوحدة: ${v("unitName")}\n- نوع الوحدة: ${v("unitType")}\n- الطابق: ${v("floor")}\n- المساحة: ${v("area")}\n`;
+  else{
 
-  msg += `\n💰 *تفاصيل العقد والمالية:*\n`;
-  msg += `- تاريخ بداية العقد: ${v("startDate")}\n- مدة العقد: ${v("duration")}\n- قيمة الإيجار السنوي: ${v("annualRent")} ريال\n- طريقة دفع الإيجار: ${v("paymentMethod")}`;
+    msg +=
+    `- السجل التجاري: ${v("tenantCr")}\n`;
+
+    msg +=
+    `- صفة الممثل: ${v("tenantRepRole")}\n`;
+
+    msg +=
+    `- هوية الممثل: ${v("tenantRepId")}\n`;
+
+    msg +=
+    `- ميلاد الممثل: ${v("tenantRepDob")}\n`;
+
+    msg +=
+    `- جوال الممثل: ${v("tenantRepPhone")}\n`;
+
+  }
+
+
+  msg +=
+  `\n🏠 *بيانات العقار والوحدة:*\n`;
+
+  msg +=
+  `- العنوان الوطني/الموقع: ${v("propertyAddress")}\n`;
+
+  msg +=
+  `- نوع العقار: ${v("propertyType")}\n`;
+
+  msg +=
+  `- الاستخدام: ${v("usage")}\n`;
+
+  msg +=
+  `- الأدوار: ${v("floors")}\n`;
+
+  msg +=
+  `- وحدات الدور: ${v("unitsPerFloor")}\n`;
+
+  msg +=
+  `- الإجمالي: ${totalUnits.value}\n`;
+
+  msg +=
+  `- اسم/رقم الوحدة: ${v("unitName")}\n`;
+
+  msg +=
+  `- نوع الوحدة: ${v("unitType")}\n`;
+
+  msg +=
+  `- الطابق: ${v("floor")}\n`;
+
+  msg +=
+  `- المساحة: ${v("area")}\n`;
+
+
+  msg +=
+  `\n💰 *تفاصيل العقد والمالية:*\n`;
+
+  msg +=
+  `- تاريخ بداية العقد: ${v("startDate")}\n`;
+
+  msg +=
+  `- مدة العقد: ${v("duration")}\n`;
+
+  msg +=
+  `- قيمة الإيجار السنوي: ${v("annualRent")} ريال\n`;
+
+  msg +=
+  `- طريقة دفع الإيجار: ${v("paymentMethod")}`;
+
 
   return msg;
+
 }
 
-// الإرسال للواتساب
-form.addEventListener("submit", function(e){
-  e.preventDefault();
-  if(!validateInputs()) return;
 
-  const url = "https://wa.me/" + receiver + "?text=" + encodeURIComponent(getMessage());
-  window.open(url, "_blank") || (window.location.href = url);
+/* ===================================================== */
+/* إرسال واتساب */
+/* ===================================================== */
+
+form.addEventListener("submit",function(e){
+
+  e.preventDefault();
+
+
+  if(!validateSection(stepContractDetails))
+    return;
+
+
+  if(!validateStartDate())
+    return;
+
+
+  errorBox.style.display = "none";
+
+
+  const url =
+  "https://wa.me/" +
+  receiver +
+  "?text=" +
+  encodeURIComponent(getMessage());
+
+
+  window.open(url,"_blank") ||
+  (window.location.href = url);
+
 });
+
+
+/* ===================================================== */
+/* زر حفظ الصورة */
+/* ===================================================== */
+
+document
+.getElementById("saveImageBtn")
+.addEventListener("click",function(){
+
+  successBox.textContent =
+  "ℹ️ استخدم خيار لقطة الشاشة في الجهاز لحفظ النموذج كصورة.";
+
+  successBox.style.display =
+  "block";
+
+  setTimeout(function(){
+
+    successBox.style.display =
+    "none";
+
+  },4000);
+
+});
+
 </script>
 
 </body>
