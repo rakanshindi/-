@@ -137,7 +137,21 @@ border-radius:6px;
 background:#fff;
 color:#222;
 font-size:10.5px;
-min-width:0
+min-width:0;
+transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* تمييز الحقل الناقص بدون زوم */
+.field-error{
+border-color: #dc2626 !important;
+box-shadow: 0 0 5px rgba(220, 38, 38, 0.4) !important;
+animation: pulseError 1.5s infinite;
+}
+
+@keyframes pulseError {
+0% { border-color: #dc2626; }
+50% { border-color: #f87171; }
+100% { border-color: #dc2626; }
 }
 
 input,
@@ -272,7 +286,8 @@ align-items:center;
 justify-content:flex-start;
 cursor:pointer;
 color:#222;
-min-width:0
+min-width:0;
+transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .date-display.placeholder{
@@ -1504,7 +1519,6 @@ function daysBetween(a,b){
 return Math.round((b-a)/(1000*60*60*24));
 }
 
-// خوارزمية أم القرى الرياضية المعتمدة لتقويم هجري دقيق ومضمون 100%
 function hijriToJulianDay(year, month, day) {
   return Math.floor((11 * year + 3) / 30) + 354 * year + 30 * month - Math.floor((month - 1) / 2) + day + 1948440 - 385;
 }
@@ -1824,6 +1838,12 @@ if(!input)return;
 input.value=dateKey(date);
 getDateDisplay(activeCalendarTarget);
 
+// إزالة تنبيه النقص عن الحقل بعد تعبئته
+const displayBox = document.querySelector('[data-date-target="'+activeCalendarTarget+'"]');
+if(displayBox){
+  displayBox.classList.remove('field-error');
+}
+
 document.getElementById("calendarOverlay").classList.remove("active");
 
 if(activeCalendarTarget==="startDate"){
@@ -1926,13 +1946,45 @@ errorBox.style.display="block";
 errorBox.scrollIntoView({behavior:"smooth", block:"center"});
 }
 
+// دالة التحقق المعدلة: تحرك الشاشة بسلاسة وتشير للحقل الناقص دون زوم
 function validateSection(section){
+// إزالة خطوط التنبيه السابقة
+section.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+
 const required=[...section.querySelectorAll("[required]")];
-const missing=required.filter(el=>!String(el.value||"").trim());
+let missing = [];
+
+required.forEach(el => {
+  if(!String(el.value || "").trim()) {
+    missing.push(el);
+  }
+});
+
+// إظهار حقول التواريخ المخفية والتحقق منها
+section.querySelectorAll('input[type="hidden"]').forEach(el => {
+  if(el.hasAttribute('required') || el.name.toLowerCase().includes('dob') || el.name.toLowerCase().includes('date')) {
+    if(!el.value.trim()){
+      const displayBox = section.querySelector('[data-date-target="'+el.name+'"]');
+      if(displayBox && !missing.includes(displayBox)){
+        missing.push(displayBox);
+      }
+    }
+  }
+});
 
 if(missing.length){
 showError("⚠️ يرجى إكمال جميع الحقول المطلوبة");
-missing[0].focus();
+
+const targetEl = missing[0];
+targetEl.classList.add('field-error');
+
+// تمرير الشاشة بأسلوب سلس ومحاذاة الحقل في المنتصف دون إحداث زوم
+targetEl.scrollIntoView({
+  behavior: "smooth",
+  block: "center",
+  inline: "nearest"
+});
+
 return false;
 }
 return true;
@@ -1943,7 +1995,8 @@ const field=form.querySelector('[name="'+name+'"]');
 if(!field)return true;
 if(!field.value.trim().startsWith("7")){
 showError(message);
-field.focus();
+field.classList.add('field-error');
+field.scrollIntoView({ behavior: "smooth", block: "center" });
 return false;
 }
 return true;
@@ -1952,7 +2005,8 @@ return true;
 document.getElementById("lessorNext").addEventListener("click", function(){
 if(!lessorCategory.value){
 showError("⚠️ يرجى اختيار صفة المؤجر");
-lessorCategory.focus();
+lessorCategory.classList.add('field-error');
+lessorCategory.scrollIntoView({ behavior: "smooth", block: "center" });
 return;
 }
 if(!validateSection(step2)) return;
@@ -1966,7 +2020,8 @@ step3.scrollIntoView({behavior:"smooth", block:"start"});
 document.getElementById("tenantNext").addEventListener("click", function(){
 if(!tenantCategory.value){
 showError("⚠️ يرجى اختيار صفة المستأجر");
-tenantCategory.focus();
+tenantCategory.classList.add('field-error');
+tenantCategory.scrollIntoView({ behavior: "smooth", block: "center" });
 return;
 }
 if(!validateSection(step3)) return;
@@ -2292,13 +2347,16 @@ errorBox.style.display="none";
 }, 4000);
 });
 
-form.addEventListener("input", function(){
+// إزالة علامة الخطأ عند التفاعل مع الحقل
+form.addEventListener("input", function(e){
+if(e.target) e.target.classList.remove('field-error');
 if(errorBox.style.display==="block"){
 errorBox.style.display="none";
 }
 });
 
-form.addEventListener("change", function(){
+form.addEventListener("change", function(e){
+if(e.target) e.target.classList.remove('field-error');
 if(errorBox.style.display==="block"){
 errorBox.style.display="none";
 }
