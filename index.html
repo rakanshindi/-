@@ -1593,45 +1593,16 @@ const hijriMonths=[
 
 function hijriToGregorian(y,m,d){
 
-let guess=
-new Date(
-Math.round(
-(y-1)*354.367
-+
-(622-1)*365.2425
-)
-);
+let approxDays = Math.round((y - 1) * 354.367 + (m - 1) * 29.53 + d);
+let start = new Date(1622, 6, 16);
+start.setDate(start.getDate() + approxDays - 30);
 
-let start=
-new Date(
-guess.getTime()-
-1000*60*60*24*450
-);
-
-let end=
-new Date(
-guess.getTime()+
-1000*60*60*24*450
-);
-
-for(
-let current=new Date(start);
-current<=end;
-current.setDate(current.getDate()+1)
-){
-
-const h=gregorianToHijri(current);
-
-if(
-h.year===y &&
-h.month===m &&
-h.day===d
-){
-
-return new Date(current);
-
+for(let i=0; i<60; i++){
+const h = gregorianToHijri(start);
+if(h.year === y && h.month === m && h.day === d){
+return new Date(start);
 }
-
+start.setDate(start.getDate() + 1);
 }
 
 return null;
@@ -1902,7 +1873,7 @@ monthSelect.appendChild(opt);
 
 }
 
-for(let y=1440;y<=1500;y++){
+for(let y=1350;y<=1500;y++){
 
 const opt=document.createElement("option");
 
@@ -2016,6 +1987,8 @@ calendarView.month-1,
 
 }
 
+if(!firstGregorian) firstGregorian = todayDate();
+
 const startDay=
 firstGregorian.getDay();
 
@@ -2032,12 +2005,12 @@ days.appendChild(empty);
 }
 
 const input=
-document.querySelector(
+activeCalendarTarget?document.querySelector(
 '[name="'+activeCalendarTarget+'"]'
-);
+):null;
 
 const selected=
-input.value
+input && input.value
 ?parseDate(input.value)
 :null;
 
@@ -3024,7 +2997,7 @@ monthSelect.appendChild(opt);
 
 }
 
-for(let y=1440;y<=1500;y++){
+for(let y=1350;y<=1500;y++){
 
 const opt=
 document.createElement("option");
@@ -3104,6 +3077,8 @@ calendarView.month-1,
 );
 
 }
+
+if(!first) first = todayDate();
 
 const startDay=
 first.getDay();
