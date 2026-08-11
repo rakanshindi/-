@@ -138,20 +138,19 @@ background:#fff;
 color:#222;
 font-size:10.5px;
 min-width:0;
-transition: border-color 0.3s ease, box-shadow 0.3s ease;
+transition:border-color .3s ease,box-shadow .3s ease
 }
 
-/* تمييز الحقل الناقص بدون زوم */
 .field-error{
-border-color: #dc2626 !important;
-box-shadow: 0 0 5px rgba(220, 38, 38, 0.4) !important;
-animation: pulseError 1.5s infinite;
+border-color:#dc2626 !important;
+box-shadow:0 0 5px rgba(220,38,38,.4) !important;
+animation:pulseError 1.5s infinite
 }
 
-@keyframes pulseError {
-0% { border-color: #dc2626; }
-50% { border-color: #f87171; }
-100% { border-color: #dc2626; }
+@keyframes pulseError{
+0%{border-color:#dc2626}
+50%{border-color:#f87171}
+100%{border-color:#dc2626}
 }
 
 input,
@@ -252,6 +251,73 @@ text-align:center;
 background:#fff
 }
 
+.unit-note{
+grid-column:1/-1;
+margin-top:-2px;
+padding:5px 7px;
+background:#f1f8f4;
+border:1px solid #d5e8de;
+border-radius:7px;
+color:#475569;
+font-size:9px;
+line-height:1.5;
+text-align:center
+}
+
+.units-container{
+grid-column:1/-1;
+display:flex;
+flex-direction:column;
+gap:6px
+}
+
+.unit-card{
+background:#fafcfb;
+border:1px solid #dce8e1;
+border-radius:8px;
+padding:6px
+}
+
+.unit-card-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:6px;
+margin-bottom:5px
+}
+
+.unit-card-title{
+font-size:10px;
+font-weight:800;
+color:#087443
+}
+
+.unit-delete-btn{
+width:auto;
+min-width:58px;
+height:25px;
+padding:0 9px;
+background:#b91c1c;
+font-size:9px;
+border-radius:6px
+}
+
+.add-unit-wrap{
+grid-column:1/-1;
+margin-top:1px
+}
+
+.add-unit-btn{
+background:#087443;
+height:32px;
+font-size:11px
+}
+
+.add-unit-btn:disabled{
+background:#94a3b8;
+cursor:not-allowed
+}
+
 .error,
 .warning{
 display:none;
@@ -287,7 +353,7 @@ justify-content:flex-start;
 cursor:pointer;
 color:#222;
 min-width:0;
-transition: border-color 0.3s ease, box-shadow 0.3s ease;
+transition:border-color .3s ease,box-shadow .3s ease
 }
 
 .date-display.placeholder{
@@ -573,6 +639,10 @@ width:110px
 .calendar-day{
 height:36px
 }
+
+.unit-card-header{
+margin-bottom:4px
+}
 }
 </style>
 </head>
@@ -602,6 +672,8 @@ height:36px
 
 <form id="form" novalidate>
 
+<!-- ==================== الخطوة 1 ==================== -->
+
 <section id="step1" class="step active">
 
 <h2>1. نوع العقد المطلوب</h2>
@@ -621,6 +693,7 @@ height:36px
 <option value="سكني">عقد سكني</option>
 <option value="تجاري">عقد تجاري</option>
 <option value="زراعي">عقد زراعي</option>
+<option value="عقد من الباطن">عقد من الباطن</option>
 
 </select>
 
@@ -630,9 +703,40 @@ height:36px
 
 </section>
 
+<!-- ==================== الخطوة 2 ==================== -->
+
 <section id="step2" class="step">
 
-<h2>2. بيانات المؤجر (صاحب العقار)</h2>
+<h2 id="step2Title">2. بيانات المؤجر (صاحب العقار)</h2>
+
+<!-- بيانات العقد الأساسي للباطن -->
+
+<div id="subcontractPrimarySec" class="dynamic-section">
+
+<div class="grid">
+
+<div class="field span-4">
+
+<label>
+رقم العقد الأساسي <span class="req">*</span>
+</label>
+
+<input
+name="primaryContractNumber"
+id="primaryContractNumber"
+inputmode="numeric"
+placeholder="أدخل رقم العقد الأساسي"
+>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- صفة المؤجر -->
+
+<div id="lessorMainSec">
 
 <div class="grid">
 
@@ -646,12 +750,16 @@ height:36px
 
 <option value="">اختر الصفة</option>
 
-<option value="فرد">
-فرد (أفراد / بالهوية)
+<option value="فرد بالهوية">
+فرد بالهوية
 </option>
 
-<option value="منشأة">
-شركة أو مؤسسة (سجل تجاري)
+<option value="شركة أو مؤسسة بالسجل التجاري">
+شركة أو مؤسسة بالسجل التجاري
+</option>
+
+<option value="وكيل">
+وكيل
 </option>
 
 </select>
@@ -660,6 +768,8 @@ height:36px
 
 </div>
 
+<!-- المؤجر فرد -->
+
 <div id="lessorIndividualSec" class="dynamic-section">
 
 <div class="grid">
@@ -667,12 +777,16 @@ height:36px
 <div class="field span-2">
 
 <label>
-رقم هويّة / إقامة المؤجر <span class="req">*</span>
+رقم هوية / إقامة المؤجر <span class="req">*</span>
 </label>
 
-<input name="lessorId"
+<input
+name="lessorId"
 inputmode="numeric"
-placeholder="10xxxxxxxx">
+maxlength="10"
+placeholder="10 أرقام"
+data-number-type="identity"
+>
 
 </div>
 
@@ -707,15 +821,21 @@ data-calendar-target="lessorDob">
 رقم الجوال <span class="req">*</span>
 </label>
 
-<input name="lessorPhone"
+<input
+name="lessorPhone"
 inputmode="tel"
-placeholder="05xxxxxxxx">
+maxlength="10"
+placeholder="05xxxxxxxx"
+data-number-type="phone"
+>
 
 </div>
 
 </div>
 
 </div>
+
+<!-- المؤجر شركة / مؤسسة -->
 
 <div id="lessorEntitySec" class="dynamic-section">
 
@@ -724,12 +844,16 @@ placeholder="05xxxxxxxx">
 <div class="field span-2">
 
 <label>
-رقم السجل التجاري (يبدأ بـ 7) <span class="req">*</span>
+رقم السجل التجاري <span class="req">*</span>
 </label>
 
-<input name="lessorCr"
+<input
+name="lessorCr"
 inputmode="numeric"
-placeholder="70xxxxxxx">
+maxlength="10"
+placeholder="10 أرقام"
+data-number-type="cr"
+>
 
 </div>
 
@@ -739,10 +863,9 @@ placeholder="70xxxxxxx">
 صفة الممثل <span class="req">*</span>
 </label>
 
-<select name="lessorRepRole">
+<select name="lessorRepRole" id="lessorRepRole">
 
 <option value="">اختر الصفة</option>
-
 <option>مالك السجل</option>
 <option>مدير السجل</option>
 <option>وكيل شرعي</option>
@@ -757,9 +880,13 @@ placeholder="70xxxxxxx">
 رقم هوية الممثل / الوكيل <span class="req">*</span>
 </label>
 
-<input name="lessorRepId"
+<input
+name="lessorRepId"
 inputmode="numeric"
-placeholder="10xxxxxxxx">
+maxlength="10"
+placeholder="10 أرقام"
+data-number-type="identity"
+>
 
 </div>
 
@@ -794,9 +921,159 @@ data-calendar-target="lessorRepDob">
 جوال الممثل <span class="req">*</span>
 </label>
 
-<input name="lessorRepPhone"
+<input
+name="lessorRepPhone"
 inputmode="tel"
-placeholder="05xxxxxxxx">
+maxlength="10"
+placeholder="05xxxxxxxx"
+data-number-type="phone"
+>
+
+</div>
+
+<div id="lessorAgencyWrap" class="field span-2" style="display:none">
+
+<label>
+رقم الوكالة <span class="req">*</span>
+</label>
+
+<input
+name="lessorAgencyNumber"
+inputmode="numeric"
+placeholder="أدخل رقم الوكالة"
+>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- المؤجر وكيل -->
+
+<div id="lessorAgentSec" class="dynamic-section">
+
+<div class="grid">
+
+<div class="field span-2">
+
+<label>
+رقم هوية الوكيل <span class="req">*</span>
+</label>
+
+<input
+name="lessorAgentId"
+inputmode="numeric"
+maxlength="10"
+placeholder="10 أرقام"
+data-number-type="identity"
+>
+
+</div>
+
+<div class="field">
+
+<label>
+تاريخ ميلاد الوكيل <span class="req">*</span>
+</label>
+
+<div class="date-control">
+
+<div class="date-display placeholder"
+data-date-target="lessorAgentDob">
+اختر التاريخ
+</div>
+
+<button type="button"
+class="calendar-switch"
+data-calendar-target="lessorAgentDob">
+التحويل للميلادي
+</button>
+
+</div>
+
+<input type="hidden" name="lessorAgentDob">
+
+</div>
+
+<div class="field">
+
+<label>
+رقم جوال الوكيل <span class="req">*</span>
+</label>
+
+<input
+name="lessorAgentPhone"
+inputmode="tel"
+maxlength="10"
+placeholder="05xxxxxxxx"
+data-number-type="phone"
+>
+
+</div>
+
+<div class="field span-2">
+
+<label>
+رقم الوكالة <span class="req">*</span>
+</label>
+
+<input
+name="lessorAgencyNumberDirect"
+inputmode="numeric"
+placeholder="أدخل رقم الوكالة"
+>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- الصك -->
+
+<div id="deedSec" class="dynamic-section">
+
+<div class="grid">
+
+<div class="field span-2">
+
+<label>
+رقم الصك <span class="req">*</span>
+</label>
+
+<input
+name="deedNumber"
+inputmode="numeric"
+placeholder="رقم الصك"
+>
+
+</div>
+
+<div class="field span-2">
+
+<label>
+تاريخ الصك <span class="req">*</span>
+</label>
+
+<div class="date-control">
+
+<div class="date-display placeholder"
+data-date-target="deedDate">
+اختر التاريخ
+</div>
+
+<button type="button"
+class="calendar-switch"
+data-calendar-target="deedDate">
+التحويل للميلادي
+</button>
+
+</div>
+
+<input type="hidden" name="deedDate">
+
+</div>
 
 </div>
 
@@ -818,6 +1095,8 @@ id="lessorNext">
 
 </section>
 
+<!-- ==================== الخطوة 3 ==================== -->
+
 <section id="step3" class="step">
 
 <h2>3. بيانات المستأجر</h2>
@@ -834,12 +1113,16 @@ id="lessorNext">
 
 <option value="">اختر الصفة</option>
 
-<option value="فرد">
-فرد (بالهوية)
+<option value="فرد بالهوية">
+فرد بالهوية
 </option>
 
-<option value="منشأة">
-شركة أو مؤسسة (سجل تجاري)
+<option value="شركة أو مؤسسة بالسجل التجاري">
+شركة أو مؤسسة بالسجل التجاري
+</option>
+
+<option value="وكيل">
+وكيل
 </option>
 
 </select>
@@ -848,6 +1131,8 @@ id="lessorNext">
 
 </div>
 
+<!-- المستأجر فرد -->
+
 <div id="tenantIndividualSec" class="dynamic-section">
 
 <div class="grid">
@@ -855,12 +1140,16 @@ id="lessorNext">
 <div class="field span-2">
 
 <label>
-رقم هويّة / إقامة المستأجر <span class="req">*</span>
+رقم هوية / إقامة المستأجر <span class="req">*</span>
 </label>
 
-<input name="tenantId"
+<input
+name="tenantId"
 inputmode="numeric"
-placeholder="10xxxxxxxx">
+maxlength="10"
+placeholder="10 أرقام"
+data-number-type="identity"
+>
 
 </div>
 
@@ -895,15 +1184,21 @@ data-calendar-target="tenantDob">
 رقم الجوال <span class="req">*</span>
 </label>
 
-<input name="tenantPhone"
+<input
+name="tenantPhone"
 inputmode="tel"
-placeholder="05xxxxxxxx">
+maxlength="10"
+placeholder="05xxxxxxxx"
+data-number-type="phone"
+>
 
 </div>
 
 </div>
 
 </div>
+
+<!-- المستأجر شركة / مؤسسة -->
 
 <div id="tenantEntitySec" class="dynamic-section">
 
@@ -912,12 +1207,16 @@ placeholder="05xxxxxxxx">
 <div class="field span-2">
 
 <label>
-رقم السجل التجاري (يبدأ بـ 7) <span class="req">*</span>
+رقم السجل التجاري <span class="req">*</span>
 </label>
 
-<input name="tenantCr"
+<input
+name="tenantCr"
 inputmode="numeric"
-placeholder="70xxxxxxx">
+maxlength="10"
+placeholder="10 أرقام"
+data-number-type="cr"
+>
 
 </div>
 
@@ -927,11 +1226,10 @@ placeholder="70xxxxxxx">
 صفة الممثل <span class="req">*</span>
 </label>
 
-<select name="tenantRepRole">
+<select name="tenantRepRole" id="tenantRepRole">
 
 <option value="">اختر الصفة</option>
-
-<option>صاحب السجل / مالك</option>
+<option>مالك السجل</option>
 <option>مدير السجل</option>
 <option>وكيل شرعي</option>
 
@@ -945,9 +1243,13 @@ placeholder="70xxxxxxx">
 رقم هوية الممثل / الوكيل <span class="req">*</span>
 </label>
 
-<input name="tenantRepId"
+<input
+name="tenantRepId"
 inputmode="numeric"
-placeholder="10xxxxxxxx">
+maxlength="10"
+placeholder="10 أرقام"
+data-number-type="identity"
+>
 
 </div>
 
@@ -982,9 +1284,108 @@ data-calendar-target="tenantRepDob">
 جوال الممثل <span class="req">*</span>
 </label>
 
-<input name="tenantRepPhone"
+<input
+name="tenantRepPhone"
 inputmode="tel"
-placeholder="05xxxxxxxx">
+maxlength="10"
+placeholder="05xxxxxxxx"
+data-number-type="phone"
+>
+
+</div>
+
+<div id="tenantAgencyWrap" class="field span-2" style="display:none">
+
+<label>
+رقم الوكالة <span class="req">*</span>
+</label>
+
+<input
+name="tenantAgencyNumber"
+inputmode="numeric"
+placeholder="أدخل رقم الوكالة"
+>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- المستأجر وكيل -->
+
+<div id="tenantAgentSec" class="dynamic-section">
+
+<div class="grid">
+
+<div class="field span-2">
+
+<label>
+رقم هوية الوكيل <span class="req">*</span>
+</label>
+
+<input
+name="tenantAgentId"
+inputmode="numeric"
+maxlength="10"
+placeholder="10 أرقام"
+data-number-type="identity"
+>
+
+</div>
+
+<div class="field">
+
+<label>
+تاريخ ميلاد الوكيل <span class="req">*</span>
+</label>
+
+<div class="date-control">
+
+<div class="date-display placeholder"
+data-date-target="tenantAgentDob">
+اختر التاريخ
+</div>
+
+<button type="button"
+class="calendar-switch"
+data-calendar-target="tenantAgentDob">
+التحويل للميلادي
+</button>
+
+</div>
+
+<input type="hidden" name="tenantAgentDob">
+
+</div>
+
+<div class="field">
+
+<label>
+رقم جوال الوكيل <span class="req">*</span>
+</label>
+
+<input
+name="tenantAgentPhone"
+inputmode="tel"
+maxlength="10"
+placeholder="05xxxxxxxx"
+data-number-type="phone"
+>
+
+</div>
+
+<div class="field span-2">
+
+<label>
+رقم الوكالة <span class="req">*</span>
+</label>
+
+<input
+name="tenantAgencyNumberDirect"
+inputmode="numeric"
+placeholder="أدخل رقم الوكالة"
+>
 
 </div>
 
@@ -1006,6 +1407,8 @@ id="tenantNext">
 
 </section>
 
+<!-- ==================== الخطوة 4 ==================== -->
+
 <section id="step4" class="step">
 
 <h2>4. بيانات العقار والوحدة</h2>
@@ -1018,8 +1421,10 @@ id="tenantNext">
 العنوان الوطني أو موقع العقار على الخريطة <span class="req">*</span>
 </label>
 
-<input name="propertyAddress"
-placeholder="أدخل العنوان الوطني أو الصق رابط قوقل ماب">
+<input
+name="propertyAddress"
+placeholder="أدخل العنوان الوطني أو الصق رابط قوقل ماب"
+>
 
 </div>
 
@@ -1070,10 +1475,12 @@ placeholder="أدخل العنوان الوطني أو الصق رابط قوق�
 عدد الأدوار كاملة <span class="req">*</span>
 </label>
 
-<input name="floors"
+<input
+name="floors"
 type="number"
 min="0"
-inputmode="numeric">
+inputmode="numeric"
+>
 
 </div>
 
@@ -1083,10 +1490,12 @@ inputmode="numeric">
 الوحدات بكل دور <span class="req">*</span>
 </label>
 
-<input name="unitsPerFloor"
+<input
+name="unitsPerFloor"
 type="number"
 min="0"
-inputmode="numeric">
+inputmode="numeric"
+>
 
 </div>
 
@@ -1096,65 +1505,31 @@ inputmode="numeric">
 إجمالي وحدات العقار:
 </label>
 
-<input id="totalUnits"
+<input
+id="totalUnits"
 type="text"
 value="0 وحدة"
-readonly>
+readonly
+>
 
 </div>
 
-<div class="field">
-
-<label>
-رقم/اسم الوحدة <span class="req">*</span>
-</label>
-
-<input name="unitName">
-
+<div class="unit-note">
+هذا عدد الوحدات اللي راح يظهر في صورة العقد، ما نقدر نعدله نهائي حسب منصة إيجار.
 </div>
 
-<div class="field">
-
-<label>
-نوع الوحدة <span class="req">*</span>
-</label>
-
-<select name="unitType">
-
-<option value="">اختر</option>
-
-<option>شقة</option>
-<option>فيلا</option>
-<option>محل</option>
-<option>مكتب</option>
-<option>معرض</option>
-<option>مستودع</option>
-<option>أرض</option>
-<option>دور</option>
-<option>استوديو</option>
-
-</select>
-
+<div id="unitsContainer" class="units-container">
 </div>
 
-<div class="field">
+<div class="add-unit-wrap">
 
-<label>
-رقم الطابق <span class="req">*</span>
-</label>
-
-<input name="floor">
-
-</div>
-
-<div class="field">
-
-<label>
-مساحة الوحدة (م²)
-</label>
-
-<input name="area"
-inputmode="decimal">
+<button
+type="button"
+class="add-unit-btn"
+id="addUnitBtn"
+>
++ إضافة وحدة
+</button>
 
 </div>
 
@@ -1173,6 +1548,8 @@ id="propertyNext">
 </div>
 
 </section>
+
+<!-- ==================== الخطوة 5 ==================== -->
 
 <section id="step5" class="step">
 
@@ -1211,8 +1588,10 @@ data-calendar-target="startDate">
 مدة العقد <span class="req">*</span>
 </label>
 
-<select name="duration"
-id="duration">
+<select
+name="duration"
+id="duration"
+>
 
 <option value="">
 اختر مدة العقد
@@ -1228,12 +1607,14 @@ id="duration">
 قيمة الإيجار السنوي (ريال) <span class="req">*</span>
 </label>
 
-<input name="annualRent"
+<input
+name="annualRent"
 id="annualRent"
 type="number"
 min="0"
 inputmode="numeric"
-placeholder="مثال: 25000">
+placeholder="مثال: 25000"
+>
 
 </div>
 
@@ -1243,8 +1624,10 @@ placeholder="مثال: 25000">
 طريقة دفع الإيجار <span class="req">*</span>
 </label>
 
-<select name="paymentMethod"
-id="paymentMethod">
+<select
+name="paymentMethod"
+id="paymentMethod"
+>
 
 <option value="">
 اختر الدفعات
@@ -1270,18 +1653,25 @@ id="paymentMethod">
 
 </div>
 
-<div id="durationInfo"
-class="field span-4 duration-info">
+<div
+id="durationInfo"
+class="field span-4 duration-info"
+>
 </div>
 
-<div id="paymentTableBox"
-class="field span-4 payment-table-box">
+<div
+id="paymentTableBox"
+class="field span-4 payment-table-box"
+>
 
 <div class="payment-table-title">
 جدول دفعات الإيجار
 </div>
 
-<div id="paymentLock" class="payment-lock">
+<div
+id="paymentLock"
+class="payment-lock"
+>
 </div>
 
 <table class="payment-table">
@@ -1313,18 +1703,18 @@ class="field span-4 payment-table-box">
 
 <tr>
 
-<td colspan="2"
-class="payment-total">
-
+<td
+colspan="2"
+class="payment-total"
+>
 إجمالي الإيجار
-
 </td>
 
-<td id="paymentTotal"
-class="payment-total">
-
+<td
+id="paymentTotal"
+class="payment-total"
+>
 0 ريال
-
 </td>
 
 </tr>
@@ -1341,8 +1731,10 @@ class="payment-total">
 ملاحظات / شروط إضافية (اختياري)
 </label>
 
-<textarea name="notes"
-placeholder="اكتب هنا أي شروط أو ملاحظات إضافية ترغب بإضافتها للعقد..."></textarea>
+<textarea
+name="notes"
+placeholder="اكتب هنا أي شروط أو ملاحظات إضافية ترغب بإضافتها للعقد..."
+></textarea>
 
 </div>
 
@@ -1350,19 +1742,19 @@ placeholder="اكتب هنا أي شروط أو ملاحظات إضافية تر
 
 <div class="button-row">
 
-<button type="submit"
-class="whatsapp-btn">
-
+<button
+type="submit"
+class="whatsapp-btn"
+>
 إرسال البيانات عبر واتساب
-
 </button>
 
-<button type="button"
+<button
+type="button"
 class="save-btn"
-id="saveImageBtn">
-
+id="saveImageBtn"
+>
 حفظ الصورة
-
 </button>
 
 </div>
@@ -1380,31 +1772,44 @@ id="saveImageBtn">
 </div>
 </div>
 
-<div id="calendarOverlay" class="calendar-overlay">
+<!-- ==================== التقويم ==================== -->
+
+<div
+id="calendarOverlay"
+class="calendar-overlay"
+>
 
 <div class="calendar-modal">
 
 <div class="calendar-top">
 
-<button type="button"
+<button
+type="button"
 class="cal-nav"
-id="calPrev">
+id="calPrev"
+>
 ‹
 </button>
 
-<div id="calendarTitle"
-class="calendar-title">
+<div
+id="calendarTitle"
+class="calendar-title"
+>
 </div>
 
-<button type="button"
+<button
+type="button"
 class="cal-nav"
-id="calNext">
+id="calNext"
+>
 ›
 </button>
 
-<button type="button"
+<button
+type="button"
 class="calendar-close"
-id="calendarClose">
+id="calendarClose"
+>
 إغلاق
 </button>
 
@@ -1432,8 +1837,10 @@ id="calendarClose">
 
 </div>
 
-<div id="calendarDays"
-class="calendar-days">
+<div
+id="calendarDays"
+class="calendar-days"
+>
 </div>
 
 </div>
@@ -1446,20 +1853,43 @@ const receiver="966536305035";
 
 const form=document.getElementById("form");
 const errorBox=document.getElementById("error");
+
 const contractType=document.getElementById("contractType");
+
 const lessorCategory=document.getElementById("lessorCategory");
 const tenantCategory=document.getElementById("tenantCategory");
+
 const lessorIndividualSec=document.getElementById("lessorIndividualSec");
 const lessorEntitySec=document.getElementById("lessorEntitySec");
+const lessorAgentSec=document.getElementById("lessorAgentSec");
+
 const tenantIndividualSec=document.getElementById("tenantIndividualSec");
 const tenantEntitySec=document.getElementById("tenantEntitySec");
+const tenantAgentSec=document.getElementById("tenantAgentSec");
+
+const deedSec=document.getElementById("deedSec");
+
+const lessorMainSec=document.getElementById("lessorMainSec");
+const subcontractPrimarySec=document.getElementById("subcontractPrimarySec");
+
+const lessorRepRole=document.getElementById("lessorRepRole");
+const tenantRepRole=document.getElementById("tenantRepRole");
+
+const lessorAgencyWrap=document.getElementById("lessorAgencyWrap");
+const tenantAgencyWrap=document.getElementById("tenantAgencyWrap");
+
 const totalUnits=document.getElementById("totalUnits");
 const floors=document.querySelector('[name="floors"]');
 const unitsPerFloor=document.querySelector('[name="unitsPerFloor"]');
+
+const unitsContainer=document.getElementById("unitsContainer");
+const addUnitBtn=document.getElementById("addUnitBtn");
+
 const duration=document.getElementById("duration");
 const startDate=document.getElementById("startDate");
 const annualRent=document.getElementById("annualRent");
 const paymentMethod=document.getElementById("paymentMethod");
+
 const paymentTableBox=document.getElementById("paymentTableBox");
 const paymentTableBody=document.getElementById("paymentTableBody");
 const paymentTotal=document.getElementById("paymentTotal");
@@ -1471,7 +1901,6 @@ const step3=document.getElementById("step3");
 const step4=document.getElementById("step4");
 const step5=document.getElementById("step5");
 
-const dateStates={};
 let activeCalendarTarget=null;
 let activeCalendarMode="hijri";
 
@@ -1481,9 +1910,21 @@ month:1,
 day:1
 };
 
+const dateStates={};
+
+let activePaymentIndex=null;
+let paymentDates=[];
+
+let unitCounter=0;
+const MAX_UNITS=15;
+
+/* =========================================================
+   التاريخ
+========================================================= */
+
 function todayDate(){
 const d=new Date();
-return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+return new Date(d.getFullYear(),d.getMonth(),d.getDate());
 }
 
 function dateKey(d){
@@ -1494,9 +1935,16 @@ String(d.getDate()).padStart(2,"0");
 
 function parseDate(value){
 if(!value)return null;
+
 const p=value.split("-");
+
 if(p.length!==3)return null;
-return new Date(Number(p[0]), Number(p[1])-1, Number(p[2]));
+
+return new Date(
+Number(p[0]),
+Number(p[1])-1,
+Number(p[2])
+);
 }
 
 function addDays(date,days){
@@ -1508,81 +1956,200 @@ return d;
 function addMonths(date,months){
 const d=new Date(date);
 const day=d.getDate();
+
 d.setDate(1);
 d.setMonth(d.getMonth()+months);
-const last=new Date(d.getFullYear(), d.getMonth()+1, 0).getDate();
+
+const last=new Date(
+d.getFullYear(),
+d.getMonth()+1,
+0
+).getDate();
+
 d.setDate(Math.min(day,last));
+
 return d;
 }
 
 function daysBetween(a,b){
-return Math.round((b-a)/(1000*60*60*24));
+return Math.round(
+(b-a)/(1000*60*60*24)
+);
 }
 
-function hijriToJulianDay(year, month, day) {
-  return Math.floor((11 * year + 3) / 30) + 354 * year + 30 * month - Math.floor((month - 1) / 2) + day + 1948440 - 385;
+function hijriToJulianDay(year,month,day){
+
+return Math.floor((11*year+3)/30)
++354*year
++30*month
+-Math.floor((month-1)/2)
++day
++1948440
+-385;
+
 }
 
-function julianDayToGregorian(jd) {
-  let l = jd + 68569;
-  let n = Math.floor((4 * l) / 146097);
-  l = l - Math.floor((146097 * n + 3) / 4);
-  let i = Math.floor((4000 * (l + 1)) / 1464001);
-  l = l - Math.floor((1461 * i) / 4) + 31;
-  let j = Math.floor((80 * l) / 2447);
-  let day = l - Math.floor((2447 * j) / 80);
-  l = Math.floor(j / 11);
-  let month = j + 2 - 12 * l;
-  let year = 100 * (n - 49) + i + l;
-  return new Date(year, month - 1, day);
+function julianDayToGregorian(jd){
+
+let l=jd+68569;
+let n=Math.floor((4*l)/146097);
+
+l=l-Math.floor((146097*n+3)/4);
+
+let i=Math.floor((4000*(l+1))/1461001);
+
+l=l-Math.floor((1461*i)/4)+31;
+
+let j=Math.floor((80*l)/2447);
+
+let day=l-Math.floor((2447*j)/80);
+
+l=Math.floor(j/11);
+
+let month=j+2-12*l;
+
+let year=100*(n-49)+i+l;
+
+return new Date(
+year,
+month-1,
+day
+);
+
 }
 
-function gregorianToHijri(date) {
-  try {
-    const formatter = new Intl.DateTimeFormat('en-US-u-ca-islamic-umalqura', {
-      year: 'numeric', month: 'numeric', day: 'numeric'
-    });
-    const parts = formatter.formatToParts(date);
-    const res = {};
-    parts.forEach(p => {
-      if(p.type === 'year') res.year = parseInt(p.value, 10);
-      if(p.type === 'month') res.month = parseInt(p.value, 10);
-      if(p.type === 'day') res.day = parseInt(p.value, 10);
-    });
-    return res;
-  } catch(e) {
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-    let jd = Math.floor((1461 * (year + 4800 + Math.floor((month - 14) / 12))) / 4) +
-             Math.floor((367 * (month - 2 - 12 * (Math.floor((month - 14) / 12)))) / 12) -
-             Math.floor((3 * (Math.floor((year + 4900 + Math.floor((month - 14) / 12)) / 100))) / 4) +
-             day - 32075;
-    let l = jd - 1948440 + 10632;
-    let n = Math.floor((l - 1) / 10631);
-    l = l - 10631 * n + 354;
-    let j = (Math.floor((10985 - l) / 5316)) * (Math.floor((50 * l) / 17719)) +
-            (Math.floor(l / 5670)) * (Math.floor((43 * l) / 15238));
-    l = l - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) -
-        (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
-    let m = Math.floor((24 * l) / 709);
-    let d = l - Math.floor((709 * m) / 24);
-    let y = 30 * n + j - 30;
-    return { year: y, month: m, day: d };
-  }
+function gregorianToHijri(date){
+
+try{
+
+const formatter=new Intl.DateTimeFormat(
+"en-US-u-ca-islamic-umalqura",
+{
+year:"numeric",
+month:"numeric",
+day:"numeric"
+}
+);
+
+const parts=formatter.formatToParts(date);
+
+const res={};
+
+parts.forEach(p=>{
+
+if(p.type==="year"){
+res.year=parseInt(p.value,10);
 }
 
-function hijriToGregorian(hYear, hMonth, hDay) {
-  let jd = hijriToJulianDay(hYear, hMonth, hDay);
-  let gDate = julianDayToGregorian(jd);
-  for (let offset = -2; offset <= 2; offset++) {
-    let checkDate = new Date(gDate.getFullYear(), gDate.getMonth(), gDate.getDate() + offset);
-    let h = gregorianToHijri(checkDate);
-    if (h.year === hYear && h.month === hMonth && h.day === hDay) {
-      return checkDate;
-    }
-  }
-  return gDate;
+if(p.type==="month"){
+res.month=parseInt(p.value,10);
+}
+
+if(p.type==="day"){
+res.day=parseInt(p.value,10);
+}
+
+});
+
+return res;
+
+}catch(e){
+
+let year=date.getFullYear();
+let month=date.getMonth()+1;
+let day=date.getDate();
+
+let jd=
+Math.floor(
+(1461*(year+4800+Math.floor((month-14)/12)))/4
+)
++
+Math.floor(
+(367*(month-2-12*(Math.floor((month-14)/12))))/12
+)
+-
+Math.floor(
+(3*(Math.floor((year+4900+Math.floor((month-14)/12))/100)))/4
+)
++
+day
+-
+32075;
+
+let l=jd-1948440+10632;
+
+let n=Math.floor((l-1)/10631);
+
+l=l-10631*n+354;
+
+let j=
+(Math.floor((10985-l)/5316))
+*
+(Math.floor((50*l)/17719))
++
+(Math.floor(l/5670))
+*
+(Math.floor((43*l)/15238));
+
+l=
+l-
+(Math.floor((30-j)/15))
+*
+(Math.floor((17719*j)/50))
+-
+(Math.floor(j/16))
+*
+(Math.floor((15238*j)/43))
++
+29;
+
+let m=Math.floor((24*l)/709);
+
+let d=l-Math.floor((709*m)/24);
+
+let y=30*n+j-30;
+
+return{
+year:y,
+month:m,
+day:d
+};
+
+}
+
+}
+
+function hijriToGregorian(hYear,hMonth,hDay){
+
+let jd=hijriToJulianDay(
+hYear,
+hMonth,
+hDay
+);
+
+let gDate=julianDayToGregorian(jd);
+
+for(let offset=-2;offset<=2;offset++){
+
+let checkDate=new Date(
+gDate.getFullYear(),
+gDate.getMonth(),
+gDate.getDate()+offset
+);
+
+let h=gregorianToHijri(checkDate);
+
+if(
+h.year===hYear &&
+h.month===hMonth &&
+h.day===hDay
+){
+return checkDate;
+}
+
+}
+
+return gDate;
 }
 
 const hijriMonths=[
@@ -1616,109 +2183,251 @@ const gregorianMonths=[
 ];
 
 function formatGregorian(date){
-return new Intl.DateTimeFormat("ar-SA", {
+
+return new Intl.DateTimeFormat(
+"ar-SA",
+{
 calendar:"gregory",
 year:"numeric",
 month:"long",
 day:"numeric"
-}).format(date);
+}
+).format(date);
+
 }
 
 function formatHijri(date){
-return new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura", {
+
+return new Intl.DateTimeFormat(
+"ar-SA-u-ca-islamic-umalqura",
+{
 year:"numeric",
 month:"long",
 day:"numeric"
-}).format(date);
+}
+).format(date);
+
 }
 
 function getDateDisplay(target){
-const input=document.querySelector('[name="'+target+'"]');
-const box=document.querySelector('[data-date-target="'+target+'"]');
+
+const input=document.querySelector(
+'[name="'+target+'"]'
+);
+
+const box=document.querySelector(
+'[data-date-target="'+target+'"]'
+);
+
 if(!input || !box)return;
 
 if(!input.value){
+
 box.textContent="اختر التاريخ";
+
 box.classList.add("placeholder");
+
 return;
+
 }
 
 const d=parseDate(input.value);
+
 if(!d)return;
 
-const state=dateStates[target]||{mode:"hijri"};
-box.textContent=state.mode==="hijri"?formatHijri(d):formatGregorian(d);
+const state=dateStates[target]||{
+mode:"hijri"
+};
+
+box.textContent=
+state.mode==="hijri"
+?
+formatHijri(d)
+:
+formatGregorian(d);
+
 box.classList.remove("placeholder");
+
 }
 
-document.querySelectorAll("[data-calendar-target]").forEach(btn=>{
+/* =========================================================
+   التقويم
+========================================================= */
+
+document.querySelectorAll(
+"[data-calendar-target]"
+).forEach(btn=>{
+
 const target=btn.dataset.calendarTarget;
-dateStates[target]={ mode:"hijri" };
+
+dateStates[target]={
+mode:"hijri"
+};
+
 btn.textContent="التحويل للميلادي";
+
 });
 
-document.querySelectorAll("[data-date-target]").forEach(box=>{
-box.addEventListener("click", function(){
-openCalendar(this.dataset.dateTarget);
-});
+document.querySelectorAll(
+"[data-date-target]"
+).forEach(box=>{
+
+box.addEventListener(
+"click",
+function(){
+
+openCalendar(
+this.dataset.dateTarget
+);
+
+}
+);
+
 });
 
-document.querySelectorAll(".calendar-switch").forEach(btn=>{
-btn.addEventListener("click", function(e){
+document.querySelectorAll(
+".calendar-switch"
+).forEach(btn=>{
+
+btn.addEventListener(
+"click",
+function(e){
+
 e.preventDefault();
+
 const target=this.dataset.calendarTarget;
-const state=dateStates[target]||{mode:"hijri"};
-state.mode=state.mode==="hijri"?"gregorian":"hijri";
+
+const state=dateStates[target]||{
+mode:"hijri"
+};
+
+state.mode=
+state.mode==="hijri"
+?
+"gregorian"
+:
+"hijri";
+
 dateStates[target]=state;
-this.textContent=state.mode==="hijri"?"التحويل للميلادي":"التحويل للهجري";
+
+this.textContent=
+state.mode==="hijri"
+?
+"التحويل للميلادي"
+:
+"التحويل للهجري";
+
 getDateDisplay(target);
-});
+
+}
+);
+
 });
 
 function openCalendar(target){
+
 activeCalendarTarget=target;
-const state=dateStates[target]||{mode:"hijri"};
+
+const state=dateStates[target]||{
+mode:"hijri"
+};
+
 activeCalendarMode=state.mode;
 
-const input=document.querySelector('[name="'+target+'"]');
-let d=input && input.value ? parseDate(input.value) : todayDate();
+const input=document.querySelector(
+'[name="'+target+'"]'
+);
+
+let d=
+input && input.value
+?
+parseDate(input.value)
+:
+todayDate();
 
 if(activeCalendarMode==="hijri"){
+
 const h=gregorianToHijri(d);
+
 calendarView.year=h.year;
 calendarView.month=h.month;
 calendarView.day=h.day;
+
 }else{
+
 calendarView.year=d.getFullYear();
 calendarView.month=d.getMonth()+1;
 calendarView.day=d.getDate();
+
 }
 
 renderCalendar();
-document.getElementById("calendarOverlay").classList.add("active");
+
+document
+.getElementById("calendarOverlay")
+.classList.add("active");
+
 }
 
-document.getElementById("calendarClose").addEventListener("click", function(){
-document.getElementById("calendarOverlay").classList.remove("active");
-});
+document
+.getElementById("calendarClose")
+.addEventListener(
+"click",
+function(){
 
-document.getElementById("calendarOverlay").addEventListener("click", function(e){
+document
+.getElementById("calendarOverlay")
+.classList.remove("active");
+
+}
+);
+
+document
+.getElementById("calendarOverlay")
+.addEventListener(
+"click",
+function(e){
+
 if(e.target===this){
+
 this.classList.remove("active");
+
 }
-});
+
+}
+);
 
 function hijriMonthDays(y,m){
+
 let first=hijriToGregorian(y,m,1);
-let next = (m===12) ? hijriToGregorian(y+1,1,1) : hijriToGregorian(y,m+1,1);
-if(!first || !next) return 30;
-let diff = daysBetween(first, next);
-return (diff >= 29 && diff <= 30) ? diff : 30;
+
+let next=
+m===12
+?
+hijriToGregorian(y+1,1,1)
+:
+hijriToGregorian(y,m+1,1);
+
+if(!first || !next)return 30;
+
+let diff=daysBetween(first,next);
+
+return(
+diff>=29 &&
+diff<=30
+)
+?
+diff
+:
+30;
+
 }
 
 function renderCalendar(){
+
 const title=document.getElementById("calendarTitle");
 const days=document.getElementById("calendarDays");
+
 const daySelect=document.getElementById("calDay");
 const monthSelect=document.getElementById("calMonth");
 const yearSelect=document.getElementById("calYear");
@@ -1729,642 +2438,2507 @@ monthSelect.innerHTML="";
 yearSelect.innerHTML="";
 
 if(activeCalendarMode==="hijri"){
+
 title.textContent="التاريخ الهجري";
 
 for(let i=1;i<=12;i++){
+
 const opt=document.createElement("option");
+
 opt.value=i;
 opt.textContent=hijriMonths[i-1];
-if(i===calendarView.month) opt.selected=true;
+
+if(i===calendarView.month){
+opt.selected=true;
+}
+
 monthSelect.appendChild(opt);
+
 }
 
 for(let y=1350;y<=1500;y++){
+
 const opt=document.createElement("option");
+
 opt.value=y;
 opt.textContent=y;
-if(y===calendarView.year) opt.selected=true;
-yearSelect.appendChild(opt);
+
+if(y===calendarView.year){
+opt.selected=true;
 }
 
-const total=hijriMonthDays(calendarView.year, calendarView.month);
+yearSelect.appendChild(opt);
+
+}
+
+const total=hijriMonthDays(
+calendarView.year,
+calendarView.month
+);
 
 for(let i=1;i<=total;i++){
+
 const opt=document.createElement("option");
+
 opt.value=i;
 opt.textContent=i;
-if(i===calendarView.day) opt.selected=true;
+
+if(i===calendarView.day){
+opt.selected=true;
+}
+
 daySelect.appendChild(opt);
+
 }
 
 }else{
+
 title.textContent="التاريخ الميلادي";
 
 for(let i=1;i<=12;i++){
+
 const opt=document.createElement("option");
+
 opt.value=i;
 opt.textContent=gregorianMonths[i-1];
-if(i===calendarView.month) opt.selected=true;
+
+if(i===calendarView.month){
+opt.selected=true;
+}
+
 monthSelect.appendChild(opt);
+
 }
 
 for(let y=1950;y<=2100;y++){
+
 const opt=document.createElement("option");
+
 opt.value=y;
 opt.textContent=y;
-if(y===calendarView.year) opt.selected=true;
-yearSelect.appendChild(opt);
+
+if(y===calendarView.year){
+opt.selected=true;
 }
 
-const total=new Date(calendarView.year, calendarView.month, 0).getDate();
+yearSelect.appendChild(opt);
+
+}
+
+const total=
+new Date(
+calendarView.year,
+calendarView.month,
+0
+).getDate();
 
 for(let i=1;i<=total;i++){
+
 const opt=document.createElement("option");
+
 opt.value=i;
 opt.textContent=i;
-if(i===calendarView.day) opt.selected=true;
-daySelect.appendChild(opt);
+
+if(i===calendarView.day){
+opt.selected=true;
 }
+
+daySelect.appendChild(opt);
+
+}
+
 }
 
 let firstGregorian;
+
 if(activeCalendarMode==="hijri"){
-firstGregorian=hijriToGregorian(calendarView.year, calendarView.month, 1);
+
+firstGregorian=
+hijriToGregorian(
+calendarView.year,
+calendarView.month,
+1
+);
+
 }else{
-firstGregorian=new Date(calendarView.year, calendarView.month-1, 1);
+
+firstGregorian=
+new Date(
+calendarView.year,
+calendarView.month-1,
+1
+);
+
 }
 
 const startDay=firstGregorian.getDay();
+
 for(let i=0;i<startDay;i++){
+
 const empty=document.createElement("div");
+
 empty.className="calendar-day empty";
+
 days.appendChild(empty);
+
 }
 
-const input=activeCalendarTarget ? document.querySelector('[name="'+activeCalendarTarget+'"]') : null;
-const selected=input && input.value ? parseDate(input.value) : null;
+const input=
+activeCalendarTarget
+?
+document.querySelector(
+'[name="'+activeCalendarTarget+'"]'
+)
+:
+null;
 
-let totalDays = (activeCalendarMode==="hijri") ? hijriMonthDays(calendarView.year, calendarView.month) : new Date(calendarView.year, calendarView.month, 0).getDate();
+const selected=
+input && input.value
+?
+parseDate(input.value)
+:
+null;
 
-for(let day=1; day<=totalDays; day++){
-let g = (activeCalendarMode==="hijri") ? hijriToGregorian(calendarView.year, calendarView.month, day) : new Date(calendarView.year, calendarView.month-1, day);
+let totalDays=
+activeCalendarMode==="hijri"
+?
+hijriMonthDays(
+calendarView.year,
+calendarView.month
+)
+:
+new Date(
+calendarView.year,
+calendarView.month,
+0
+).getDate();
+
+for(
+let day=1;
+day<=totalDays;
+day++
+){
+
+let g=
+activeCalendarMode==="hijri"
+?
+hijriToGregorian(
+calendarView.year,
+calendarView.month,
+day
+)
+:
+new Date(
+calendarView.year,
+calendarView.month-1,
+day
+);
 
 const btn=document.createElement("button");
+
 btn.type="button";
 btn.className="calendar-day";
 btn.textContent=day;
 
-if(selected && dateKey(selected)===dateKey(g)){
+if(
+selected &&
+dateKey(selected)===dateKey(g)
+){
+
 btn.classList.add("selected");
+
 }
 
-if(dateKey(g)===dateKey(todayDate())){
+if(
+dateKey(g)===dateKey(todayDate())
+){
+
 btn.classList.add("today");
+
 }
 
-btn.addEventListener("click", function(){
-calendarView.day = day;
+btn.addEventListener(
+"click",
+function(){
+
+calendarView.day=day;
+
 selectCalendarDate(g);
-});
+
+}
+);
 
 days.appendChild(btn);
+
 }
+
 }
 
 function selectCalendarDate(date){
-const input=document.querySelector('[name="'+activeCalendarTarget+'"]');
+
+if(activePaymentIndex!==null){
+
+const index=activePaymentIndex;
+
+paymentDates[index]=new Date(date);
+
+activePaymentIndex=null;
+
+activeCalendarTarget=null;
+
+document
+.getElementById("calendarOverlay")
+.classList.remove("active");
+
+updatePaymentTable();
+
+return;
+
+}
+
+const input=document.querySelector(
+'[name="'+activeCalendarTarget+'"]'
+);
+
 if(!input)return;
 
 input.value=dateKey(date);
+
 getDateDisplay(activeCalendarTarget);
 
-const displayBox = document.querySelector('[data-date-target="'+activeCalendarTarget+'"]');
+const displayBox=document.querySelector(
+'[data-date-target="'+activeCalendarTarget+'"]'
+);
+
 if(displayBox){
-  displayBox.classList.remove('field-error');
+
+displayBox.classList.remove("field-error");
+
 }
 
-document.getElementById("calendarOverlay").classList.remove("active");
+document
+.getElementById("calendarOverlay")
+.classList.remove("active");
 
 if(activeCalendarTarget==="startDate"){
+
 updateDurationInfo();
 updatePaymentTable();
-}
+
 }
 
-document.getElementById("calDay").addEventListener("change", function(){
+}
+
+document
+.getElementById("calDay")
+.addEventListener(
+"change",
+function(){
+
 calendarView.day=Number(this.value);
-let g = (activeCalendarMode==="hijri") ? hijriToGregorian(calendarView.year, calendarView.month, calendarView.day) : new Date(calendarView.year, calendarView.month-1, calendarView.day);
+
+let g=
+activeCalendarMode==="hijri"
+?
+hijriToGregorian(
+calendarView.year,
+calendarView.month,
+calendarView.day
+)
+:
+new Date(
+calendarView.year,
+calendarView.month-1,
+calendarView.day
+);
+
 selectCalendarDate(g);
-});
 
-document.getElementById("calMonth").addEventListener("change", function(){
+}
+);
+
+document
+.getElementById("calMonth")
+.addEventListener(
+"change",
+function(){
+
 calendarView.month=Number(this.value);
-renderCalendar();
-});
 
-document.getElementById("calYear").addEventListener("change", function(){
+renderCalendar();
+
+}
+);
+
+document
+.getElementById("calYear")
+.addEventListener(
+"change",
+function(){
+
 calendarView.year=Number(this.value);
-renderCalendar();
-});
 
-document.getElementById("calPrev").addEventListener("click", function(){
+renderCalendar();
+
+}
+);
+
+document
+.getElementById("calPrev")
+.addEventListener(
+"click",
+function(){
+
 calendarView.month--;
+
 if(calendarView.month<1){
+
 calendarView.month=12;
 calendarView.year--;
-}
-renderCalendar();
-});
 
-document.getElementById("calNext").addEventListener("click", function(){
+}
+
+renderCalendar();
+
+}
+);
+
+document
+.getElementById("calNext")
+.addEventListener(
+"click",
+function(){
+
 calendarView.month++;
+
 if(calendarView.month>12){
+
 calendarView.month=1;
 calendarView.year++;
-}
-renderCalendar();
-});
 
-contractType.addEventListener("change", function(){
-errorBox.style.display="none";
-if(this.value){
-step2.classList.add("active");
-}else{
+}
+
+renderCalendar();
+
+}
+);
+
+/* =========================================================
+   الأقسام حسب نوع العقد
+========================================================= */
+
+function isSubcontract(){
+
+return contractType.value==="عقد من الباطن";
+
+}
+
+function resetSteps(){
+
 step2.classList.remove("active");
 step3.classList.remove("active");
 step4.classList.remove("active");
 step5.classList.remove("active");
-}
-});
 
-lessorCategory.addEventListener("change", function(){
+}
+
+contractType.addEventListener(
+"change",
+function(){
+
+errorBox.style.display="none";
+
+resetSteps();
+
+if(!this.value)return;
+
+step2.classList.add("active");
+
+if(isSubcontract()){
+
+document.getElementById("step2Title").textContent=
+"2. رقم العقد الأساسي";
+
+lessorMainSec.style.display="none";
+
+subcontractPrimarySec.classList.add("active");
+
+deedSec.classList.remove("active");
+
+setRequired(lessorMainSec,false);
+
+}else{
+
+document.getElementById("step2Title").textContent=
+"2. بيانات المؤجر (صاحب العقار)";
+
+lessorMainSec.style.display="block";
+
+subcontractPrimarySec.classList.remove("active");
+
+setRequired(
+document.getElementById("subcontractPrimarySec"),
+false
+);
+
+deedSec.classList.add("active");
+
+}
+
+}
+);
+
+/* =========================================================
+   صفة المؤجر
+========================================================= */
+
+lessorCategory.addEventListener(
+"change",
+function(){
+
 lessorIndividualSec.classList.remove("active");
 lessorEntitySec.classList.remove("active");
-setRequired(lessorIndividualSec, false);
-setRequired(lessorEntitySec, false);
+lessorAgentSec.classList.remove("active");
 
-if(this.value==="فرد"){
+setRequired(lessorIndividualSec,false);
+setRequired(lessorEntitySec,false);
+setRequired(lessorAgentSec,false);
+
+if(this.value==="فرد بالهوية"){
+
 lessorIndividualSec.classList.add("active");
-setRequired(lessorIndividualSec, true);
-}
-if(this.value==="منشأة"){
-lessorEntitySec.classList.add("active");
-setRequired(lessorEntitySec, true);
-}
-});
 
-tenantCategory.addEventListener("change", function(){
+setRequired(
+lessorIndividualSec,
+true
+);
+
+}
+
+if(
+this.value==="شركة أو مؤسسة بالسجل التجاري"
+){
+
+lessorEntitySec.classList.add("active");
+
+setRequired(
+lessorEntitySec,
+true
+);
+
+}
+
+if(this.value==="وكيل"){
+
+lessorAgentSec.classList.add("active");
+
+setRequired(
+lessorAgentSec,
+true
+);
+
+}
+
+}
+);
+
+/* =========================================================
+   صفة ممثل المؤجر
+========================================================= */
+
+lessorRepRole.addEventListener(
+"change",
+function(){
+
+if(this.value==="وكيل شرعي"){
+
+lessorAgencyWrap.style.display="block";
+
+document
+.querySelector('[name="lessorAgencyNumber"]')
+.setAttribute("required","required");
+
+}else{
+
+lessorAgencyWrap.style.display="none";
+
+document
+.querySelector('[name="lessorAgencyNumber"]')
+.removeAttribute("required");
+
+document
+.querySelector('[name="lessorAgencyNumber"]')
+.value="";
+
+}
+
+}
+);
+
+/* =========================================================
+   صفة المستأجر
+========================================================= */
+
+tenantCategory.addEventListener(
+"change",
+function(){
+
 tenantIndividualSec.classList.remove("active");
 tenantEntitySec.classList.remove("active");
-setRequired(tenantIndividualSec, false);
-setRequired(tenantEntitySec, false);
+tenantAgentSec.classList.remove("active");
 
-if(this.value==="فرد"){
+setRequired(tenantIndividualSec,false);
+setRequired(tenantEntitySec,false);
+setRequired(tenantAgentSec,false);
+
+if(this.value==="فرد بالهوية"){
+
 tenantIndividualSec.classList.add("active");
-setRequired(tenantIndividualSec, true);
+
+setRequired(
+tenantIndividualSec,
+true
+);
+
 }
-if(this.value==="منشأة"){
+
+if(
+this.value==="شركة أو مؤسسة بالسجل التجاري"
+){
+
 tenantEntitySec.classList.add("active");
-setRequired(tenantEntitySec, true);
+
+setRequired(
+tenantEntitySec,
+true
+);
+
 }
-});
+
+if(this.value==="وكيل"){
+
+tenantAgentSec.classList.add("active");
+
+setRequired(
+tenantAgentSec,
+true
+);
+
+}
+
+}
+);
+
+/* =========================================================
+   صفة ممثل المستأجر
+========================================================= */
+
+tenantRepRole.addEventListener(
+"change",
+function(){
+
+if(this.value==="وكيل شرعي"){
+
+tenantAgencyWrap.style.display="block";
+
+document
+.querySelector('[name="tenantAgencyNumber"]')
+.setAttribute("required","required");
+
+}else{
+
+tenantAgencyWrap.style.display="none";
+
+document
+.querySelector('[name="tenantAgencyNumber"]')
+.removeAttribute("required");
+
+document
+.querySelector('[name="tenantAgencyNumber"]')
+.value="";
+
+}
+
+}
+);
+
+/* =========================================================
+   الحقول المطلوبة
+========================================================= */
 
 function setRequired(container,required){
-container.querySelectorAll("input,select").forEach(el=>{
+
+if(!container)return;
+
+container
+.querySelectorAll("input,select")
+.forEach(el=>{
+
 if(required){
-el.setAttribute("required", "required");
+
+el.setAttribute(
+"required",
+"required"
+);
+
 }else{
-el.removeAttribute("required");
+
+el.removeAttribute(
+"required"
+);
+
 }
+
 });
+
 }
+
+/* =========================================================
+   التحقق من الأرقام
+========================================================= */
+
+document
+.querySelectorAll('[data-number-type]')
+.forEach(input=>{
+
+input.addEventListener(
+"input",
+function(){
+
+this.value=this.value
+.replace(/\D/g,"")
+.slice(0,10);
+
+this.classList.remove("field-error");
+
+}
+);
+
+});
+
+function validateTenDigits(name,label){
+
+const field=form.querySelector(
+'[name="'+name+'"]'
+);
+
+if(!field)return true;
+
+const value=field.value.trim();
+
+if(!/^\d{10}$/.test(value)){
+
+showError(
+"⚠️ "+label+" يجب أن يتكون من 10 أرقام بالضبط"
+);
+
+field.classList.add(
+"field-error"
+);
+
+field.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+return false;
+
+}
+
+return true;
+
+}
+
+function validateCR(name,label){
+
+const field=form.querySelector(
+'[name="'+name+'"]'
+);
+
+if(!field)return true;
+
+const value=field.value.trim();
+
+if(!/^\d{10}$/.test(value)){
+
+showError(
+"⚠️ "+label+" يجب أن يتكون من 10 أرقام بالضبط"
+);
+
+field.classList.add(
+"field-error"
+);
+
+field.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+return false;
+
+}
+
+if(!value.startsWith("7")){
+
+showError(
+"⚠️ "+label+" يجب أن يبدأ برقم 7"
+);
+
+field.classList.add(
+"field-error"
+);
+
+field.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+return false;
+
+}
+
+return true;
+
+}
+
+function validatePhoneAndIdentitySection(section){
+
+const fields=section.querySelectorAll(
+'[data-number-type]'
+);
+
+for(const field of fields){
+
+if(field.offsetParent === null) continue;
+
+const value=field.value.trim();
+
+if(!value)continue;
+
+if(!/^\d{10}$/.test(value)){
+
+let label="الرقم";
+
+if(field.dataset.numberType==="phone"){
+label="رقم الجوال";
+}
+
+if(field.dataset.numberType==="identity"){
+label="رقم الهوية";
+}
+
+if(field.dataset.numberType==="cr"){
+label="رقم السجل التجاري";
+}
+
+showError(
+"⚠️ "+label+" يجب أن يتكون من 10 أرقام بالضبط"
+);
+
+field.classList.add(
+"field-error"
+);
+
+field.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+return false;
+
+}
+
+}
+
+return true;
+
+}
+
+/* =========================================================
+   رسالة الخطأ
+========================================================= */
 
 function showError(message){
+
 errorBox.textContent=message;
+
 errorBox.style.display="block";
-errorBox.scrollIntoView({behavior:"smooth", block:"center"});
-}
 
-// دالة التحقق المحدثة: تتأكد من الحقول والتواريخ الظاهرة فقط وتتجاهل العناصر المخفية
-function validateSection(section){
-section.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
-
-let missing = [];
-
-// 1. فحص الحقول المطلوبة الظاهرة فقط في الصفحة
-const requiredInputs = section.querySelectorAll("[required]");
-
-requiredInputs.forEach(el => {
-  const isVisible = !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
-  if (isVisible && !String(el.value || "").trim()) {
-    missing.push(el);
-  }
+errorBox.scrollIntoView({
+behavior:"smooth",
+block:"center"
 });
 
-// 2. فحص أزرار التواريخ الخاصة بالأقسام الظاهرة فقط
-const activeDynamic = section.querySelector(".dynamic-section.active");
-const dateBoxes = activeDynamic 
-  ? activeDynamic.querySelectorAll("[data-date-target]") 
-  : section.querySelectorAll(".grid > .field [data-date-target]");
+}
 
-dateBoxes.forEach(box => {
-  const isVisible = !!(box.offsetWidth || box.offsetHeight || box.getClientRects().length);
-  if (isVisible) {
-    const targetName = box.dataset.dateTarget;
-    const hiddenInput = section.querySelector('input[name="'+targetName+'"]');
-    if (hiddenInput && !hiddenInput.value.trim()) {
-      if (!missing.includes(box)) missing.push(box);
-    }
-  }
+/* =========================================================
+   التحقق من الأقسام (تم التحديث لمنع فحص الحقول المخفية)
+========================================================= */
+
+function validateSection(section){
+
+section
+.querySelectorAll(".field-error")
+.forEach(el=>{
+el.classList.remove("field-error");
+});
+
+let missing=[];
+
+const requiredInputs=
+section.querySelectorAll(
+".dynamic-section.active [required], .grid > .field > [required]"
+);
+
+requiredInputs.forEach(el=>{
+
+if(el.offsetParent !== null && !String(el.value||"").trim()){
+
+missing.push(el);
+
+}
+
+});
+
+const activeDynamics=
+section.querySelectorAll(
+".dynamic-section.active"
+);
+
+activeDynamics.forEach(dynamic=>{
+
+const dateBoxes=
+dynamic.querySelectorAll(
+"[data-date-target]"
+);
+
+dateBoxes.forEach(box=>{
+
+const targetName=
+box.dataset.dateTarget;
+
+const hiddenInput=
+section.querySelector(
+'input[name="'+targetName+'"]'
+);
+
+if(
+hiddenInput &&
+!hiddenInput.value.trim()
+){
+
+if(!missing.includes(box)){
+
+missing.push(box);
+
+}
+
+}
+
+});
+
+});
+
+const normalDateBoxes=
+section.querySelectorAll(
+".grid > .field > .date-control > [data-date-target]"
+);
+
+normalDateBoxes.forEach(box=>{
+
+if(box.closest('.dynamic-section') && !box.closest('.dynamic-section.active')){
+return;
+}
+
+const targetName=
+box.dataset.dateTarget;
+
+const hiddenInput=
+section.querySelector(
+'input[name="'+targetName+'"]'
+);
+
+if(
+hiddenInput &&
+!hiddenInput.value.trim()
+){
+
+if(!missing.includes(box)){
+
+missing.push(box);
+
+}
+
+}
+
 });
 
 if(missing.length){
-showError("⚠️ يرجى إكمال جميع الحقول المطلوبة");
 
-const targetEl = missing[0];
-targetEl.classList.add('field-error');
+showError(
+"⚠️ يرجى إكمال جميع الحقول المطلوبة"
+);
+
+const targetEl=missing[0];
+
+targetEl.classList.add(
+"field-error"
+);
 
 targetEl.scrollIntoView({
-  behavior: "smooth",
-  block: "center",
-  inline: "nearest"
+behavior:"smooth",
+block:"center",
+inline:"nearest"
 });
 
 return false;
-}
-return true;
+
 }
 
-function validateCR(name,message){
-const field=form.querySelector('[name="'+name+'"]');
-if(!field)return true;
-if(!field.value.trim().startsWith("7")){
-showError(message);
-field.classList.add('field-error');
-field.scrollIntoView({ behavior: "smooth", block: "center" });
-return false;
-}
 return true;
+
 }
 
-document.getElementById("lessorNext").addEventListener("click", function(){
-if(!lessorCategory.value){
-showError("⚠️ يرجى اختيار صفة المؤجر");
-lessorCategory.classList.add('field-error');
-lessorCategory.scrollIntoView({ behavior: "smooth", block: "center" });
+/* =========================================================
+   الانتقال من المؤجر
+========================================================= */
+
+document
+.getElementById("lessorNext")
+.addEventListener(
+"click",
+function(){
+
+if(isSubcontract()){
+
+const primary=
+document.getElementById(
+"primaryContractNumber"
+);
+
+if(!primary.value.trim()){
+
+showError(
+"⚠️ يرجى إدخال رقم العقد الأساسي"
+);
+
+primary.classList.add(
+"field-error"
+);
+
+primary.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
 return;
+
 }
-if(!validateSection(step2)) return;
-if(lessorCategory.value==="منشأة" && !validateCR("lessorCr", "⚠️ رقم السجل التجاري للمؤجر يجب أن يبدأ برقم 7")) return;
 
 errorBox.style.display="none";
+
 step3.classList.add("active");
-step3.scrollIntoView({behavior:"smooth", block:"start"});
+
+step3.scrollIntoView({
+behavior:"smooth",
+block:"start"
 });
 
-document.getElementById("tenantNext").addEventListener("click", function(){
-if(!tenantCategory.value){
-showError("⚠️ يرجى اختيار صفة المستأجر");
-tenantCategory.classList.add('field-error');
-tenantCategory.scrollIntoView({ behavior: "smooth", block: "center" });
 return;
+
 }
-if(!validateSection(step3)) return;
-if(tenantCategory.value==="منشأة" && !validateCR("tenantCr", "⚠️ رقم السجل التجاري للمستأجر يجب أن يبدأ برقم 7")) return;
+
+if(!lessorCategory.value){
+
+showError(
+"⚠️ يرجى اختيار صفة المؤجر"
+);
+
+lessorCategory.classList.add(
+"field-error"
+);
+
+lessorCategory.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+return;
+
+}
+
+if(!validateSection(step2))return;
+
+if(
+lessorCategory.value===
+"شركة أو مؤسسة بالسجل التجاري"
+){
+
+if(
+!validateCR(
+"lessorCr",
+"رقم السجل التجاري للمؤجر"
+)
+)return;
+
+}
+
+if(!validatePhoneAndIdentitySection(step2))
+return;
+
+/* الصك */
+
+if(!validateDeed())
+return;
 
 errorBox.style.display="none";
-step4.classList.add("active");
-step4.scrollIntoView({behavior:"smooth", block:"start"});
+
+step3.classList.add("active");
+
+step3.scrollIntoView({
+behavior:"smooth",
+block:"start"
 });
+
+}
+);
+
+/* =========================================================
+   التحقق من الصك
+========================================================= */
+
+function validateDeed(){
+
+if(isSubcontract())return true;
+
+const number=
+form.querySelector(
+'[name="deedNumber"]'
+);
+
+if(!number.value.trim()){
+
+showError(
+"⚠️ يرجى إدخال رقم الصك"
+);
+
+number.classList.add(
+"field-error"
+);
+
+number.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+return false;
+
+}
+
+const date=
+form.querySelector(
+'[name="deedDate"]'
+);
+
+if(!date.value.trim()){
+
+const box=
+document.querySelector(
+'[data-date-target="deedDate"]'
+);
+
+showError(
+"⚠️ يرجى اختيار تاريخ الصك"
+);
+
+box.classList.add(
+"field-error"
+);
+
+box.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+return false;
+
+}
+
+return true;
+
+}
+
+/* =========================================================
+   الانتقال من المستأجر
+========================================================= */
+
+document
+.getElementById("tenantNext")
+.addEventListener(
+"click",
+function(){
+
+if(!tenantCategory.value){
+
+showError(
+"⚠️ يرجى اختيار صفة المستأجر"
+);
+
+tenantCategory.classList.add(
+"field-error"
+);
+
+tenantCategory.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+return;
+
+}
+
+if(!validateSection(step3))
+return;
+
+if(
+tenantCategory.value===
+"شركة أو مؤسسة بالسجل التجاري"
+){
+
+if(
+!validateCR(
+"tenantCr",
+"رقم السجل التجاري للمستأجر"
+)
+)return;
+
+}
+
+if(!validatePhoneAndIdentitySection(step3))
+return;
+
+errorBox.style.display="none";
+
+if(isSubcontract()){
+
+step5.classList.add("active");
+
+step5.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+}else{
+
+step4.classList.add("active");
+
+step4.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
+
+}
+
+}
+);
+
+/* =========================================================
+   الوحدات
+========================================================= */
+
+function createUnitCard(){
+
+if(unitCounter>=MAX_UNITS){
+
+showError(
+"⚠️ الحد الأقصى هو 15 وحدة"
+);
+
+return;
+
+}
+
+unitCounter++;
+
+const unitNumber=unitCounter;
+
+const card=document.createElement("div");
+
+card.className="unit-card";
+
+card.dataset.unitNumber=unitNumber;
+
+card.innerHTML=`
+
+<div class="unit-card-header">
+
+<div class="unit-card-title">
+وحدة رقم ${unitNumber}
+</div>
+
+<button
+type="button"
+class="unit-delete-btn"
+>
+حذف
+</button>
+
+</div>
+
+<div class="grid">
+
+<div class="field">
+
+<label>
+رقم/اسم الوحدة <span class="req">*</span>
+</label>
+
+<input
+name="unitName_${unitNumber}"
+class="unit-name"
+data-unit-field="unitName"
+placeholder="رقم أو اسم الوحدة"
+required
+>
+
+</div>
+
+<div class="field">
+
+<label>
+نوع الوحدة <span class="req">*</span>
+</label>
+
+<select
+name="unitType_${unitNumber}"
+class="unit-type"
+data-unit-field="unitType"
+required
+>
+
+<option value="">اختر</option>
+
+<option>شقة</option>
+<option>فيلا</option>
+<option>محل</option>
+<option>مكتب</option>
+<option>معرض</option>
+<option>مستودع</option>
+<option>أرض</option>
+<option>دور</option>
+<option>استوديو</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>
+رقم الطابق <span class="req">*</span>
+</label>
+
+<input
+name="floor_${unitNumber}"
+class="unit-floor"
+data-unit-field="floor"
+inputmode="numeric"
+required
+>
+
+</div>
+
+<div class="field">
+
+<label>
+مساحة الوحدة (م²)
+</label>
+
+<input
+name="area_${unitNumber}"
+class="unit-area"
+data-unit-field="area"
+inputmode="decimal"
+>
+
+</div>
+
+</div>
+`;
+
+const deleteBtn=
+card.querySelector(
+".unit-delete-btn"
+);
+
+deleteBtn.addEventListener(
+"click",
+function(){
+
+deleteUnit(card);
+
+}
+);
+
+unitsContainer.appendChild(card);
+
+updateAddUnitButton();
+
+}
+
+function deleteUnit(card){
+
+const cards=
+unitsContainer.querySelectorAll(
+".unit-card"
+);
+
+if(cards.length<=1){
+
+showError(
+"⚠️ يجب أن تبقى وحدة واحدة على الأقل"
+);
+
+return;
+
+}
+
+card.remove();
+
+renumberUnits();
+
+updateAddUnitButton();
+
+}
+
+function renumberUnits(){
+
+const cards=
+Array.from(
+unitsContainer.querySelectorAll(
+".unit-card"
+)
+);
+
+cards.forEach(
+(card,index)=>{
+
+const newNumber=index+1;
+
+card.dataset.unitNumber=newNumber;
+
+const title=
+card.querySelector(
+".unit-card-title"
+);
+
+if(title){
+
+title.textContent=
+"وحدة رقم "+newNumber;
+
+}
+
+const name=
+card.querySelector(
+".unit-name"
+);
+
+const type=
+card.querySelector(
+".unit-type"
+);
+
+const floor=
+card.querySelector(
+".unit-floor"
+);
+
+const area=
+card.querySelector(
+".unit-area"
+);
+
+if(name){
+name.name="unitName_"+newNumber;
+}
+
+if(type){
+type.name="unitType_"+newNumber;
+}
+
+if(floor){
+floor.name="floor_"+newNumber;
+}
+
+if(area){
+area.name="area_"+newNumber;
+}
+
+});
+
+unitCounter=cards.length;
+
+}
+
+function updateAddUnitButton(){
+
+const count=
+unitsContainer.querySelectorAll(
+".unit-card"
+).length;
+
+if(count>=MAX_UNITS){
+
+addUnitBtn.disabled=true;
+
+addUnitBtn.textContent=
+"تم الوصول إلى الحد الأقصى 15 وحدة";
+
+}else{
+
+addUnitBtn.disabled=false;
+
+addUnitBtn.textContent=
+"+ إضافة وحدة";
+
+}
+
+}
+
+addUnitBtn.addEventListener(
+"click",
+function(){
+
+createUnitCard();
+
+}
+);
+
+/* الوحدة الأولى تظهر تلقائياً */
+
+createUnitCard();
+
+/* =========================================================
+   حساب إجمالي الوحدات
+========================================================= */
 
 function updateTotal(){
-const a=parseInt(floors.value,10);
-const b=parseInt(unitsPerFloor.value,10);
-const total=Number.isFinite(a)&&a>=0&&Number.isFinite(b)&&b>=0 ? a*b : 0;
-totalUnits.value=total+" وحدة";
+
+const a=parseInt(
+floors.value,
+10
+);
+
+const b=parseInt(
+unitsPerFloor.value,
+10
+);
+
+const total=
+Number.isFinite(a) &&
+a>=0 &&
+Number.isFinite(b) &&
+b>=0
+?
+a*b
+:
+0;
+
+totalUnits.value=
+total+" وحدة";
+
 }
 
-floors.addEventListener("input", updateTotal);
-unitsPerFloor.addEventListener("input", updateTotal);
+floors.addEventListener(
+"input",
+updateTotal
+);
 
-document.getElementById("propertyNext").addEventListener("click", function(){
-if(!validateSection(step4)) return;
+unitsPerFloor.addEventListener(
+"input",
+updateTotal
+);
+
+/* =========================================================
+   الانتقال من العقار
+========================================================= */
+
+document
+.getElementById("propertyNext")
+.addEventListener(
+"click",
+function(){
+
+if(!validateSection(step4))
+return;
+
 errorBox.style.display="none";
+
 step5.classList.add("active");
-step5.scrollIntoView({behavior:"smooth", block:"start"});
+
+step5.scrollIntoView({
+behavior:"smooth",
+block:"start"
 });
 
+}
+);
+
+/* =========================================================
+   مدد العقد
+========================================================= */
+
 function generateDurations(){
+
 duration.innerHTML="";
-let option=document.createElement("option");
+
+let option=
+document.createElement("option");
+
 option.value="";
-option.textContent="اختر مدة العقد";
+option.textContent=
+"اختر مدة العقد";
+
 duration.appendChild(option);
 
-addDuration("سنة واحدة (12 شهر)", 12);
+addDuration(
+"سنة واحدة (12 شهر)",
+12
+);
+
 for(let m=1;m<=11;m++){
-addDuration(m===1 ? "شهر واحد" : m+" أشهر", m);
+
+addDuration(
+m===1
+?
+"شهر واحد"
+:
+m+" أشهر",
+m
+);
+
 }
+
 for(let y=2;y<=50;y++){
-addDuration(y+" سنة", y*12);
+
+addDuration(
+y+" سنة",
+y*12
+);
+
 }
+
 }
 
 function addDuration(text,months){
-const option=document.createElement("option");
+
+const option=
+document.createElement("option");
+
 option.value=months;
+
 option.textContent=text;
+
 duration.appendChild(option);
+
 }
 
 generateDurations();
 
+/* =========================================================
+   قاعدة 90 يوم
+========================================================= */
+
 function validate90DayRule(){
-if(!duration.value || !startDate.value) return true;
-const months=Number(duration.value);
-if(months>3) return true;
 
-const start=parseDate(startDate.value);
-const today=todayDate();
-if(!start || start>=today) return true;
+if(
+!duration.value ||
+!startDate.value
+)return true;
 
-const end=addMonths(start, months);
-const minimumEnd=addDays(today, 90);
+const months=
+Number(duration.value);
+
+if(months>3)return true;
+
+const start=
+parseDate(startDate.value);
+
+const today=
+todayDate();
+
+if(!start || start>=today)
+return true;
+
+const end=
+addMonths(start,months);
+
+const minimumEnd=
+addDays(today,90);
 
 if(end<minimumEnd){
-showError("⚠️ لا يمكن اختيار هذه المدة والتاريخ. يجب أن يكون متبقيًا حتى انتهاء العقد 90 يومًا على الأقل من تاريخ اليوم.");
+
+showError(
+"⚠️ لا يمكن اختيار هذه المدة والتاريخ. يجب أن يكون متبقيًا حتى انتهاء العقد 90 يومًا على الأقل من تاريخ اليوم."
+);
+
 return false;
+
 }
+
 return true;
+
 }
 
 function updateDurationInfo(){
-durationInfo.classList.remove("active");
-if(!duration.value || !startDate.value) return;
 
-const months=Number(duration.value);
-if(months>3) return;
+durationInfo.classList.remove(
+"active"
+);
 
-const start=parseDate(startDate.value);
-const today=todayDate();
-if(start>=today) return;
+if(
+!duration.value ||
+!startDate.value
+)return;
 
-const end=addMonths(start, months);
-const minimum=addDays(today, 90);
+const months=
+Number(duration.value);
+
+if(months>3)return;
+
+const start=
+parseDate(startDate.value);
+
+const today=
+todayDate();
+
+if(start>=today)return;
+
+const end=
+addMonths(start,months);
+
+const minimum=
+addDays(today,90);
 
 if(end<minimum){
-durationInfo.textContent="⚠️ يجب أن يكون متبقيًا حتى انتهاء العقد 90 يومًا على الأقل من تاريخ اليوم.";
-durationInfo.classList.add("active");
+
+durationInfo.textContent=
+"⚠️ يجب أن يكون متبقيًا حتى انتهاء العقد 90 يومًا على الأقل من تاريخ اليوم.";
+
+durationInfo.classList.add(
+"active"
+);
+
 }
+
 }
+
+/* =========================================================
+   جدول الدفعات
+========================================================= */
 
 function paymentDatesLocked(){
-if(!startDate.value) return false;
-const start=parseDate(startDate.value);
-const today=todayDate();
+
+if(!startDate.value)
+return false;
+
+const start=
+parseDate(startDate.value);
+
+const today=
+todayDate();
+
 return daysBetween(start,today)>=2;
+
 }
 
-let paymentDates=[];
-
 function getPaymentSettings(){
-const method=paymentMethod.value;
-if(method==="شهري") return {count:12, months:1};
-if(method==="ربع سنوي") return {count:4, months:3};
-if(method==="نصف سنوي") return {count:2, months:6};
-if(method==="سنوي") return {count:1, months:12};
+
+const method=
+paymentMethod.value;
+
+if(method==="شهري")
+return{
+count:12,
+months:1
+};
+
+if(method==="ربع سنوي")
+return{
+count:4,
+months:3
+};
+
+if(method==="نصف سنوي")
+return{
+count:2,
+months:6
+};
+
+if(method==="سنوي")
+return{
+count:1,
+months:12
+};
+
 return null;
+
 }
 
 function updatePaymentTable(){
+
 paymentTableBody.innerHTML="";
-paymentTableBox.classList.remove("active");
-paymentLock.classList.remove("active");
+
+paymentTableBox.classList.remove(
+"active"
+);
+
+paymentLock.classList.remove(
+"active"
+);
+
 paymentDates=[];
 
-const rent=parseFloat(annualRent.value);
-const settings=getPaymentSettings();
+const rent=
+parseFloat(annualRent.value);
 
-if(!Number.isFinite(rent) || rent<0 || !settings || !startDate.value) return;
+const settings=
+getPaymentSettings();
 
-const start=parseDate(startDate.value);
-const amount=rent/settings.count;
-const locked=paymentDatesLocked();
+if(
+!Number.isFinite(rent) ||
+rent<0 ||
+!settings ||
+!startDate.value
+)return;
+
+const start=
+parseDate(startDate.value);
+
+const amount=
+rent/settings.count;
+
+const locked=
+paymentDatesLocked();
 
 if(locked){
-paymentLock.textContent="🔴 لا يمكن تعديل مواعيد الدفعات لأن تاريخ بداية العقد سابق لتاريخ اليوم بيومين أو أكثر.";
-paymentLock.classList.add("active");
+
+paymentLock.textContent=
+"🔴 لا يمكن تعديل مواعيد الدفعات لأن تاريخ بداية العقد سابق لتاريخ اليوم بيومين أو أكثر.";
+
+paymentLock.classList.add(
+"active"
+);
+
 }
 
-for(let i=0; i<settings.count; i++){
-paymentDates.push(addMonths(start, i*settings.months));
+for(
+let i=0;
+i<settings.count;
+i++
+){
+
+paymentDates.push(
+addMonths(
+start,
+i*settings.months
+)
+);
+
 }
 
-renderPaymentRows(amount, locked);
-paymentTableBox.classList.add("active");
-paymentTotal.textContent=formatMoney(rent)+" ريال";
+renderPaymentRows(
+amount,
+locked
+);
+
+paymentTableBox.classList.add(
+"active"
+);
+
+paymentTotal.textContent=
+formatMoney(rent)+" ريال";
+
 }
 
-function renderPaymentRows(amount,locked){
+function renderPaymentRows(
+amount,
+locked
+){
+
 paymentTableBody.innerHTML="";
-paymentDates.forEach((date,index)=>{
-const row=document.createElement("tr");
 
-const num=document.createElement("td");
-num.textContent=index+1;
+paymentDates.forEach(
+(date,index)=>{
 
-const dateCell=document.createElement("td");
-const button=document.createElement("button");
+const row=
+document.createElement("tr");
+
+const num=
+document.createElement("td");
+
+num.textContent=
+index+1;
+
+const dateCell=
+document.createElement("td");
+
+const button=
+document.createElement("button");
+
 button.type="button";
-button.className="payment-date-btn"+(locked?" locked":"");
-button.textContent=formatPaymentDate(date);
+
+button.className=
+"payment-date-btn"+
+(
+locked
+?
+" locked"
+:
+""
+);
+
+button.textContent=
+formatPaymentDate(date);
 
 if(!locked){
-button.addEventListener("click", function(){
+
+button.addEventListener(
+"click",
+function(){
+
 openPaymentCalendar(index);
-});
+
 }
+);
+
+}
+
 dateCell.appendChild(button);
 
-const amountCell=document.createElement("td");
-amountCell.textContent=formatMoney(amount)+" ريال";
+const amountCell=
+document.createElement("td");
+
+amountCell.textContent=
+formatMoney(amount)+" ريال";
 
 row.appendChild(num);
 row.appendChild(dateCell);
 row.appendChild(amountCell);
+
 paymentTableBody.appendChild(row);
-});
+
+}
+);
+
 }
 
 function paymentCalendarMode(){
+
 return dateStates.startDate?.mode||"hijri";
+
 }
 
 function formatPaymentDate(date){
-return paymentCalendarMode()==="hijri"?formatHijri(date):formatGregorian(date);
-}
 
-let activePaymentIndex=null;
+return paymentCalendarMode()==="hijri"
+?
+formatHijri(date)
+:
+formatGregorian(date);
+
+}
 
 function openPaymentCalendar(index){
-if(paymentDatesLocked()){
-showError("⚠️ لا يمكن تعديل مواعيد الدفعات لأن تاريخ بداية العقد سابق لتاريخ اليوم بيومين أو أكثر.");
-return;
-}
-activePaymentIndex=index;
-activeCalendarTarget=null;
-activeCalendarMode=paymentCalendarMode();
 
-const d=paymentDates[index];
+if(paymentDatesLocked()){
+
+showError(
+"⚠️ لا يمكن تعديل مواعيد الدفعات لأن تاريخ بداية العقد سابق لتاريخ اليوم بيومين أو أكثر."
+);
+
+return;
+
+}
+
+activePaymentIndex=index;
+
+activeCalendarTarget=null;
+
+activeCalendarMode=
+paymentCalendarMode();
+
+const d=
+paymentDates[index];
+
 if(activeCalendarMode==="hijri"){
-const h=gregorianToHijri(d);
+
+const h=
+gregorianToHijri(d);
+
 calendarView.year=h.year;
 calendarView.month=h.month;
 calendarView.day=h.day;
+
 }else{
-calendarView.year=d.getFullYear();
-calendarView.month=d.getMonth()+1;
-calendarView.day=d.getDate();
+
+calendarView.year=
+d.getFullYear();
+
+calendarView.month=
+d.getMonth()+1;
+
+calendarView.day=
+d.getDate();
+
 }
 
 renderCalendar();
-document.getElementById("calendarOverlay").classList.add("active");
+
+document
+.getElementById("calendarOverlay")
+.classList.add("active");
+
 }
 
-duration.addEventListener("change", function(){
-updateDurationInfo();
-updatePaymentTable();
-});
+duration.addEventListener(
+"change",
+function(){
 
-document.addEventListener("change", function(e){
+updateDurationInfo();
+
+updatePaymentTable();
+
+}
+);
+
+document.addEventListener(
+"change",
+function(e){
+
 if(e.target===startDate){
-updateDurationInfo();
-updatePaymentTable();
-}
-});
 
-annualRent.addEventListener("input", updatePaymentTable);
-paymentMethod.addEventListener("change", updatePaymentTable);
+updateDurationInfo();
+
+updatePaymentTable();
+
+}
+
+}
+);
+
+annualRent.addEventListener(
+"input",
+updatePaymentTable
+);
+
+paymentMethod.addEventListener(
+"change",
+updatePaymentTable
+);
 
 function formatMoney(number){
-return new Intl.NumberFormat("ar-SA", {maximumFractionDigits:2}).format(number);
+
+return new Intl.NumberFormat(
+"ar-SA",
+{
+maximumFractionDigits:2
+}
+).format(number);
+
 }
 
 function getPaymentSummary(){
-const rent=parseFloat(annualRent.value);
-const settings=getPaymentSettings();
 
-if(!Number.isFinite(rent) || !settings || !paymentDates.length){
+const rent=
+parseFloat(annualRent.value);
+
+const settings=
+getPaymentSettings();
+
+if(
+!Number.isFinite(rent) ||
+!settings ||
+!paymentDates.length
+){
+
 return "غير متوفر";
+
 }
 
-const amount=rent/settings.count;
+const amount=
+rent/settings.count;
+
 let result="";
-paymentDates.forEach((date,index)=>{
-result+=`${index+1}. ${formatPaymentDate(date)} - ${formatMoney(amount)} ريال\n`;
-});
-return result.trim();
+
+paymentDates.forEach(
+(date,index)=>{
+
+result+=
+`${index+1}. ${formatPaymentDate(date)} - ${formatMoney(amount)} ريال\n`;
+
 }
+);
+
+return result.trim();
+
+}
+
+/* =========================================================
+   بيانات الوحدات للواتساب
+========================================================= */
+
+function getUnitsData(){
+
+const cards=
+Array.from(
+unitsContainer.querySelectorAll(
+".unit-card"
+)
+);
+
+return cards.map(
+(card,index)=>{
+
+const number=index+1;
+
+const name=
+card.querySelector(".unit-name")?.value.trim()||"غير متوفر";
+
+const type=
+card.querySelector(".unit-type")?.value.trim()||"غير متوفر";
+
+const floor=
+card.querySelector(".unit-floor")?.value.trim()||"غير متوفر";
+
+const area=
+card.querySelector(".unit-area")?.value.trim()||"غير متوفر";
+
+return{
+number,
+name,
+type,
+floor,
+area
+};
+
+}
+);
+
+}
+
+/* =========================================================
+   التحقق النهائي
+========================================================= */
 
 function validateFinal(){
-if(!validateSection(step5)) return false;
-if(!validate90DayRule()) return false;
+
+if(!validateSection(step5))
+return false;
+
+if(!validate90DayRule())
+return false;
+
 return true;
+
 }
+
+/* =========================================================
+   رسالة الواتساب
+========================================================= */
 
 function getMessage(){
-const d=new FormData(form);
-const v=k=>(d.get(k)||"").trim()||"غير متوفر";
 
-let msg=`*طلب عقد إيجار جديد*\n`;
-msg+=`📌 *نوع العقد:* ${v("contractType")}\n\n`;
-msg+=`👤 *بيانات المؤجر (${v("lessorCategory")}):*\n`;
+const d=
+new FormData(form);
 
-if(v("lessorCategory")==="فرد"){
-msg+=`- الهوية/الإقامة: ${v("lessorId")}\n`;
-msg+=`- الميلاد: ${v("lessorDob")}\n`;
-msg+=`- الجوال: ${v("lessorPhone")}\n`;
+const v=k=>
+(d.get(k)||"").trim()||
+"غير متوفر";
+
+let msg=
+`*طلب عقد إيجار جديد*\n`;
+
+msg+=
+`📌 *نوع العقد:* ${v("contractType")}\n\n`;
+
+/* الباطن */
+
+if(isSubcontract()){
+
+msg+=
+`📄 *بيانات العقد من الباطن:*\n`;
+
+msg+=
+`- رقم العقد الأساسي: ${v("primaryContractNumber")}\n\n`;
+
 }else{
-msg+=`- السجل التجاري: ${v("lessorCr")}\n`;
-msg+=`- صفة الممثل: ${v("lessorRepRole")}\n`;
-msg+=`- هوية الممثل: ${v("lessorRepId")}\n`;
-msg+=`- ميلاد الممثل: ${v("lessorRepDob")}\n`;
-msg+=`- جوال الممثل: ${v("lessorRepPhone")}\n`;
+
+/* المؤجر */
+
+msg+=
+`👤 *بيانات المؤجر (${v("lessorCategory")}):*\n`;
+
+if(v("lessorCategory")==="فرد بالهوية"){
+
+msg+=
+`- الهوية/الإقامة: ${v("lessorId")}\n`;
+
+msg+=
+`- الميلاد: ${v("lessorDob")}\n`;
+
+msg+=
+`- الجوال: ${v("lessorPhone")}\n`;
+
+}else if(
+v("lessorCategory")===
+"شركة أو مؤسسة بالسجل التجاري"
+){
+
+msg+=
+`- السجل التجاري: ${v("lessorCr")}\n`;
+
+msg+=
+`- صفة الممثل: ${v("lessorRepRole")}\n`;
+
+msg+=
+`- هوية الممثل: ${v("lessorRepId")}\n`;
+
+msg+=
+`- ميلاد الممثل: ${v("lessorRepDob")}\n`;
+
+msg+=
+`- جوال الممثل: ${v("lessorRepPhone")}\n`;
+
+if(v("lessorRepRole")==="وكيل شرعي"){
+
+msg+=
+`- رقم الوكالة: ${v("lessorAgencyNumber")}\n`;
+
 }
 
-msg+=`\n🏢 *بيانات المستأجر (${v("tenantCategory")}):*\n`;
+}else if(
+v("lessorCategory")==="وكيل"
+){
 
-if(v("tenantCategory")==="فرد"){
-msg+=`- الهوية/الإقامة: ${v("tenantId")}\n`;
-msg+=`- الميلاد: ${v("tenantDob")}\n`;
-msg+=`- الجوال: ${v("tenantPhone")}\n`;
-}else{
-msg+=`- السجل التجاري: ${v("tenantCr")}\n`;
-msg+=`- صفة الممثل: ${v("tenantRepRole")}\n`;
-msg+=`- هوية الممثل: ${v("tenantRepId")}\n`;
-msg+=`- ميلاد الممثل: ${v("tenantRepDob")}\n`;
-msg+=`- جوال الممثل: ${v("tenantRepPhone")}\n`;
+msg+=
+`- هوية الوكيل: ${v("lessorAgentId")}\n`;
+
+msg+=
+`- ميلاد الوكيل: ${v("lessorAgentDob")}\n`;
+
+msg+=
+`- جوال الوكيل: ${v("lessorAgentPhone")}\n`;
+
+msg+=
+`- رقم الوكالة: ${v("lessorAgencyNumberDirect")}\n`;
+
 }
 
-msg+=`\n🏠 *بيانات العقار والوحدة:*\n`;
-msg+=`- العنوان الوطني/الموقع: ${v("propertyAddress")}\n`;
-msg+=`- نوع العقار: ${v("propertyType")}\n`;
-msg+=`- الاستخدام: ${v("usage")}\n`;
-msg+=`- الأدوار: ${v("floors")}\n`;
-msg+=`- وحدات الدور: ${v("unitsPerFloor")}\n`;
-msg+=`- الإجمالي: ${totalUnits.value}\n`;
-msg+=`- اسم/رقم الوحدة: ${v("unitName")}\n`;
-msg+=`- نوع الوحدة: ${v("unitType")}\n`;
-msg+=`- الطابق: ${v("floor")}\n`;
-msg+=`- المساحة: ${v("area")}\n`;
+/* الصك */
 
-msg+=`\n💰 *تفاصيل العقد والمالية:*\n`;
-msg+=`- تاريخ بداية العقد: ${v("startDate")}\n`;
-msg+=`- مدة العقد: ${duration.options[duration.selectedIndex]?.textContent || v("duration")}\n`;
-msg+=`- قيمة الإيجار السنوي: ${v("annualRent")} ريال\n`;
-msg+=`- طريقة دفع الإيجار: ${v("paymentMethod")}\n`;
+msg+=
+`- رقم الصك: ${v("deedNumber")}\n`;
 
-msg+=`\n📊 *جدول الدفعات:*\n`;
-msg+=getPaymentSummary();
+msg+=
+`- تاريخ الصك: ${v("deedDate")}\n`;
 
-const notes=v("notes");
+}
+
+msg+=
+`\n🏢 *بيانات المستأجر (${v("tenantCategory")}):*\n`;
+
+if(v("tenantCategory")==="فرد بالهوية"){
+
+msg+=
+`- الهوية/الإقامة: ${v("tenantId")}\n`;
+
+msg+=
+`- الميلاد: ${v("tenantDob")}\n`;
+
+msg+=
+`- الجوال: ${v("tenantPhone")}\n`;
+
+}else if(
+v("tenantCategory")===
+"شركة أو مؤسسة بالسجل التجاري"
+){
+
+msg+=
+`- السجل التجاري: ${v("tenantCr")}\n`;
+
+msg+=
+`- صفة الممثل: ${v("tenantRepRole")}\n`;
+
+msg+=
+`- هوية الممثل: ${v("tenantRepId")}\n`;
+
+msg+=
+`- ميلاد الممثل: ${v("tenantRepDob")}\n`;
+
+msg+=
+`- جوال الممثل: ${v("tenantRepPhone")}\n`;
+
+if(v("tenantRepRole")==="وكيل شرعي"){
+
+msg+=
+`- رقم الوكالة: ${v("tenantAgencyNumber")}\n`;
+
+}
+
+}else if(
+v("tenantCategory")==="وكيل"
+){
+
+msg+=
+`- هوية الوكيل: ${v("tenantAgentId")}\n`;
+
+msg+=
+`- ميلاد الوكيل: ${v("tenantAgentDob")}\n`;
+
+msg+=
+`- جوال الوكيل: ${v("tenantAgentPhone")}\n`;
+
+msg+=
+`- رقم الوكالة: ${v("tenantAgencyNumberDirect")}\n`;
+
+}
+
+/* بيانات العقار */
+
+if(!isSubcontract()){
+
+msg+=
+`\n🏠 *بيانات العقار والوحدة:*\n`;
+
+msg+=
+`- العنوان الوطني/الموقع: ${v("propertyAddress")}\n`;
+
+msg+=
+`- نوع العقار: ${v("propertyType")}\n`;
+
+msg+=
+`- الاستخدام: ${v("usage")}\n`;
+
+msg+=
+`- الأدوار: ${v("floors")}\n`;
+
+msg+=
+`- وحدات الدور: ${v("unitsPerFloor")}\n`;
+
+msg+=
+`- الإجمالي: ${totalUnits.value}\n`;
+
+const units=
+getUnitsData();
+
+units.forEach(
+unit=>{
+
+msg+=
+`\n*وحدة رقم ${unit.number}:*\n`;
+
+msg+=
+`- اسم/رقم الوحدة: ${unit.name}\n`;
+
+msg+=
+`- نوع الوحدة: ${unit.type}\n`;
+
+msg+=
+`- الطابق: ${unit.floor}\n`;
+
+msg+=
+`- المساحة: ${unit.area}\n`;
+
+}
+);
+
+}
+
+/* المالية */
+
+msg+=
+`\n💰 *تفاصيل العقد والمالية:*\n`;
+
+msg+=
+`- تاريخ بداية العقد: ${v("startDate")}\n`;
+
+msg+=
+`- مدة العقد: ${
+duration.options[duration.selectedIndex]?.textContent
+||
+v("duration")
+}\n`;
+
+msg+=
+`- قيمة الإيجار السنوي: ${v("annualRent")} ريال\n`;
+
+msg+=
+`- طريقة دفع الإيجار: ${v("paymentMethod")}\n`;
+
+msg+=
+`\n📊 *جدول الدفعات:*\n`;
+
+msg+=
+getPaymentSummary();
+
+const notes=
+v("notes");
+
 if(notes!=="غير متوفر"){
-msg+=`\n\n📝 *ملاحظات / شروط إضافية:*\n`;
+
+msg+=
+`\n\n📝 *ملاحظات / شروط إضافية:*\n`;
+
 msg+=notes;
+
 }
 
 return msg;
+
 }
 
-form.addEventListener("submit", function(e){
+/* =========================================================
+   إرسال واتساب
+========================================================= */
+
+form.addEventListener(
+"submit",
+function(e){
+
 e.preventDefault();
-errorBox.style.display="none";
-if(!validateFinal()) return;
 
-const url="https://wa.me/"+receiver+"?text="+encodeURIComponent(getMessage());
-window.open(url,"_blank") || (window.location.href=url);
-});
-
-document.getElementById("saveImageBtn").addEventListener("click", function(){
-showError("ℹ️ لحفظ النموذج كصورة على الآيفون، استخدم لقطة الشاشة من الجهاز.");
-setTimeout(function(){
 errorBox.style.display="none";
-}, 4000);
-});
 
-form.addEventListener("input", function(e){
-if(e.target) e.target.classList.remove('field-error');
-if(errorBox.style.display==="block"){
-errorBox.style.display="none";
+if(!validateFinal())
+return;
+
+/* تحقق من الأرقام مرة أخيرة */
+
+if(!validatePhoneAndIdentitySection(step2))
+return;
+
+if(!validatePhoneAndIdentitySection(step3))
+return;
+
+if(
+!isSubcontract() &&
+lessorCategory.value===
+"شركة أو مؤسسة بالسجل التجاري"
+){
+
+if(
+!validateCR(
+"lessorCr",
+"رقم السجل التجاري للمؤجر"
+)
+)return;
+
 }
-});
 
-form.addEventListener("change", function(e){
-if(e.target) e.target.classList.remove('field-error');
-if(errorBox.style.display==="block"){
-errorBox.style.display="none";
+if(
+tenantCategory.value===
+"شركة أو مؤسسة بالسجل التجاري"
+){
+
+if(
+!validateCR(
+"tenantCr",
+"رقم السجل التجاري للمستأجر"
+)
+)return;
+
 }
-});
+
+const url=
+"https://wa.me/"+
+receiver+
+"?text="+
+encodeURIComponent(
+getMessage()
+);
+
+window.open(url,"_blank")
+||
+(
+window.location.href=url
+);
+
+}
+);
+
+/* =========================================================
+   حفظ الصورة
+========================================================= */
+
+document
+.getElementById("saveImageBtn")
+.addEventListener(
+"click",
+function(){
+
+showError(
+"ℹ️ لحفظ النموذج كصورة على الآيفون، استخدم لقطة الشاشة من الجهاز."
+);
+
+setTimeout(
+function(){
+
+errorBox.style.display="none";
+
+},
+4000
+);
+
+}
+);
+
+/* =========================================================
+   إزالة تنبيه الحقل عند التعديل
+========================================================= */
+
+form.addEventListener(
+"input",
+function(e){
+
+if(e.target){
+
+e.target.classList.remove(
+"field-error"
+);
+
+}
+
+if(errorBox.style.display==="block"){
+
+errorBox.style.display="none";
+
+}
+
+}
+);
+
+form.addEventListener(
+"change",
+function(e){
+
+if(e.target){
+
+e.target.classList.remove(
+"field-error"
+);
+
+}
+
+if(errorBox.style.display==="block"){
+
+errorBox.style.display="none";
+
+}
+
+}
+);
 
 </script>
 
