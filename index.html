@@ -2663,7 +2663,7 @@ btn.classList.add("today");
 
 }
 
-// إيقاف وتظليل الأيام التي تسبق تاريخ بداية العقد أثناء تعديل الدفعات
+// إيقاف وتظليل الأيام التي تسبق تاريخ بداية العقد حصراً وقحطاً أثناء تعديل الدفعات فقط!
 if(activePaymentIndex !== null && contractStartDate && g < contractStartDate){
 btn.disabled = true;
 }
@@ -2693,7 +2693,7 @@ const index=activePaymentIndex;
 const selectedDate = new Date(date);
 const contractStart = parseDate(startDate.value);
 
-// 1. يمنع اختيار تاريخ قبل بداية العقد
+// 1. يمنع اختيار تاريخ قبل بداية العقد للدفعات فقط
 if(contractStart && selectedDate < contractStart){
 showError("⚠️ لا يمكن اختيار تاريخ قبل تاريخ بداية العقد (" + formatPaymentDate(contractStart) + ")");
 return;
