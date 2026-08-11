@@ -484,7 +484,11 @@ border:2px solid #16a34a
 }
 
 .calendar-day:disabled{
-opacity:.35
+opacity:.35;
+cursor:not-allowed;
+background:#f1f5f9;
+color:#94a3b8;
+border-color:#e2e8f0
 }
 
 .payment-table-box{
@@ -1905,7 +1909,7 @@ let activeCalendarTarget=null;
 let activeCalendarMode="hijri";
 
 let calendarView={
-year:1446,
+year:1448,
 month:1,
 day:1
 };
@@ -2599,6 +2603,8 @@ parseDate(input.value)
 :
 null;
 
+let contractStartDate = startDate.value ? parseDate(startDate.value) : null;
+
 let totalDays=
 activeCalendarMode==="hijri"
 ?
@@ -2657,6 +2663,11 @@ btn.classList.add("today");
 
 }
 
+// إيقاف وتظليل الأيام التي تسبق تاريخ بداية العقد أثناء تعديل الدفعات
+if(activePaymentIndex !== null && contractStartDate && g < contractStartDate){
+btn.disabled = true;
+}
+
 btn.addEventListener(
 "click",
 function(){
@@ -2679,18 +2690,51 @@ function selectCalendarDate(date){
 if(activePaymentIndex!==null){
 
 const index=activePaymentIndex;
+const selectedDate = new Date(date);
+const contractStart = parseDate(startDate.value);
 
-paymentDates[index]=new Date(date);
+// 1. يمنع اختيار تاريخ قبل بداية العقد
+if(contractStart && selectedDate < contractStart){
+showError("⚠️ لا يمكن اختيار تاريخ قبل تاريخ بداية العقد (" + formatPaymentDate(contractStart) + ")");
+return;
+}
+
+// 2. يمنع اختيار تاريخ قبل تاريخ الدفعة السابقة
+if(index > 0 && paymentDates[index - 1]){
+const prevDate = paymentDates[index - 1];
+if(selectedDate <= prevDate){
+showError("⚠️ يجب أن يكون تاريخ الدفعة رقم (" + (index + 1) + ") بعد تاريخ الدفعة رقم (" + index + ") وهو " + formatPaymentDate(prevDate));
+return;
+}
+}
+
+// 3. يمنع اختيار تاريخ بعد تاريخ الدفعة التالية
+if(index < paymentDates.length - 1 && paymentDates[index + 1]){
+const nextDate = paymentDates[index + 1];
+if(selectedDate >= nextDate){
+showError("⚠️ يجب أن يكون تاريخ الدفعة رقم (" + (index + 1) + ") قبل تاريخ الدفعة رقم (" + (index + 2) + ") وهو " + formatPaymentDate(nextDate));
+return;
+}
+}
+
+paymentDates[index]=selectedDate;
 
 activePaymentIndex=null;
-
 activeCalendarTarget=null;
 
 document
 .getElementById("calendarOverlay")
 .classList.remove("active");
 
-updatePaymentTable();
+const rent=parseFloat(annualRent.value);
+const settings=getPaymentSettings();
+
+if(settings && Number.isFinite(rent)){
+renderPaymentRows(
+rent/settings.count,
+paymentDatesLocked()
+);
+}
 
 return;
 
@@ -3272,7 +3316,7 @@ block:"center"
 }
 
 /* =========================================================
-   التحقق من الأقسام (تم التحديث لمنع فحص الحقول المخفية)
+   التحقق من الأقسام
 ========================================================= */
 
 function validateSection(section){
